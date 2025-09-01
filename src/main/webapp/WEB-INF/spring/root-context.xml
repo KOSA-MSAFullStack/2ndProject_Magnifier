@@ -1,8 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- Root Context: 프로젝트 전체에서 공유하는 주요 자원(데이터베이스 연결, 공통 Bean 등)을 등록하는 설정 파일입니다. 
+		(Servlet 설정이 아닌 공통 설정을 여기에 작성) -->
+
+
+	<!-- [1] HikariCP 커넥션 풀 설정 객체 -->
+	<!-- 데이터베이스 접속에 쓸 드라이버, URL, 계정정보를 설정합니다. -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xepdb1"></property>
+		<property name="username" value="zoomin"></property>
+		<property name="password" value="zoomin"></property>
+	</bean>
+
+
+	<!-- [2] HikariCP 데이터소스(커넥션 풀) 빈 등록 -->
+	<!-- 위의 hikariConfig를 이용해 실제 DB와 커넥션풀로 연결하는 DataSource 빈입니다. -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig">
+		</constructor-arg>
+	</bean>
+
+
 </beans>
