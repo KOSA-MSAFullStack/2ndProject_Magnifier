@@ -12,14 +12,14 @@ import com.magnifier.recruit.dto.RecruitDto;
 @Mapper
 public interface RecruitMapper {
     // 채용 공고 등록
-    void insertRecruit(RecruitDto recruitDto) throws SQLException;
+    int insertRecruit(RecruitDto recruitDto) throws SQLException;
 
-    // 공고 조회
+    // 채용공고 전체 목록 조회
     List<RecruitDto> getRecruitList() throws SQLException;
 
     // 공고 수정
     int updateRecruit(RecruitDto recruitDto) throws SQLException;
 
     // 공고 삭제
-    int deleteRecruit(RecruitDto recruitDto) throws SQLException;
+    int deleteRecruit(int recruitId) throws SQLException;
 }

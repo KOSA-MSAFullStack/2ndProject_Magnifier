@@ -9,45 +9,45 @@
 
     <!-- Recruit 테이블 컬럼과 Recruit DTO 필드 매핑 -->
     <resultMap id="RecruitResultMap" type="com.magnifier.recruit.dto.RecruitDto">
-        <id property="recruitId" column="recruit_id" />
-        <result property="title" column="title" />
-        <result property="content" column="content" />
-        <result property="careerCondition" column="career_condition" />
-        <result property="education" column="education" />
-        <result property="employeeType" column="employee_type" />
-        <result property="headCount" column="head_count" />
-        <result property="workingArea" column="working_area" />
-        <result property="salaryCondition" column="salary_condition" />
-        <result property="workingHours" column="working_hours" />
-        <result property="workingType" column="working_type" />
-        <result property="insurance" column="insurance" />
-        <result property="retirementSalary" column="retirement_salary" />
-        <result property="deadLine" column="dead_line" jdbcType="DATE"/>
-        <result property="step" column="step" />
-        <result property="contact" column="contact" />
-        <result property="enterpriseId" column="enterprise_id" />
+        <id property="recruitId" column="RECRUIT_ID" />
+        <result property="title" column="TITLE" />
+        <result property="content" column="CONTENT" />
+        <result property="careerCondition" column="CAREER_CONDITION" />
+        <result property="education" column="EDUCATION" />
+        <result property="employeeType" column="EMPLOYMENT_TYPE" />
+        <result property="headCount" column="HEADCOUNT" />
+        <result property="workingArea" column="WORKING_AREA" />
+        <result property="salaryCondition" column="SALARY_CONDITION" />
+        <result property="workingHours" column="WORKING_HOURS" />
+        <result property="workingType" column="WORKING_TYPE" />
+        <result property="insurance" column="INSURANCE" />
+        <result property="retirementSalary" column="RETIREMENT_SALARY" />
+        <result property="deadLine" column="DEADLINE" jdbcType="DATE"/>
+        <result property="step" column="STEP" />
+        <result property="contact" column="CONTACT" />
+        <result property="enterpriseId" column="ENTERPRISE_ID" />
     </resultMap>
 
     <!-- 전체 조회 -->
     <select id="getRecruitList" resultMap="RecruitResultMap">
-        SELECT * FROM recruit
+        SELECT * FROM RECRUIT
     </select>
 
     <!-- 단건 조회 -->
     <select id="findById" parameterType="int" resultMap="RecruitResultMap">
-        SELECT * FROM recruit
-        WHERE recruit_id = #{recruitId}
+        SELECT * FROM RECRUIT
+        WHERE RECRUIT_ID = #{recruitId}
     </select>
 
-    <!-- 등록 -->
-    <insert id="insertRecruit" parameterType="com.magnifier.recruit.entity.Recruit">
-        INSERT INTO recruit (
-            title, content, career_condition, education, employee_type,
-            head_count, working_area, salary_condition, working_hours,
-            working_type, insurance, retirement_salary, dead_line, step,
-            contact, enterprise_id
+    <!-- 등록 (시퀀스 사용) -->
+    <insert id="insertRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
+        INSERT INTO RECRUIT (
+            RECRUIT_ID, TITLE, CONTENT, CAREER_CONDITION, EDUCATION, EMPLOYMENT_TYPE,
+            HEADCOUNT, WORKING_AREA, SALARY_CONDITION, WORKING_HOURS,
+            WORKING_TYPE, INSURANCE, RETIREMENT_SALARY, DEADLINE, STEP,
+            CONTACT, ENTERPRISE_ID
         ) VALUES (
-            #{title}, #{content}, #{careerCondition}, #{education}, #{employeeType},
+            RECRUIT_SEQ.NEXTVAL, #{title}, #{content}, #{careerCondition}, #{education}, #{employeeType},
             #{headCount}, #{workingArea}, #{salaryCondition}, #{workingHours},
             #{workingType}, #{insurance}, #{retirementSalary}, #{deadLine},
             #{step}, #{contact}, #{enterpriseId}
@@ -55,31 +55,31 @@
     </insert>
 
     <!-- 수정 -->
-    <update id="updateRecruit" parameterType="com.magnifier.recruit.entity.Recruit">
-        UPDATE recruit
-        SET title = #{title},
-            content = #{content},
-            career_condition = #{careerCondition},
-            education = #{education},
-            employee_type = #{employeeType},
-            head_count = #{headCount},
-            working_area = #{workingArea},
-            salary_condition = #{salaryCondition},
-            working_hours = #{workingHours},
-            working_type = #{workingType},
-            insurance = #{insurance},
-            retirement_salary = #{retirementSalary},
-            dead_line = #{deadLine},
-            step = #{step},
-            contact = #{contact},
-            enterprise_id = #{enterpriseId}
-        WHERE recruit_id = #{recruitId}
+    <update id="updateRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
+        UPDATE RECRUIT
+        SET TITLE = #{title},
+            CONTENT = #{content},
+            CAREER_CONDITION = #{careerCondition},
+            EDUCATION = #{education},
+            EMPLOYMENT_TYPE = #{employeeType},
+            HEADCOUNT = #{headCount},
+            WORKING_AREA = #{workingArea},
+            SALARY_CONDITION = #{salaryCondition},
+            WORKING_HOURS = #{workingHours},
+            WORKING_TYPE = #{workingType},
+            INSURANCE = #{insurance},
+            RETIREMENT_SALARY = #{retirementSalary},
+            DEADLINE = #{deadLine},
+            STEP = #{step},
+            CONTACT = #{contact},
+            ENTERPRISE_ID = #{enterpriseId}
+        WHERE RECRUIT_ID = #{recruitId}
     </update>
 
     <!-- 삭제 -->
     <delete id="deleteRecruit" parameterType="int">
-        DELETE FROM recruit
-        WHERE recruit_id = #{recruitId}
+        DELETE FROM RECRUIT
+        WHERE RECRUIT_ID = #{recruitId}
     </delete>
 
 </mapper>
