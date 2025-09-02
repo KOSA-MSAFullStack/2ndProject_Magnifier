@@ -1,5 +1,5 @@
 // RecruitDto.java
-// DTO (DB 매핑용, 1:1 매핑), 내부에서만 사용, 외부 API에서는 노출 안하는 용도
+// DTO, 계층간 데이터 이동용 객체 (화면에 보여줄 데이터만 담음)
 
 package com.magnifier.recruit.dto;
 
@@ -18,7 +18,7 @@ public class RecruitDto {
 	private String content;				// 직무 내용
 	private String careerCondition;		// 경력 조건
 	private String education;			// 학력
-	private String employeeType;		// 고용 형태	
+	private String employeeType;		// 고용 형태
 	private String headCount;			// 모집인원
 	private String workingArea;			// 근무 지역 
 	private String salaryCondition;		// 임금 조건

@@ -1,5 +1,5 @@
 // Recruit.java
-// Entity (DB 매핑용, 1:1 매핑), 내부에서만 사용, 외부 API에서는 노출 안하는 용도
+// Entity, DB 1:1 매핑용 (내부에서만 사용, 외부 API에서는 노출 안하는 용도)
 
 package com.magnifier.recruit.entity;
 
