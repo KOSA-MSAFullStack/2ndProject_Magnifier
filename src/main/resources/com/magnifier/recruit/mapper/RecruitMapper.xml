@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- RecruitMapper.xml -->
+<!-- 역할: Recruit 엔티티 DB 매핑 및 SQL 정의 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magnifier.recruit.mapper.RecruitMapper">
+
+    <!-- Recruit 테이블 컬럼과 Recruit DTO 필드 매핑 -->
+    <resultMap id="RecruitResultMap" type="com.magnifier.recruit.dto.RecruitDto">
+        <id property="recruitId" column="recruit_id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="careerCondition" column="career_condition" />
+        <result property="education" column="education" />
+        <result property="employeeType" column="employee_type" />
+        <result property="headCount" column="head_count" />
+        <result property="workingArea" column="working_area" />
+        <result property="salaryCondition" column="salary_condition" />
+        <result property="workingHours" column="working_hours" />
+        <result property="workingType" column="working_type" />
+        <result property="insurance" column="insurance" />
+        <result property="retirementSalary" column="retirement_salary" />
+        <result property="deadLine" column="dead_line" jdbcType="DATE"/>
+        <result property="step" column="step" />
+        <result property="contact" column="contact" />
+        <result property="enterpriseId" column="enterprise_id" />
+    </resultMap>
+
+    <!-- 전체 조회 -->
+    <select id="getRecruitList" resultMap="RecruitResultMap">
+        SELECT * FROM recruit
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="findById" parameterType="int" resultMap="RecruitResultMap">
+        SELECT * FROM recruit
+        WHERE recruit_id = #{recruitId}
+    </select>
+
+    <!-- 등록 -->
+    <insert id="insertRecruit" parameterType="com.magnifier.recruit.entity.Recruit">
+        INSERT INTO recruit (
+            title, content, career_condition, education, employee_type,
+            head_count, working_area, salary_condition, working_hours,
+            working_type, insurance, retirement_salary, dead_line, step,
+            contact, enterprise_id
+        ) VALUES (
+            #{title}, #{content}, #{careerCondition}, #{education}, #{employeeType},
+            #{headCount}, #{workingArea}, #{salaryCondition}, #{workingHours},
+            #{workingType}, #{insurance}, #{retirementSalary}, #{deadLine},
+            #{step}, #{contact}, #{enterpriseId}
+        )
+    </insert>
+
+    <!-- 수정 -->
+    <update id="updateRecruit" parameterType="com.magnifier.recruit.entity.Recruit">
+        UPDATE recruit
+        SET title = #{title},
+            content = #{content},
+            career_condition = #{careerCondition},
+            education = #{education},
+            employee_type = #{employeeType},
+            head_count = #{headCount},
+            working_area = #{workingArea},
+            salary_condition = #{salaryCondition},
+            working_hours = #{workingHours},
+            working_type = #{workingType},
+            insurance = #{insurance},
+            retirement_salary = #{retirementSalary},
+            dead_line = #{deadLine},
+            step = #{step},
+            contact = #{contact},
+            enterprise_id = #{enterpriseId}
+        WHERE recruit_id = #{recruitId}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="deleteRecruit" parameterType="int">
+        DELETE FROM recruit
+        WHERE recruit_id = #{recruitId}
+    </delete>
+
+</mapper>
