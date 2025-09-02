@@ -2,7 +2,7 @@
 // RecruitMapper 인터페이스의 DB 연동 / MyBatis 연동 기능 테스트 (CRUD 메소드 정상 동작 검증)
 // 전체 채용 공고 조회 기능 테스트
 
-package com.magnifier.recruit.dao;
+package com.magnifier.recruit.mapper;
 
 import java.sql.SQLException;
 //import java.util.List;
