@@ -1,5 +1,5 @@
 // RecruitMapperTest_register.java
-// RecruitMapper insert 테스트
+// RecruitMapper Insert(C) 테스트
 
 package com.magnifier.recruit.mapper;
 
