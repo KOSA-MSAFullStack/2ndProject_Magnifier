@@ -50,15 +50,14 @@
     </select>
 
     <!--- 등록한 채용공고 목록 조회 (R, Select) - 기업회원 -->
-    <select id="getRecruitListById" parameterType="com.magnifier.recruit.dto.RecruitDto" resultMap="RecruitResultMap">
+    <select id="getRecruitListById" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT 
         WHERE ENTERPRISE_ID = #{enterpriseId}
         ORDER BY RECRUIT_ID ASC
     </select>
 
     <!-- 공고 상세 조회 (R, Select) - 개인/기업 회원 -->
-    <select id="getDetail" parameterType="long"
-        resultType="net.developia.dto.ArticleDTO">
+    <select id="detailRecruit" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT
         WHERE RECRUIT_ID=#{recruitId}
     </select>
@@ -66,8 +65,7 @@
     <!-- 공고 수정 (U, Update) - 기업회원 -->
     <update id="updateRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
         update RECRUIT
-        set RECRUIT_ID =#{recruitId}, 
-            TITLE =#{title}, 
+        set TITLE =#{title}, 
             CONTENT =#{content}, 
             CAREER_CONDITION =#{careerCondition}, 
             EDUCATION =#{education}, 
@@ -87,7 +85,7 @@
     </update>
 
     <!-- 공고 삭제 (D, Delete) - 기업회원 -->
-    <delete id="deleteArticle" parameterType="com.magnifier.recruit.dto.RecruitDto">
+    <delete id="deleteRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
         DELETE RECRUIT
         WHERE RECRUIT_ID=#{recruitId}
         AND ENTERPRISE_ID=#{enterpriseId}
