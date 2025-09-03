@@ -65,8 +65,7 @@
     <!-- 공고 수정 (U, Update) - 기업회원 -->
     <update id="updateRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
         update RECRUIT
-        set RECRUIT_ID =#{recruitId}, 
-            TITLE =#{title}, 
+        set TITLE =#{title}, 
             CONTENT =#{content}, 
             CAREER_CONDITION =#{careerCondition}, 
             EDUCATION =#{education}, 
