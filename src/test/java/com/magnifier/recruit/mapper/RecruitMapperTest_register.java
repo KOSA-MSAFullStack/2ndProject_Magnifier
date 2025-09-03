@@ -27,7 +27,7 @@ public class RecruitMapperTest_register {
     public void insertRecruit() throws SQLException {
         // DTO 객체 생성
         RecruitDto recruit = new RecruitDto();
-        recruit.setRecruitId(1);  // PK 직접 입력 (DB에서 auto_increment면 제거 가능)
+        recruit.setRecruitId(1);  // PK는 DB에서 자동 생성되므로 테스트 시에는 주석 처리
         recruit.setTitle("시니어 경비원 모집");
         recruit.setContent("아파트 단지 보안 및 출입 관리. 신체 건강한 60세 이상 지원 가능");
         recruit.setCareerCondition("무관 (경비 경험자 우대)");
