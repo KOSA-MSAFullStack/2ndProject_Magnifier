@@ -32,10 +32,22 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     // 전체 채용공고 목록 조회 (R, Select) - 개인/기업 회원
+    @Override
     public List<RecruitDto> getRecruitList() throws SQLException {
         try {
-            //디비에서 리스트 반환 작업
+            // DB에서 리스트 반환 작업
             return recruitMapper.getRecruitList();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            throw e;
+        }
+    }
+    
+    // 등록한 채용공고 목록 조회 (R, Select) - 기업회원
+    @Override
+    public List<RecruitDto> getRecruitListById(int enterpriseId) throws SQLException {
+        try {
+            return recruitMapper.getRecruitListById(enterpriseId);
         } catch (Exception e) {
             log.info(e.getMessage());
             throw e;

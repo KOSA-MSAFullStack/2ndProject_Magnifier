@@ -13,4 +13,7 @@ public interface RecruitService {
     
     // 전체 채용공고 목록 조회 (R, Select) - 개인/기업 회원
     List<RecruitDto> getRecruitList() throws SQLException;
+    
+    // 등록한 채용공고 목록 조회 (R, Select) - 기업회원
+    List<RecruitDto> getRecruitListById(int enterpriseId) throws SQLException;
 }
