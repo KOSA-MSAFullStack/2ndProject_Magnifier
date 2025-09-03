@@ -34,7 +34,7 @@
     </select>
 
     <!-- 단건 조회 -->
-    <select id="findById" parameterType="int" resultMap="RecruitResultMap">
+    <select id="detailRecruit" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT
         WHERE RECRUIT_ID = #{recruitId}
     </select>
