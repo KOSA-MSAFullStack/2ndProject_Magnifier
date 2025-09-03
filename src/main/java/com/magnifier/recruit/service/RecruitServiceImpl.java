@@ -86,4 +86,20 @@ public class RecruitServiceImpl implements RecruitService {
             throw e;
         }
     }
+
+    // 공고 삭제 (D, Delete) - 기업회원
+    @Override
+    public int deleteRecruit(int recruitId) throws SQLException {
+        try {
+            int result = recruitMapper.deleteRecruit(recruitId);
+            //비밀번호 불일치시
+            if (result == 0) {
+                throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            }
+            return result;
+        } catch (Exception e) {
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
 }

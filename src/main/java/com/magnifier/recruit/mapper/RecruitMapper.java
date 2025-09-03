@@ -24,4 +24,7 @@ public interface RecruitMapper {
 
     // 공고 수정 (U, Update) - 기업회원
     int updateRecruit(RecruitDto recruitDto) throws SQLException;
+
+    // 공고 삭제 (D, Delete) - 기업회원
+    int deleteRecruit(int recruitId) throws SQLException;
 }
