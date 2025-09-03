@@ -8,18 +8,5 @@ import java.util.List;
 import com.magnifier.recruit.dto.RecruitDto;
 
 public interface RecruitService {
-    // 채용공고 전체 목록 조회
-    List<RecruitDto> getRecruitList() throws SQLException;
-
-    // 채용 공고 등록 (C, Insert)
-    int insertRecruit(RecruitDto recruitDto) throws SQLException;
-
-    // 상세보기 (R, Select)
-    RecruitDto detailRecruit(int recruitId) throws SQLException;
-
-    // 공고 수정 (U, Update)
-    int updateRecruit(RecruitDto recruitDto) throws SQLException;
-
-    // 공고 삭제 (D, Delete)
-    int deleteRecruit(int recruitId) throws SQLException;
+    
 }
