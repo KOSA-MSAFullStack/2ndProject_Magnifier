@@ -1,10 +1,9 @@
-// RecruitMapperTest_register.java
-// RecruitMapper Insert(C) 테스트
-// 공고 등록 테스트
+// RecruitMapperTest_modify.java
+// RecruitMapper Update(U) 테스트
+// 공고 수정 테스트
 
 package com.magnifier.recruit.mapper;
 
-import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.sql.SQLException;
 import org.junit.Test;
@@ -12,23 +11,23 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import lombok.extern.log4j.Log4j;
 
 import com.magnifier.recruit.dto.RecruitDto;
+
+import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class RecruitMapperTest_register {
+public class RecruitMapperTest_modify {
     @Autowired
     private RecruitMapper recruitMapper;
 
     @Test
-    public void insertRecruit() throws SQLException {
-        // DTO 객체 생성
+    public void updateRecruit() throws SQLException {
         RecruitDto recruit = new RecruitDto();
-        recruit.setRecruitId(1);  // PK 직접 입력 (DB에서 auto_increment면 제거 가능)
-        recruit.setTitle("시니어 경비원 모집");
+        recruit.setRecruitId(1); 
+        recruit.setTitle("시니어 안내원 모집");     // 경비원 --> 안내원
         recruit.setContent("아파트 단지 보안 및 출입 관리. 신체 건강한 60세 이상 지원 가능");
         recruit.setCareerCondition("무관 (경비 경험자 우대)");
         recruit.setEducation("무관");
@@ -43,12 +42,9 @@ public class RecruitMapperTest_register {
         recruit.setDeadLine(LocalDate.of(2025, 9, 30));
         recruit.setStep("서류 심사 → 면접 → 채용");
         recruit.setContact("02-1234-5678");
-        recruit.setEnterpriseId(2001); // 기업회원_ID 예시
+        recruit.setEnterpriseId(2001);
 
-        // insert 실행
-        int result = recruitMapper.insertRecruit(recruit);
-
-        // 결과 확인 (insert 성공 시 1 반환)
-        assertEquals(1, result);
+        int count = recruitMapper.updateRecruit(recruit);
+        log.info("Update COUNT" + count);              
     }
 }
