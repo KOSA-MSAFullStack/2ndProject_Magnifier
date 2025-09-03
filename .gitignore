@@ -1,7 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,eclipse,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,eclipse,java,maven
 
-### Eclipse ###
+### ----- IDE ----- ###
+## Eclipse ##
 .metadata
 bin/
 tmp/
@@ -12,7 +13,18 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.recommenders
+.recommenders/
+
+## VS Code ##
+.vscode/
+
+## Cursor IDE ##
+.cursor/
+### --------------- ###
+
+# --- KKS ---
+.geminiRef
+
 
 # External tool builders
 .externalToolBuilders/
@@ -46,9 +58,6 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
-
-# Code Recommenders
-.recommenders/
 
 # Annotation Processing
 .apt_generated/
