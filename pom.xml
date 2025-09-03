@@ -16,18 +16,49 @@
 	</properties>
 	<dependencies>
 
-		<!-- JUnit 테스트 코드에서 LocalDate와 같은 자바 8 시간 타입을 JSON으로 변환하려면, Jackson 라이브러리가 필요 -->
+		<!-- Spring Security 환경설정 추가 시작 -->
+		<!-- spring-security-core -->
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.15.2</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+
+		<!-- spring-security-web -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+
+		<!-- spring-security-config -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+
+		<!-- spring-security-taglibs -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+		<!-- Spring Security 환경 설정 추가 끝 -->
+
+		<!-- JUnit 테스트 코드에서 LocalDate와 같은 자바 8 시간 타입을 JSON으로 변환하려면, Jackson 라이브러리가 
+			필요 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.2</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.fasterxml.jackson.datatype</groupId>
-		    <artifactId>jackson-datatype-jsr310</artifactId>
-		    <version>2.15.2</version>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.15.2</version>
 		</dependency>
-		
+
 		<!--Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
