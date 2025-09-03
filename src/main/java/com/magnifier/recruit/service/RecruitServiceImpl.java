@@ -38,7 +38,7 @@ public class RecruitServiceImpl implements RecruitService {
             // DB에서 리스트 반환 작업
             return recruitMapper.getRecruitList();
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
             throw e;
         }
     }
@@ -49,7 +49,7 @@ public class RecruitServiceImpl implements RecruitService {
         try {
             return recruitMapper.getRecruitListById(enterpriseId);
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
             throw e;
         }
     }
