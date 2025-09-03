@@ -25,17 +25,5 @@ public class RecruitMapperTest {
     public void testGetList() throws SQLException {
         // forEach와 람다 표현식 사용, 목록 순회하며 각 공고 정보 로그로 출력
         mapper.getRecruitList().forEach(board -> log.info(board));
-
-        /*
-        // (다른 방법)
-        // RecruitMapper의 getRecruitList 메서드를 호출하여 모든 채용 공고 목록 조회
-        List<RecruitDto> list = mapper.getRecruitList();
-        
-        // for: 조회된 목록을 순회
-        for (RecruitDto i : list) {
-            // 각 채용 공고 정보를 로그로 출력
-            log.info(i);
-        }
-        */
     }
 }
