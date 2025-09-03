@@ -21,7 +21,7 @@ import com.magnifier.recruit.dto.RecruitDto;
 @Log4j
 public class RecruitMapperTest_register {
     @Autowired
-    private RecruitMapper recruitMapper;
+    private RecruitMapper mapper;
 
     @Test
     public void insertRecruit() throws SQLException {
@@ -46,7 +46,7 @@ public class RecruitMapperTest_register {
         recruit.setEnterpriseId(2001); // 기업회원_ID 예시
 
         // insert 실행
-        int result = recruitMapper.insertRecruit(recruit);
+        int result = mapper.insertRecruit(recruit);
 
         // 결과 확인 (insert 성공 시 1 반환)
         assertEquals(1, result);
