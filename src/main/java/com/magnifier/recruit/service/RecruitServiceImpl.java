@@ -4,6 +4,7 @@
 package com.magnifier.recruit.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magnifier.recruit.mapper.RecruitMapper;
@@ -26,6 +27,17 @@ public class RecruitServiceImpl implements RecruitService {
             return result;
         } catch (Exception e) {    
             log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    // 전체 채용공고 목록 조회 (R, Select) - 개인/기업 회원
+    public List<RecruitDto> getRecruitList() throws SQLException {
+        try {
+            //디비에서 리스트 반환 작업
+            return recruitMapper.getRecruitList();
+        } catch (Exception e) {
+            log.info(e.getMessage());
             throw e;
         }
     }
