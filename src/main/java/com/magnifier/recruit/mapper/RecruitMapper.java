@@ -10,5 +10,6 @@ import com.magnifier.recruit.dto.RecruitDto;
 
 @Mapper
 public interface RecruitMapper {
-    
+    // 채용 공고 등록 (C, Insert) - 기업회원
+    int insertRecruit(RecruitDto recruitDto) throws SQLException;
 }

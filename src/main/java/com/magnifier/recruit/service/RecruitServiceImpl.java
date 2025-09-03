@@ -16,4 +16,17 @@ public class RecruitServiceImpl implements RecruitService {
     @Autowired
     private RecruitMapper recruitMapper;
 
+    // 채용 공고 등록 (C, Insert) - 기업회원
+    @Override
+    public int insertRecruit(RecruitDto recruitDto) throws SQLException {
+        try {
+            // DB에서 insert
+            int result = recruitMapper.insertRecruit(recruitDto);
+            log.info("공고 등록 성공", recruitDto);
+            return result;
+        } catch (Exception e) {    
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
 }
