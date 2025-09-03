@@ -53,5 +53,6 @@
     <select id="getRecruitListById" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT 
         WHERE ENTERPRISE_ID = #{enterpriseId}
+        ORDER BY RECRUIT_ID ASC
     </select>
 </mapper>
