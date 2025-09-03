@@ -50,7 +50,7 @@
     </select>
 
     <!--- 등록한 채용공고 목록 조회 (R, Select) - 기업회원 -->
-    <select id="getRecruitListById" parameterType="com.magnifier.recruit.dto.RecruitDto" resultMap="RecruitResultMap">
+    <select id="getRecruitListById" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT 
         WHERE ENTERPRISE_ID = #{enterpriseId}
         ORDER BY RECRUIT_ID ASC
