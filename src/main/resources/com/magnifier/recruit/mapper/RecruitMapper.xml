@@ -63,4 +63,26 @@
         WHERE RECRUIT_ID=#{recruitId}
     </select>
 
+    <!-- 공고 수정 (U, Update) - 기업회원 -->
+    <update id="updateRecruit" parameterType="com.magnifier.recruit.RecruitDto">
+        update RECRUIT
+        set RECRUIT_ID =#{recruitId}, 
+            TITLE =#{title}, 
+            CONTENT =#{content}, 
+            CAREER_CONDITION =#{careerCondition}, 
+            EDUCATION =#{education}, 
+            EMPLOYMENT_TYPE =#{employeeType},
+            HEADCOUNT =#{headCount}, 
+            WORKING_AREA =#{workingArea}, 
+            SALARY_CONDITION =#{salaryCondition}, 
+            WORKING_HOURS =#{workingHours},
+            WORKING_TYPE =#{workingType}, 
+            INSURANCE =#{insurance}, 
+            RETIREMENT_SALARY =#{retirementSalary}, 
+            DEADLINE =#{deadLine}, 
+            STEP =#{step},
+            CONTACT =#{contact}, 
+            ENTERPRISE_ID =#{enterpriseId}
+        where RECRUIT_ID=#{recruitId} and ENTERPRISE_ID=#{enterpriseId}
+    </update>
 </mapper>

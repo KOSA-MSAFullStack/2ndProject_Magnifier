@@ -71,4 +71,20 @@ public class RecruitServiceImpl implements RecruitService {
             throw e;
         }
     }
+    
+    // 공고 수정 (U, Update) - 기업회원
+    @Override
+    public int updateRecruit(RecruitDto recruitDto) throws SQLException {
+        try {
+            int result = recruitMapper.updateRecruit(recruitDto);
+            if (result == 0) {
+                throw new RuntimeException(
+                    "공고가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
+            }
+            return result;
+        } catch (Exception e) {
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
 }

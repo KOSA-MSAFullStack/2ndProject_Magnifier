@@ -19,4 +19,7 @@ public interface RecruitService {
     
     // 공고 상세 조회 (R, Select) - 개인/기업 회원
     RecruitDto detailRecruit(int recruitId) throws SQLException;
+    
+    // 공고 수정 (U, Update) - 기업회원
+    int updateRecruit(RecruitDto recruitDto) throws SQLException;
 }
