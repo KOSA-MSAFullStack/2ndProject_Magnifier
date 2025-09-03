@@ -18,4 +18,7 @@ public interface RecruitMapper {
     
     // 등록한 채용공고 목록 조회 (R, Select) - 기업회원
     List<RecruitDto> getRecruitListById(int enterpriseId) throws SQLException;
+
+    // 공고 상세 조회 (R, Select) - 개인/기업 회원
+    RecruitDto detailRecruit(int recruitId) throws SQLException;
 }
