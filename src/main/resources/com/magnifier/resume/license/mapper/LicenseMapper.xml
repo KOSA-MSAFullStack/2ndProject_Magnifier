@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magnifier.resume.license.mapper.LicenseMapper">
+
+	<insert id="insertLicense" parameterType="com.magnifier.resume.license.dto.LicenseDto">
+	
+		insert into license( 
+			license_id,
+			resume_id,
+			name, 
+			publisher, 
+			pass_date
+		)
+		values(
+			LICENSE_SEQ.NEXTVAL,
+			#{resumeId},
+			#{name}, 
+			#{publisher}, 
+			#{passDate}
+		 )
+	</insert>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magnifier.resume.mapper.ResumeMapper">
+
+	<insert id="registerResume" parameterType="com.magnifier.resume.dto.ResumeDto">
+	
+		insert into resume( 
+			resume_id,
+			member_id,
+			title, 
+			school_type, 
+			school_name, 
+			graduate_status, 
+			enter_date, 
+			graduate_date
+		)
+		values(
+			RESUME_SEQ.NEXTVAL,
+			#{memberId},
+			#{title}, 
+			#{schoolType}, 
+			#{schoolName}, 
+			#{graduateStatus}, 
+			#{enterDate}, 
+			#{graduateDate}
+		 )
+	</insert>
+
+</mapper>

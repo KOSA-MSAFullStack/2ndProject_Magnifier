@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magnifier.resume.career.mapper.CareerMapper">
+
+	<insert id="insertCareer" parameterType="com.magnifier.resume.career.dto.CareerDto">
+	
+		insert into career( 
+			career_id,
+			resume_id,
+			name, 
+			join_date, 
+			quit_date, 
+			job, 
+			department, 
+			position
+		)
+		values(
+			CAREER_SEQ.NEXTVAL,
+			#{resumeId},
+			#{name}, 
+			#{joinDate}, 
+			#{quitDate}, 
+			#{job}, 
+			#{department}, 
+			#{position}
+		 )
+	</insert>
+
+</mapper>

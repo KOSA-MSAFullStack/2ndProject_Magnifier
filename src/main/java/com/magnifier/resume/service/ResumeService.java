@@ -1,5 +1,8 @@
 package com.magnifier.resume.service;
 
-public interface ResumeService {
+import com.magnifier.resume.dto.ResumeDto;
 
+public interface ResumeService {
+	
+	public void registerResume(ResumeDto dto) ;
 }
