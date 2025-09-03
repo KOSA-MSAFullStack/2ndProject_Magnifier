@@ -78,8 +78,7 @@ public class RecruitServiceImpl implements RecruitService {
         try {
             int result = recruitMapper.updateRecruit(recruitDto);
             if (result == 0) {
-                throw new RuntimeException(
-                    "공고가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
+                throw new RuntimeException("공고가 존재하지 않거나 비밀번호가 일치하지 않습니다.");
             }
             return result;
         } catch (Exception e) {
