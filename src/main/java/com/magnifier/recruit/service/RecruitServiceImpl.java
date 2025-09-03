@@ -60,11 +60,11 @@ public class RecruitServiceImpl implements RecruitService {
         try {
             // DB에서 recruitId로 검색
             RecruitDto recruitDto = recruitMapper.detailRecruit(recruitId);
-            // 글을 못찾으면
+            // 공고를 못찾으면
             if (recruitDto == null) {
                 throw new RuntimeException("존재하지 않는 공고이거나 접근 권한이 없습니다.");
             }
-            // 글을 찾으면 반환
+            // 공고 찾으면 해당공고 반환
             return recruitDto;
         } catch (Exception e) {
             log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
