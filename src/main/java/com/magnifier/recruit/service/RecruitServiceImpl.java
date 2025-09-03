@@ -62,7 +62,7 @@ public class RecruitServiceImpl implements RecruitService {
             RecruitDto recruitDto = recruitMapper.detailRecruit(recruitId);
             // 공고를 못찾으면
             if (recruitDto == null) {
-                throw new RuntimeException("존재하지 않는 공고이거나 접근 권한이 없습니다.");
+                throw new RuntimeException("공고가 존재하지 않거나 접근 권한이 없습니다.");
             }
             // 공고 찾으면 해당공고 반환
             return recruitDto;
