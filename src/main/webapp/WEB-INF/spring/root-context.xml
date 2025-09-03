@@ -31,5 +31,34 @@
 		</constructor-arg>
 	</bean>
 
+	<!-- [3] MyBatis SqlSessionFactory 설정 -->
+	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:/com/magnifier/**/mapper/*.xml"/>
+	</bean>
 
+	<!-- [4] Mapper 자동 스캔 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.magnifier.**.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"/>
+    </bean>
+	<!--
+	<mybatis-spring:scan base-package="com.magnifier.applylist.mapper" />
+	<mybatis-spring:scan base-package="com.magnifier.enterprise.mapper" />
+	<mybatis-spring:scan base-package="com.magnifier.likes.mapper" />
+	<mybatis-spring:scan base-package="com.magnifier.member.mapper" />
+	<mybatis-spring:scan base-package="com.magnifier.recruit.mapper" />
+	<mybatis-spring:scan base-package="com.magnifier.resume.mapper" />
+	-->
+
+	<!-- [5] 서비스 컴포넌트 스캔 -->
+	<context:component-scan base-package="com.magnifier.**.service"/>
+	<!--
+	<context:component-scan base-package="com.magnifier.applylist.service"></context:component-scan>
+	<context:component-scan base-package="com.magnifier.enterprise.service"></context:component-scan>
+	<context:component-scan base-package="com.magnifier.likes.service"></context:component-scan>
+	<context:component-scan base-package="com.magnifier.member.service"></context:component-scan>
+	<context:component-scan base-package="com.magnifier.recruit.service"></context:component-scan>
+	<context:component-scan base-package="com.magnifier.resume.service"></context:component-scan>
+	-->
 </beans>
