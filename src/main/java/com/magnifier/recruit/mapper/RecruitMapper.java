@@ -6,7 +6,6 @@ package com.magnifier.recruit.mapper;
 import java.sql.SQLException;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-
 import com.magnifier.recruit.dto.RecruitDto;
 
 @Mapper
