@@ -85,7 +85,7 @@
     </update>
 
     <!-- 공고 삭제 (D, Delete) - 기업회원 -->
-    <delete id="deleteArticle" parameterType="com.magnifier.recruit.dto.RecruitDto">
+    <delete id="deleteRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
         DELETE RECRUIT
         WHERE RECRUIT_ID=#{recruitId}
         AND ENTERPRISE_ID=#{enterpriseId}

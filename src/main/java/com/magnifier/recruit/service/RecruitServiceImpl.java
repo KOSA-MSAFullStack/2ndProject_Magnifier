@@ -89,12 +89,12 @@ public class RecruitServiceImpl implements RecruitService {
 
     // 공고 삭제 (D, Delete) - 기업회원
     @Override
-    public int deleteRecruit(int recruitId) throws SQLException {
+    public int deleteRecruit(RecruitDto recruitDto) throws SQLException {
         try {
-            int result = recruitMapper.deleteRecruit(recruitId);
-            //비밀번호 불일치시
+            int result = recruitMapper.deleteRecruit(recruitDto);
+            // 삭제된 행이 없을 경우 (공고가 없거나, enterpriseId가 일치하지 않음)
             if (result == 0) {
-                throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+                throw new RuntimeException("공고가 존재하지 않거나 삭제 권한이 없습니다.");
             }
             return result;
         } catch (Exception e) {
