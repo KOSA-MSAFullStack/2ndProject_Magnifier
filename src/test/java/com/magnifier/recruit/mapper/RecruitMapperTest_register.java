@@ -1,6 +1,6 @@
 // RecruitMapperTest_register.java
 // RecruitMapper Insert(C) 테스트
-// 공고 등록 테스트
+// 채용 공고 등록 (C, Insert) - 기업회원
 
 package com.magnifier.recruit.mapper;
 
