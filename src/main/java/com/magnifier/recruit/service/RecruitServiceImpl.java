@@ -49,7 +49,7 @@ public class RecruitServiceImpl implements RecruitService {
         try {
             return recruitMapper.getRecruitListById(enterpriseId);
         } catch (Exception e) {
-            log.info(e.getMessage());
+            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
             throw e;
         }
     }
