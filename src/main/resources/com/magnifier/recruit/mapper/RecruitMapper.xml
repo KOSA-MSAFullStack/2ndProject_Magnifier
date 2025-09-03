@@ -57,8 +57,7 @@
     </select>
 
     <!-- 공고 상세 조회 (R, Select) - 개인/기업 회원 -->
-    <select id="getDetail" parameterType="long"
-        resultType="net.developia.dto.ArticleDTO">
+    <select id="detailRecruit" parameterType="int" resultMap="RecruitResultMap">
         SELECT * FROM RECRUIT
         WHERE RECRUIT_ID=#{recruitId}
     </select>
