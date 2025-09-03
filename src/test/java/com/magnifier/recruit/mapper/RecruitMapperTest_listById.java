@@ -9,12 +9,19 @@
 
 package com.magnifier.recruit.mapper;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.magnifier.recruit.dto.RecruitDto;
+
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,6 +35,15 @@ public class RecruitMapperTest_listById {
     public void testGetListById() throws SQLException {
         // enterpriseId가 1인 기업의 채용 공고 목록 조회
         int enterpriseId = 1;
-        mapper.getRecruitListById(enterpriseId).forEach(board -> log.info(board));
+        List<RecruitDto> list = mapper.getRecruitListById(enterpriseId);
+
+        // 반환된 리스트가 null이 아닌지 검증
+        assertNotNull(list);
+
+        // forEach와 람다 표현식 사용, 목록 순회하며 각 공고 정보 로그로 출력
+        list.forEach(board -> log.info(board));
+
+        log.info("----------");
+        log.info("기업 ID " + enterpriseId + "의 전체 공고 수: " + list.size());
     }
 }
