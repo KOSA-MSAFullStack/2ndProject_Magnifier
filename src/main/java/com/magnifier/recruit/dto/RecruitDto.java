@@ -22,7 +22,7 @@ public class RecruitDto {
 	private String content;				// 직무 내용
 	private String careerCondition;		// 경력 조건
 	private String education;			// 학력 조건
-	private String employeeType;		// 고용 형태
+	private String employmentType;		// 고용 형태
 	private String headCount;			// 모집 인원
 	private String workingArea;			// 근무 지역
 	private String salaryCondition;		// 임금 조건
