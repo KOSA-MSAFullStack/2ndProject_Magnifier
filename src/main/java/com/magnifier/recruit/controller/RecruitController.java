@@ -8,11 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.service.RecruitService;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/recruit")
@@ -21,15 +22,13 @@ public class RecruitController {
     @Autowired
     private RecruitService recruitService;
 
-    // 채용 공고 등록 폼
-    // GET 요청
+    // 채용 공고 등록 폼_GET
     @GetMapping("/register")
     public String registerForm() {
         return "recruit/register"; // recruit/register.jsp 뷰 반환
     }
 
-    // 채용 공고 등록 처리
-    // POST 요청
+    // 채용 공고 등록_POST
     // 예외 처리: RecruitDto 객체 유효성 검사 및 DB 저장 실패 시 예외 처리
     @PostMapping("/register")
     public String register(RecruitDto recruitDto) {
@@ -39,23 +38,37 @@ public class RecruitController {
             return "redirect:/recruit/list"; // 등록 성공 시, 목록 페이지로 리다이렉트
         } catch (Exception e) {
             System.err.println("채용 공고 등록 중 오류 발생: " + e.getMessage());
-            return "error/errorPage"; // 에러 페이지 반환
+            return "error/errorPage";
         }
     }
 
-    // 채용 공고 목록 조회
-    // GET 요청
+    // 전체 채용 공고 목록 조회_GET
     // 예외 처리: 채용 공고 목록 조회 실패 시 예외 처리
     @GetMapping("/list")
     public String list(Model model) {
         try {
             // 전체 채용 공고 목록 조회
             List<RecruitDto> recruitList = recruitService.getRecruitList(); 
-            model.addAttribute("recruitList", recruitList); // 모델에 채용 공고 목록 추가
+            model.addAttribute("recruitList", recruitList);
             return "recruit/list"; // recruit/list.jsp 뷰 반환
         } catch (Exception e) {
-            System.err.println("채용 공고 목록 조회 중 오류 발생: " + e.getMessage());
-            return "error/errorPage"; // 에러 페이지 반환
+            System.err.println("전체 채용 공고 목록 조회 중 오류 발생: " + e.getMessage());
+            return "error/errorPage";
+        }
+    }
+
+    // 기업별 등록한 채용 공고 목록 조회_GET
+    // 예외 처리: 기업별 채용 공고 목록 조회 실패 시 예외 처리
+    @GetMapping("/list/{enterpriseId}")
+    public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) {
+        try {
+            // 기업별 등록한 채용 공고 목록 조회
+            List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
+            model.addAttribute("recruitList", recruitList);
+            return "recruit/list"; // recruit/list.jsp 뷰 반환
+        } catch (Exception e) {
+            System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (기업 ID: " + enterpriseId + "): " + e.getMessage());
+            return "error/errorPage";
         }
     }
 }
