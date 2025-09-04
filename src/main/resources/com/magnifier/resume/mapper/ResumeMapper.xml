@@ -92,5 +92,17 @@
         WHERE
             r.member_id = #{memberId}
     </select>
+    
+    <update id="modifyResume">
+		 update resume
+		 set 
+		 	title = #{title},
+		 	school_type = #{schoolType},
+		 	school_name = #{schoolName},
+		 	graduate_status = #{graduateStatus},
+		 	enter_date = #{enterDate},
+		 	graduate_date = #{graduateDate}
+		 where resume_id=#{resumeId}
+	 </update>
 
 </mapper>

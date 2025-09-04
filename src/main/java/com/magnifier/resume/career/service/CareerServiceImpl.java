@@ -15,4 +15,14 @@ public class CareerServiceImpl implements CareerService {
 	public void insertCareer(CareerDto dto) {
 		mapper.insertCareer(dto);
 	}
+
+	@Override
+	public int modifyCareer(CareerDto dto) {
+		return mapper.modifyCareer(dto);
+	}
+
+	@Override
+	public int deleteCareer(int id) {
+		return mapper.deleteCareer(id);
+	}
 }
