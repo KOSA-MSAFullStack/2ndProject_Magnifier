@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magnifier.member.mapper.MemberMapper">
+
+	<resultMap id="memberMap"
+		type="com.magnifier.member.dto.MemberDto">
+		<id property="memberId" column="member_id" />
+		<result property="loginId" column="login_id" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="gender" column="gender" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="birth" column="birth" />
+		<result property="address" column="address" />
+		<result property="enabled" column="enabled" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+	<select id="read" resultMap="memberMap" parameterType="String">
+		SELECT member_id, login_id, password, name, gender, phone_number, birth,
+		address, enabled, auth
+		FROM member
+		WHERE login_id = #{loginId}
+	</select>
+
+</mapper>
