@@ -16,19 +16,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.when;
-
 import java.sql.SQLException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.mapper.RecruitMapper;
-
 import lombok.extern.log4j.Log4j;
 
 // MockitoJUnitRunner 사용, Mock 객체 주입 및 테스트 실행
@@ -36,18 +32,15 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RecruitServiceTest_detail {
 
-    // RecruitMapper Mock 객체 생성
     @Mock
     private RecruitMapper recruitMapper;
 
-    // RecruitServiceImpl 객체에 Mock 객체 주입
     @InjectMocks
     private RecruitServiceImpl recruitService;
 
-    // 테스트 전 초기화 작업 (선택 사항, 여기서는 간단한 테스트라 생략 가능)
     @Before
     public void setUp() {
-        // Mock 객체 초기화 (MockitoJUnitRunner가 자동으로 처리)
+        // Mock 객체 초기화
     }
 
     // 채용 공고 상세 조회 성공 테스트
@@ -69,7 +62,7 @@ public class RecruitServiceTest_detail {
         assertNotNull(resultDto);
         assertEquals(recruitId, resultDto.getRecruitId());
         assertEquals("테스트 공고", resultDto.getTitle());
-        log.info("testDetailRecruit_Success 테스트 성공: " + resultDto);
+        log.info("상세 조회 테스트 성공: " + resultDto);
     }
 
     // 채용 공고 상세 조회 실패 테스트 (공고 없음)
@@ -87,6 +80,6 @@ public class RecruitServiceTest_detail {
 
         // 예외 메시지 검증
         assertEquals("조회된 공고가 없습니다. (공고 ID: " + recruitId + ")", exception.getMessage());
-        log.info("testDetailRecruit_NotFound 테스트 성공: " + exception.getMessage());
+        log.info("상세 조회(실패) 테스트 성공: " + exception.getMessage());
     }
 }
