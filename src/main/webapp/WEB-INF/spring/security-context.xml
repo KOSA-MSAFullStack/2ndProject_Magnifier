@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/security 
+           http://www.springframework.org/schema/security/spring-security.xsd
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 로그인 성공 후 동작을 커스터마이징하는 핸들러 등록 -->
+	<bean id="customLoginSuccess"
+		class="com.magnifier.security.CustomLoginSuccessHandler" />
+
+	<!-- 권한 거부 시 동작하는 핸들러 등록 -->
+	<bean id="customAccessDenied"
+		class="com.magnifier.security.CustomAccessDeniedHandler" />
+
+	<!-- BCryptPasswordEncoder 빈 등록 -->
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+	<!-- 사용자 인증용 커스텀 UserDetailsService 빈 등록 -->
+	<bean id="customUserDetailsService"
+		class="com.magnifier.security.CustomUserDetailsService">
+	</bean>
+
+
+	<security:http>
+		<!-- URL 패턴 '/' 에 대해서는 모든 사용자에게 접근 허용 -->
+		<security:intercept-url pattern="/all"
+			access="permitAll" />
+
+		<!-- URL 패턴 '/member' 에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/member"
+			access="hasRole('ROLE_MEMBER')" />
+
+		<!-- URL 패턴 '/enterprise' 에 대해서는 'ROLE_ADMIN' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/enterprise"
+			access="hasRole('ROLE_ADMIN')" />
+
+		<!-- 커스텀 로그인 페이지 및 로그인 성공 후 핸들러 지정 -->
+		<security:form-login login-page="/memberLogin"
+			authentication-success-handler-ref="customLoginSuccess" />
+
+		<!-- 권한 거부 핸들러 지정 -->
+		<security:access-denied-handler ref="customAccessDenied" />
+
+		<!-- 로그아웃 설정 -->
+		<security:logout logout-url="/customLogout"
+			invalidate-session="true" />
+	</security:http>
+
+	<security:authentication-manager>
+		<!-- 인증 공급자 설정 - 로그인 요청 시 사용자 인증을 처리하는 핵심 컴포넌트 - 'user-service-ref' 속성은 
+			사용자 정보를 조회하는 UserDetailsService 구현체를 지정 - 여기서는 customUserDetailsService 빈을 
+			통해 DB에서 사용자 정보를 조회하고 인증 수행 - 비밀번호 암호화에 사용할 PasswordEncoder도 이곳에서 지정하여 일치 
+			여부 검증 -->
+		<security:authentication-provider
+			user-service-ref="customUserDetailsService">
+			<!-- 비밀번호 인코더 지정 -->
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:global-method-security
+		pre-post-annotations="enabled" secured-annotations="enabled" />
+</beans>
