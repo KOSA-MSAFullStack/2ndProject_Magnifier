@@ -1,82 +1,65 @@
 // RecruitMapperTest_delete.java
-// 역할: RecruitMapper.deleteRecruit() 메서드 테스트
+// RecruitMapper 채용 공고 삭제(DELETE) 기능 테스트
 /*
- * 설명 및 주요 기능
- * - 채용 공고 삭제 기능 검증
- * - Spring-test, JUnit, Log4j 라이브러리 활용
- * - MyBatis 매퍼 인터페이스와 XML 쿼리 연동 테스트
+ * 설명:
+ * - RecruitMapper의 deleteRecruit 메서드 정상 동작 확인 테스트
+ *
+ * 주요 기능:
+ * - 특정 채용 공고 ID 기준, DB에서 공고 삭제
+ * - 삭제 성공 여부 및 삭제 후 공고 존재 여부 검증
+ *
+ * 주의:
+ * - 이 테스트는 삭제할 공고가 DB에 미리 존재해야 함
+ * - insertRecruit 메서드가 생성된 ID를 반환하도록 수정되면,
+ *   테스트 내에서 공고를 등록하고 해당 ID를 사용하여 삭제를 검증할 수 있음.
  */
 
 package com.magnifier.recruit.mapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-//import static org.junit.Assert.assertNotNull;
-
 import java.sql.SQLException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.magnifier.recruit.dto.RecruitDto;
-
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class RecruitMapperTest_delete {
+
     @Autowired
     private RecruitMapper mapper;
 
+    // 채용 공고 삭제 테스트 메서드
     @Test
     public void testDeleteRecruit() throws SQLException {
-        // 테스트를 위해 먼저 공고를 등록 (테스트 환경에 따라 이 부분은 조정 필요)
-        // 실제 테스트 환경에 맞는 유효한 recruitId와 enterpriseId로 변경 필요
-        // 또는 테스트용 데이터 삽입 로직 추가
-        RecruitDto testRecruit = new RecruitDto();
-        // testRecruit.setRecruitId(999); // DB에서 자동 생성되므로 설정하지 않음
-        testRecruit.setTitle("삭제 테스트용 공고");
-        testRecruit.setContent("삭제 테스트용 내용");
-        testRecruit.setCareerCondition("무관");
-        testRecruit.setEducation("무관");
-        testRecruit.setEmployeeType("계약직");
-        testRecruit.setHeadCount("1명");
-        testRecruit.setWorkingArea("서울");
-        testRecruit.setSalaryCondition("협의");
-        testRecruit.setWorkingHours("주 5일");
-        testRecruit.setWorkingType("풀타임");
-        testRecruit.setInsurance("4대보험");
-        testRecruit.setRetirementSalary("퇴직금");
-        testRecruit.setDeadLine(java.time.LocalDate.now().plusDays(7));
-        testRecruit.setStep("서류");
-        testRecruit.setContact("010-1234-5678");
-        testRecruit.setEnterpriseId(2001); // 예시 기업 ID
+        // given: 테스트용 채용 공고 ID 및 기업 ID 설정
+        // 이 ID는 DB에 미리 존재해야 함
+        int recruitIdToDelete = 9999; // 실제 삭제할 유효한 공고ID로 변경 필요
+        int enterpriseId = 2001; // 해당 공고를 등록한 기업 ID
 
-        // 공고 등록 (삭제 테스트를 위해)
-        mapper.insertRecruit(testRecruit);
-        // insert 후 생성된 recruitId를 가져오는 로직이 필요할 수 있음 (useGeneratedKeys 등)
-        // 현재는 DTO에 recruitId가 없으므로, detailRecruit로 찾거나,
-        // 테스트용으로 미리 존재하는 ID를 사용해야 함.
-        // 여기서는 임시로 1번 ID를 사용한다고 가정 (실제 DB 상태에 따라 변경 필요)
-        int recruitIdToDelete = 1; // 실제 삭제할 유효한 ID로 변경
-
-        // 삭제할 공고의 enterpriseId도 DTO에 설정
+        // 삭제할 공고 DTO 설정
         RecruitDto deleteDto = new RecruitDto();
         deleteDto.setRecruitId(recruitIdToDelete);
-        deleteDto.setEnterpriseId(2001); // 실제 기업 ID로 변경
+        deleteDto.setEnterpriseId(enterpriseId);
 
-        // delete 실행
+        // when: mapper의 deleteRecruit 메서드 호출
         int result = mapper.deleteRecruit(deleteDto);
 
-        // 결과 확인 (delete 성공 시 1 반환)
+        // then: 실행 결과 확인
+        // 1. delete 성공 시 1 반환 검증
         assertEquals(1, result);
+        log.info("공고 삭제 성공. 결과: " + result);
 
-        // 삭제 후 공고 정보 다시 조회하여 삭제 확인 (null이 반환되어야 함)
+        // 2. 삭제 후 공고 정보 다시 조회, null 반환 검증
         RecruitDto deletedRecruit = mapper.detailRecruit(recruitIdToDelete);
         assertNull(deletedRecruit);
+        log.info("삭제 후 공고 존재 여부 확인: " + (deletedRecruit == null ? "삭제됨" : "삭제 안됨"));
+        log.info("RecruitMapper deleteRecruit 테스트 성공");
     }
 }
