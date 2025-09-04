@@ -8,14 +8,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 35px 0 0 36px;
+    padding: 35px 72px 0 0;
     background: transparent;
 }
 
 .logo {
-    width: 120px;
+    width: 300px;
     height: auto;
-    margin-right: 38px;
 }
 
 .nav-menu {	
