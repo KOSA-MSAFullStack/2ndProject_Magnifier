@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -30,6 +31,7 @@ public class RecruitDto {
 	private String workingType;			// 근무 형태
 	private String insurance;			// 사회보험
 	private String retirementSalary;	// 퇴직 급여
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate deadLine;			// 접수 마감일
 	private String step;				// 전형 절차
 	private String contact;				// 담당자 연락처
