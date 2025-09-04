@@ -61,7 +61,7 @@ public class RecruitServiceTest_detail {
         assertNotNull(resultDto);
         assertEquals(recruitId, resultDto.getRecruitId());
         assertEquals("테스트 공고", resultDto.getTitle());
-        log.info("상세 조회 테스트 성공: " + resultDto);
+        log.info("testDetailRecruit_Success 테스트 성공: " + resultDto);
     }
 
     // 채용 공고 상세 조회 실패 테스트 (공고 없음)
@@ -79,6 +79,6 @@ public class RecruitServiceTest_detail {
 
         // 예외 메시지 검증
         assertEquals("조회된 공고가 없습니다. (공고 ID: " + recruitId + ")", exception.getMessage());
-        log.info("상세 조회(실패) 테스트 성공: " + exception.getMessage());
+        log.info("testDetailRecruit_NotFound 테스트 성공: " + exception.getMessage());
     }
 }
