@@ -109,4 +109,18 @@ public class RecruitController {
             return "error/errorPage";
         }
     }
+
+    // 채용 공고 삭제_POST
+    @PostMapping("/delete")
+    public String delete(RecruitDto recruitDto) {
+        try {
+            // 채용 공고 삭제 로직 구현
+            recruitService.deleteRecruit(recruitDto);
+            System.out.println("채용 공고 삭제 (ID): " + recruitDto.getRecruitId());
+            return "redirect:/recruit/list"; // 삭제 성공 시, 목록 페이지로 리다이렉트
+        } catch (Exception e) {
+            System.err.println("채용 공고 삭제 중 오류 발생 (ID: " + recruitDto.getRecruitId() + "): " + e.getMessage());
+            return "error/errorPage";
+        }
+    }
 }
