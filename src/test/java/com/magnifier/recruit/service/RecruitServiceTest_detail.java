@@ -23,9 +23,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import lombok.extern.log4j.Log4j;
+
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.mapper.RecruitMapper;
-import lombok.extern.log4j.Log4j;
 
 @RunWith(MockitoJUnitRunner.class)
 @Log4j
