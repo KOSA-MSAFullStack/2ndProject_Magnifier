@@ -2,7 +2,7 @@
 // RecruitService 전체 채용 공고 목록 조회 기능 테스트
 /*
  * 설명:
- * - RecruitService의 getRecruitList 메서드 정상 동작 확인 테스트 클래스
+ * - RecruitService의 getRecruitList 메서드 정상 동작 확인 테스트
  *
  * 주요 기능:
  * - 전체 공고 목록 조회 성공 시, 리스트 반환 검증
@@ -26,7 +26,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import lombok.extern.log4j.Log4j;
 
 import com.magnifier.recruit.dto.RecruitDto;
