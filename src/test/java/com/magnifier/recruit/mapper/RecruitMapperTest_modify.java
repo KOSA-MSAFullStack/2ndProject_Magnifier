@@ -56,7 +56,7 @@ public class RecruitMapperTest_modify {
         updatedRecruit.setContent("수정된 직무 내용입니다. 경력 무관, 학력 무관.");
         updatedRecruit.setCareerCondition("경력 5년 이상");
         updatedRecruit.setEducation("대졸 이상");
-        updatedRecruit.setEmployeeType("정규직");
+        updatedRecruit.setEmploymentType("정규직");
         updatedRecruit.setHeadCount("5명");
         updatedRecruit.setWorkingArea("서울 강남구");
         updatedRecruit.setSalaryCondition("월 300만원 이상");
@@ -82,7 +82,7 @@ public class RecruitMapperTest_modify {
 
         // 3. 수정된 내용이 반영되었는지 일부 필드 검증
         assertEquals("수정된 공고 제목", afterUpdateRecruit.getTitle());
-        assertEquals("정규직", afterUpdateRecruit.getEmployeeType());
+        assertEquals("정규직", afterUpdateRecruit.getEmploymentType());
         log.info("RecruitMapper updateRecruit 테스트 성공");
     }
 }
