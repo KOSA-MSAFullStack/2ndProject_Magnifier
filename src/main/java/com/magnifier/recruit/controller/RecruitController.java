@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.magnifier.recruit.dto.RecruitDto;
@@ -30,7 +30,7 @@ public class RecruitController {
     }
     // 채용 공고 등록_POST
     @PostMapping("/register")
-    public String register(RecruitDto recruitDto) {
+    public String register(@ModelAttribute RecruitDto recruitDto) {
         try {
             // 채용 공고 등록 로직 구현
             System.out.println("채용 공고 등록: " + recruitDto.getTitle());
@@ -43,7 +43,7 @@ public class RecruitController {
 
     // 전체 채용 공고 목록 조회_GET
     @GetMapping("/list")
-    public String list(Model model) throws SQLException {
+    public String list(Model model) {
         try {
             // 전체 채용 공고 목록 조회
             List<RecruitDto> recruitList = recruitService.getRecruitList(); 
@@ -57,7 +57,7 @@ public class RecruitController {
 
     // 기업별 등록한 채용 공고 목록 조회_GET
     @GetMapping("/list/{enterpriseId}")
-    public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) throws SQLException {
+    public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) {
         try {
             // 기업별 등록한 채용 공고 목록 조회
             List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
@@ -71,11 +71,11 @@ public class RecruitController {
 
     // 채용 공고 상세 조회_GET
     @GetMapping("/detail/{recruitId}")
-    public String detail(@PathVariable("recruitId") int recruitId, Model model) throws SQLException {
+    public String detail(@PathVariable("recruitId") int recruitId, Model model) {
         try {
             // 채용 공고 상세 정보 조회
             RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
-            model.addAttribute("recruit", recruitDto);
+            model.addAttribute("recruitDto", recruitDto);
             return "recruit/detail"; // recruit/detail.jsp 뷰 반환
         } catch (Exception e) {
             System.err.println("채용 공고 상세 조회 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
@@ -85,11 +85,11 @@ public class RecruitController {
 
     // 채용 공고 수정 폼_GET
     @GetMapping("/modify/{recruitId}")
-    public String modifyForm(@PathVariable("recruitId") int recruitId, Model model) throws SQLException {
+    public String modifyForm(@PathVariable("recruitId") int recruitId, Model model) {
         try {
             // 기존 채용 공고 정보 로드
             RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
-            model.addAttribute("recruit", recruitDto);
+            model.addAttribute("recruitDto", recruitDto);
             return "recruit/modify"; // recruit/modify.jsp 뷰 반환
         } catch (Exception e) {
             System.err.println("채용 공고 수정 폼 로드 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
