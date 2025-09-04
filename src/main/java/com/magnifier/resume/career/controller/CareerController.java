@@ -3,7 +3,10 @@ package com.magnifier.resume.career.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,7 @@ public class CareerController {
 	@Autowired
 	private CareerService service;
 	
+	// 경력사항 추가
 	@PostMapping
 	public ResponseEntity<String> register(@RequestBody CareerDto dto) {
         try {
@@ -32,4 +36,31 @@ public class CareerController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	
+	// 경력사항 수정
+	@PutMapping("/{careerId}")
+	public ResponseEntity<String> update(@PathVariable("careerId") int careerId, @RequestBody CareerDto dto) {
+	    try {
+	        dto.setCareerId(careerId);
+	        service.modifyCareer(dto);
+	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+	    } catch (Exception e) {
+	        log.error("경력사항 수정 실패: " + e.getMessage());
+	        e.printStackTrace();
+	        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+	
+	// 경력사항 삭제
+	@DeleteMapping("/{careerId}")
+	public ResponseEntity<String> delete(@PathVariable("careerId") int careerId) {
+	    try {
+	        service.deleteCareer(careerId);
+	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+	    } catch (Exception e) {
+	        log.error("경력사항 삭제 실패: " + e.getMessage());
+	        e.printStackTrace();
+	        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
 }
