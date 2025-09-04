@@ -1,5 +1,5 @@
 // RecruitController.java
-// 역할: 채용 공고 관련 웹 요청 및 응답 처리
+// 채용 공고 관련 웹 요청 및 응답 처리
 
 package com.magnifier.recruit.controller;
 
