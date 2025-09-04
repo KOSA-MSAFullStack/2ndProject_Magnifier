@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- commonNavbar.jsp -->
 <header class="navbar">
-	<link rel="stylesheet" href="/resources/css/common.css">
     <img class="logo" src="/resources/images/logo.png" alt="로고">
     <nav class="nav-menu">
         <a href="#">채용공고</a>
