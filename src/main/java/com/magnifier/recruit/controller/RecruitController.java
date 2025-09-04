@@ -30,7 +30,6 @@ public class RecruitController {
     }
 
     // 채용 공고 등록_POST
-    // 예외 처리: RecruitDto 객체 유효성 검사 및 DB 저장 실패 시 예외 처리
     @PostMapping("/register")
     public String register(RecruitDto recruitDto) {
         try {
@@ -44,7 +43,6 @@ public class RecruitController {
     }
 
     // 전체 채용 공고 목록 조회_GET
-    // 예외 처리: 채용 공고 목록 조회 실패 시 예외 처리
     @GetMapping("/list")
     public String list(Model model) throws SQLException {
         try {
@@ -59,7 +57,6 @@ public class RecruitController {
     }
 
     // 기업별 등록한 채용 공고 목록 조회_GET
-    // 예외 처리: 기업별 채용 공고 목록 조회 실패 시 예외 처리
     @GetMapping("/list/{enterpriseId}")
     public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) throws SQLException {
         try {
@@ -69,6 +66,20 @@ public class RecruitController {
             return "recruit/list"; // recruit/list.jsp 뷰 반환
         } catch (Exception e) {
             System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (기업 ID: " + enterpriseId + "): " + e.getMessage());
+            return "error/errorPage";
+        }
+    }
+
+    // 채용 공고 상세 조회_GET
+    @GetMapping("/detail/{recruitId}")
+    public String detail(@PathVariable("recruitId") int recruitId, Model model) throws SQLException {
+        try {
+            // 채용 공고 상세 정보 조회
+            RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
+            model.addAttribute("recruit", recruitDto);
+            return "recruit/detail"; // recruit/detail.jsp 뷰 반환
+        } catch (Exception e) {
+            System.err.println("채용 공고 상세 조회 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
             return "error/errorPage";
         }
     }
