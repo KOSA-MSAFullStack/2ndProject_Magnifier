@@ -1,5 +1,14 @@
 // RecruitServiceImpl.java
-// Service 구현체, 비즈니스 로직 처리 담당 (여러 DAO/Mapper 호출해서 하나의 기능 실제 구현 o) + 트랜잭션 처리
+// 채용 공고 비즈니스 로직 구현 클래스
+/*
+ * 설명:
+ * - RecruitService 인터페이스 구현 서비스 클래스
+ * - DB 상호작용 및 실제 비즈니스 로직 수행
+ *
+ * 주요 기능:
+ * - 채용 공고 등록, 조회, 수정, 삭제 등 핵심 비즈니스 로직 구현
+ * - 트랜잭션 관리
+ */
 
 package com.magnifier.recruit.service;
 
@@ -14,91 +23,106 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class RecruitServiceImpl implements RecruitService {
+
     @Autowired
     private RecruitMapper recruitMapper;
 
     // 채용 공고 등록 (C, Insert) - 기업회원
     @Override
     public int insertRecruit(RecruitDto recruitDto) throws SQLException {
+        log.info("채용 공고 [등록] 서비스 실행: {}", recruitDto);
         try {
-            // DB에서 insert
+            // DB에 채용 공고 삽입
             int result = recruitMapper.insertRecruit(recruitDto);
-            log.info("공고 등록 성공", recruitDto);
+            log.info("공고 등록 성공. 결과: {}", result);
             return result;
-        } catch (Exception e) {    
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("채용 공고 [등록] 중 예외 발생", e);
             throw e;
         }
     }
 
-    // 전체 채용공고 목록 조회 (R, Select) - 개인/기업 회원
+    // 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원
     @Override
     public List<RecruitDto> getRecruitList() throws SQLException {
+        log.info("[전체 채용 공고 목록 조회] 서비스 실행");
         try {
-            // DB에서 리스트 반환 작업
+            // 전체 채용 공고 목록 조회
             return recruitMapper.getRecruitList();
         } catch (Exception e) {
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            log.error("[전체 채용 공고 목록 조회] 중 예외 발생", e);
             throw e;
         }
     }
     
-    // 등록한 채용공고 목록 조회 (R, Select) - 기업회원
+    // 기업이 등록한 채용공고 목록 조회 (R, Select) - 기업회원
     @Override
     public List<RecruitDto> getRecruitListById(int enterpriseId) throws SQLException {
+        log.info("기업이 [등록한 공고 목록 조회] 서비스 실행 (기업 ID: {})", enterpriseId);
         try {
+            // 특정 기업 채용 공고 목록 조회
             return recruitMapper.getRecruitListById(enterpriseId);
         } catch (Exception e) {
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            log.error("[등록한 채용 공고 목록 조회] 중 예외 발생 (기업 ID: {})", enterpriseId, e);
             throw e;
         }
     }
     
-    // 공고 상세 조회 (R, Select) - 개인/기업 회원
+    // 채용 공고 상세 조회 (R, Select) - 기업/개인 회원
     @Override
     public RecruitDto detailRecruit(int recruitId) throws SQLException {
+        log.info("채용 공고 [상세 조회] 서비스 실행 (공고 ID: {})", recruitId);
         try {
-            // DB에서 recruitId로 검색
+            // 특정 채용 공고 정보 조회
             RecruitDto recruitDto = recruitMapper.detailRecruit(recruitId);
-            // 공고를 못찾으면
+            
+            // 조회된 공고 없는 경우
             if (recruitDto == null) {
-                throw new RuntimeException("공고가 존재하지 않거나 접근 권한이 없습니다.");
+                throw new RuntimeException("조회된 공고가 없습니다. (공고 ID: " + recruitId + ")");
             }
-            // 공고 찾으면 해당공고 반환
             return recruitDto;
         } catch (Exception e) {
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            log.error("채용 공고 [상세 조회] 중 예외 발생 (공고 ID: {})", recruitId, e);
             throw e;
         }
     }
     
-    // 공고 수정 (U, Update) - 기업회원
+    // 채용 공고 수정 (U, Update) - 기업회원
     @Override
     public int updateRecruit(RecruitDto recruitDto) throws SQLException {
+        log.info("채용 공고 [수정] 서비스 실행: {}", recruitDto);
         try {
+            // 채용 공고 정보 수정
             int result = recruitMapper.updateRecruit(recruitDto);
+
+            // 수정된 행 없는 경우 (공고 없거나 권한 없음)
             if (result == 0) {
-                throw new RuntimeException("공고가 존재하지 않거나 수정 권한이 없습니다.");
+                throw new RuntimeException("수정할 공고가 존재하지 않거나 수정 권한이 없습니다. (공고 ID: " + recruitDto.getRecruitId() + ")");
             }
+            log.info("공고 수정 성공. 결과: {}", result);
             return result;
         } catch (Exception e) {
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            log.error("채용 공고 [수정] 중 예외 발생", e);
             throw e;
         }
     }
 
-    // 공고 삭제 (D, Delete) - 기업회원
+    // 채용 공고 삭제 (D, Delete) - 기업회원
     @Override
     public int deleteRecruit(RecruitDto recruitDto) throws SQLException {
+        log.info("채용 공고 [삭제] 서비스 실행 (공고 ID: {})", recruitDto.getRecruitId());
         try {
+            // 채용 공고 정보 삭제
             int result = recruitMapper.deleteRecruit(recruitDto);
-            // 삭제된 행이 없을 경우 (공고가 없거나, enterpriseId가 일치하지 않음)
+
+            // 삭제된 행 없는 경우 (공고 없거나 권한 없음)
             if (result == 0) {
-                throw new RuntimeException("공고가 존재하지 않거나 삭제 권한이 없습니다.");
+                throw new RuntimeException("삭제할 공고가 존재하지 않거나 삭제 권한이 없습니다. (공고 ID: " + recruitDto.getRecruitId() + ")");
             }
+            log.info("공고 삭제 성공. 결과: {}", result);
             return result;
         } catch (Exception e) {
-            log.error("\n\n !!!예외 발생: {}", e.getMessage(), e);
+            log.error("채용 공고 [삭제] 중 예외 발생", e);
             throw e;
         }
     }
