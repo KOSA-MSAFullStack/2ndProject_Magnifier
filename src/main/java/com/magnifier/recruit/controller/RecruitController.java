@@ -28,7 +28,6 @@ public class RecruitController {
     public String registerForm() {
         return "recruit/register"; // recruit/register.jsp 뷰 반환
     }
-
     // 채용 공고 등록_POST
     @PostMapping("/register")
     public String register(RecruitDto recruitDto) {
@@ -80,6 +79,33 @@ public class RecruitController {
             return "recruit/detail"; // recruit/detail.jsp 뷰 반환
         } catch (Exception e) {
             System.err.println("채용 공고 상세 조회 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
+            return "error/errorPage";
+        }
+    }
+
+    // 채용 공고 수정 폼_GET
+    @GetMapping("/modify/{recruitId}")
+    public String modifyForm(@PathVariable("recruitId") int recruitId, Model model) throws SQLException {
+        try {
+            // 기존 채용 공고 정보 로드
+            RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
+            model.addAttribute("recruit", recruitDto);
+            return "recruit/modify"; // recruit/modify.jsp 뷰 반환
+        } catch (Exception e) {
+            System.err.println("채용 공고 수정 폼 로드 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
+            return "error/errorPage";
+        }
+    }
+    // 채용 공고 수정_POST
+    @PostMapping("/modify")
+    public String modify(RecruitDto recruitDto) {
+        try {
+            // 채용 공고 수정 로직 구현
+            recruitService.updateRecruit(recruitDto);
+            System.out.println("채용 공고 수정: " + recruitDto.getTitle());
+            return "redirect:/recruit/detail/" + recruitDto.getRecruitId(); // 수정 성공 시, 상세 페이지로 리다이렉트
+        } catch (Exception e) {
+            System.err.println("채용 공고 수정 중 오류 발생: " + e.getMessage());
             return "error/errorPage";
         }
     }
