@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.magnifier.enterprise.mapper.EnterpriseMapper">
+
+	<resultMap id="enterpriseMap"
+		type="com.magnifier.enterprise.dto.EnterpriseDto">
+		<id property="enterpriseId" column="enterprise_id" />
+		<result property="registerNumber" column="register_number" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="address" column="address" />
+		<result property="enabled" column="enabled" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+	<select id="read" resultMap="enterpriseMap" parameterType="String">
+		SELECT enterprise_id, register_number, name, password, address, enabled, auth
+		FROM enterprise
+		WHERE register_number = #{registerNumber}
+	</select>
+
+</mapper>

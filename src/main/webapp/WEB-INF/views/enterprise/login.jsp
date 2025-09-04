@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인 | 개인회원</title>
+    <title>로그인 | 기업회원</title>
     <link rel="stylesheet" href="/resources/css/login.css">
     <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
 </head>
@@ -16,10 +16,10 @@
         <main class="main-center">
             <div class="login-card">
                 <div class="login-tabs">
-                    <div class="login-tab active">개인 회원 로그인</div>
-                    <div class="login-tab">기업 회원 로그인</div>
+                    <div class="login-tab"><a href="/member/login">개인 회원 로그인</a></div>
+                    <div class="login-tab active">기업 회원 로그인</div>
                 </div>
-                <form class="login-form" method="post" action="/login">
+                <form class="login-form" method="post" action="/enterprise/loginProcess">
                     <div class="form-fields">
                         <input type="text" placeholder="아이디" name="username" />
                         <input type="password" placeholder="비밀번호" name="password" />

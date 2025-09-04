@@ -20,47 +20,66 @@
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-	<!-- 사용자 인증용 커스텀 UserDetailsService 빈 등록 -->
-	<bean id="customUserDetailsService"
-		class="com.magnifier.security.CustomUserDetailsService">
+	<!-- 개인회원 인증용 커스텀 UserDetailsService 빈 등록 -->
+	<bean id="customUserDetailsServiceMember"
+		class="com.magnifier.security.CustomUserDetailsServiceMember">
+	</bean>
+	
+	<!-- 기업회원 인증용 커스텀 UserDetailsService 빈 등록 -->
+	<bean id="customUserDetailsServiceEnterprise"
+		class="com.magnifier.security.CustomUserDetailsServiceEnterprise">
 	</bean>
 
-
-	<security:http>
-		<!-- URL 패턴 '/' 에 대해서는 모든 사용자에게 접근 허용 -->
-		<security:intercept-url pattern="/all"
-			access="permitAll" />
-
-		<!-- URL 패턴 '/member' 에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
-		<security:intercept-url pattern="/member"
-			access="hasRole('ROLE_MEMBER')" />
-
-		<!-- URL 패턴 '/enterprise' 에 대해서는 'ROLE_ADMIN' 권한을 가진 사용자만 접근 허용 -->
-		<security:intercept-url pattern="/enterprise"
-			access="hasRole('ROLE_ADMIN')" />
-
+	<!-- 개인회원 영역 보안 설정 -->
+	<security:http pattern="/member/**" authentication-manager-ref="authManagerMember">
+		<!-- 로그인과 로그아웃은 모든 사람에게 허용 -->
+		<security:intercept-url pattern="/member/login" access="permitAll" />
+    	<security:intercept-url pattern="/member/logout" access="permitAll" />
+		<!-- URL 패턴 '/member/'하위 페이지에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')" />
 		<!-- 커스텀 로그인 페이지 및 로그인 성공 후 핸들러 지정 -->
-		<security:form-login login-page="/memberLogin"
-			authentication-success-handler-ref="customLoginSuccess" />
-
+		<security:form-login login-page="/member/login"	login-processing-url="/member/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
 		<!-- 권한 거부 핸들러 지정 -->
 		<security:access-denied-handler ref="customAccessDenied" />
-
 		<!-- 로그아웃 설정 -->
-		<security:logout logout-url="/customLogout"
-			invalidate-session="true" />
+		<security:logout logout-url="/logout"	invalidate-session="true" />
 	</security:http>
 
-	<security:authentication-manager>
+	<!-- 기업회원 영역 보안 설정 -->
+	<security:http pattern="/enterprise/**" authentication-manager-ref="authManagerEnterprise">
+		<!-- 로그인과 로그아웃은 모든 사람에게 허용 -->
+		<security:intercept-url pattern="/enterprise/login" access="permitAll" />
+    	<security:intercept-url pattern="/enterprise/logout" access="permitAll" />
+		<!-- URL 패턴 '/enterprise/'하위 페이지에 대해서는 'ROLE_ENTERPRISE' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/enterprise/**" access="hasRole('ROLE_ENTERPRISE')" />
+		<!-- 커스텀 로그인 페이지 및 로그인 성공 후 핸들러 지정 -->
+		<security:form-login login-page="/enterprise/login" login-processing-url="/enterprise/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
+		<!-- 권한 거부 핸들러 지정 -->
+		<security:access-denied-handler
+			ref="customAccessDenied" />
+		<!-- 로그아웃 설정 -->
+		<security:logout logout-url="/logout" invalidate-session="true" />
+	</security:http>
+
+	<!-- 개인회원용 인증 매니저 -->
+	<security:authentication-manager id="authManagerMember">
 		<!-- 인증 공급자 설정 - 로그인 요청 시 사용자 인증을 처리하는 핵심 컴포넌트 - 'user-service-ref' 속성은 
 			사용자 정보를 조회하는 UserDetailsService 구현체를 지정 - 여기서는 customUserDetailsService 빈을 
 			통해 DB에서 사용자 정보를 조회하고 인증 수행 - 비밀번호 암호화에 사용할 PasswordEncoder도 이곳에서 지정하여 일치 
 			여부 검증 -->
 		<security:authentication-provider
-			user-service-ref="customUserDetailsService">
+			user-service-ref="customUserDetailsServiceMember">
 			<!-- 비밀번호 인코더 지정 -->
-			<security:password-encoder
-				ref="bcryptPasswordEncoder" />
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<!-- 기업회원용 인증 매니저 -->
+	<security:authentication-manager id="authManagerEnterprise">
+		<security:authentication-provider
+			user-service-ref="customUserDetailsServiceEnterprise">
+			<!-- 비밀번호 인코더 지정 -->
+			<security:password-encoder ref="bcryptPasswordEncoder" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 

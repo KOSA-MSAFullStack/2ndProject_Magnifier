@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lombok.extern.log4j.Log4j;
 
 /**
- * member에 insert하는 test
+ * enterprise에 insert하는 test
  * @author 김경아
  *
  */
@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
   "file:src/main/webapp/WEB-INF/spring/security-context.xml"
   })
 @Log4j
-public class MemberTests {
+public class EnterpriseTests {
 
   @Autowired
   private PasswordEncoder passwordEncoder; // 스프링 빈으로 등록된 PasswordEncoder 자동 주입 (BCryptPasswordEncoder 구현체)
@@ -31,20 +31,17 @@ public class MemberTests {
   private DataSource dataSource; // 데이터베이스 연결을 위한 DataSource 자동 주입
  
   @Test
-  public void testInsertMember() {
-	// member 테이블에 데이터 삽입
-    String sql = "insert into zoomin.member"
-    		+ "(member_id, login_id, name, gender, password, phone_number, birth, address) "
+  public void testInsertEnterprise() {
+	// enterprise 테이블에 데이터 삽입
+    String sql = "insert into zoomin.enterprise"
+    		+ "(enterprise_id, register_number, name, password, address) "
     		+ "values "
-    		+ "(?,?,?,?,?,?,?,?)";
+    		+ "(?,?,?,?,?)";
    
     // 임시 데이터
-    String loginId = "ruddk1221";
-    String name = "김경아";
-    String gender = "F";  
-    String phone = "01000000000";  
-    String birth = "19900101";       
-    String address = "Seoul";        
+    String registerNumber = "1248100998";
+    String name = "삼성전자";    
+    String address = "Suwon";        
     
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -52,27 +49,24 @@ public class MemberTests {
     try {
 	    con = dataSource.getConnection();  // 데이터베이스 커넥션 획득
 	    
-	    pstmt = con.prepareStatement(sql); // SQL문 생성       
+	    pstmt = con.prepareStatement(sql); // SQL문 생성    
 	    
-	    pstmt.setInt(1, 2);  
-	    pstmt.setString(2, loginId);
+	    pstmt.setInt(1, 1);  
+	    pstmt.setString(2, registerNumber);
 	    pstmt.setString(3, name);
-	    pstmt.setString(4, gender);
-	    pstmt.setString(5, passwordEncoder.encode("pw"));
-	    pstmt.setString(6, phone);
-	    pstmt.setString(7, birth);
-	    pstmt.setString(8, address);
+	    pstmt.setString(4, passwordEncoder.encode("pw"));
+	    pstmt.setString(5, address);
 	    
-	    pstmt.executeUpdate(); // SQL 실행(데이터 삽입)      
-    } catch(Exception e) {
-    	// 예외 발생 시 출력
-    	e.printStackTrace();
-    } finally {
+	    pstmt.executeUpdate(); // SQL 실행(데이터 삽입)       
+	} catch(Exception e) {
+		// 예외 발생 시 출력
+		e.printStackTrace();
+	} finally {
 		// 리소스 정리: PreparedStatement, Connection 반환
-	    if (pstmt != null) { try { pstmt.close();  } catch(Exception e) {} }
-	    if (con != null) { try { con.close();  } catch(Exception e) {} }        
-    }//end try
+	    if(pstmt != null) { try { pstmt.close();  } catch(Exception e) {} }
+	    if(con != null) { try { con.close();  } catch(Exception e) {} }        
+	}//end try
 
-  }//void testInsertMember()  
-
+  }//void testInsertEnterprise()  
+ 
 }//end class
