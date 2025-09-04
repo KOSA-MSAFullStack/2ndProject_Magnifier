@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 
+ * @author 김경아
+ *
+ */
 @Log4j
 @Controller
 public class CommonController {
@@ -14,7 +19,7 @@ public class CommonController {
 	/**
 	 * 로그아웃 요청 시
 	 */
-	@GetMapping("/customLogout")
+	@GetMapping("/logout")
 	public void logout() {
 	    // 로그아웃 요청이 들어왔을 때 로그 기록
 	    log.info("member logout");
