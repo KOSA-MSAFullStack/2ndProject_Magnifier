@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,5 +55,18 @@ public class ResumeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error
         }
     }
+	
+	@PutMapping("/{memberId}")
+	public ResponseEntity<String> update(@PathVariable("memberId") int memberId, @RequestBody ResumeDto dto) {
+	    try {
+	        dto.setMemberId(memberId);
+	        service.modifyResume(dto);
+	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+	    } catch (Exception e) {
+	        log.error("이력서 수정 실패: " + e.getMessage());
+	        e.printStackTrace();
+	        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
 
 }

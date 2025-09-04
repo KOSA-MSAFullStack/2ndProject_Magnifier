@@ -22,5 +22,19 @@
 			#{passDate}
 		 )
 	</insert>
+	
+	<update id="modifyLicense">
+		 update license
+		 set 
+		 	name = #{name},
+		 	publisher = #{publisher},
+		 	pass_date = #{passDate}
+		 where license_id=#{licenseId}
+	 </update>
+		 
+	 <delete id="deleteLicense">
+		 delete from license
+		 where license_id=#{licenseId}
+	 </delete>
 
 </mapper>

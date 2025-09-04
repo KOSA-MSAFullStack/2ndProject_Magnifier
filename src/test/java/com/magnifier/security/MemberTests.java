@@ -34,12 +34,12 @@ public class MemberTests {
     		+ "(?,?,?,?,?,?,?,?)";
    
     // 임시 데이터
-    String loginId = "ruddk1221";
-    String name = "김경아";
-    String gender = "F";  
+    String loginId = "asd";
+    String name = "leee";
+    String gender = "M";  
     String phone = "01000000000";  
     String birth = "19900101";       
-    String address = "Seoul";        
+    String address = "Daejeon";        
     
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -47,11 +47,11 @@ public class MemberTests {
     try {
 	    con = dataSource.getConnection();
 	    pstmt = con.prepareStatement(sql);        
-	    pstmt.setInt(1, 2);  
+	    pstmt.setInt(1, 1);  
 	    pstmt.setString(2, loginId);
 	    pstmt.setString(3, name);
 	    pstmt.setString(4, gender);
-	    pstmt.setString(5, passwordEncoder.encode("pw"));
+	    pstmt.setString(5, passwordEncoder.encode("asd"));
 	    pstmt.setString(6, phone);
 	    pstmt.setString(7, birth);
 	    pstmt.setString(8, address);

@@ -27,4 +27,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return mapper.findResumesByMemberId(memberId);
 	}
 
+	@Override
+	public int modifyResume(ResumeDto resumeDto) {
+		return mapper.modifyResume(resumeDto);
+	}
+
 }

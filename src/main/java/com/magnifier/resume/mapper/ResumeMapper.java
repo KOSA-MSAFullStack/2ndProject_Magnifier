@@ -9,8 +9,11 @@ import com.magnifier.resume.dto.ResumeDto;
 @Mapper
 public interface ResumeMapper {
 	// 이력서 등록
-	public void registerResume(ResumeDto resumeDto);
+	public void registerResume(ResumeDto dto);
 	
-	// 개인회원 이력서 조회
+	// 이력서 조회
 	public List<ResumeDto> findResumesByMemberId(int memberId);
+	
+	// 이력서 수정
+	public int modifyResume(ResumeDto dto);
 }
