@@ -40,7 +40,7 @@ public class RecruitMapperTest_register {
         recruit.setContent("아파트 단지 보안 및 출입 관리. 신체 건강한 60세 이상 지원 가능");
         recruit.setCareerCondition("무관 (경비 경험자 우대)");
         recruit.setEducation("무관");
-        recruit.setEmployeeType("계약직");
+        recruit.setEmploymentType("계약직");
         recruit.setHeadCount("3명");
         recruit.setWorkingArea("서울 송파구");
         recruit.setSalaryCondition("월 220만원 이상");
