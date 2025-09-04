@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.magnifier.resume.mapper.ResumeMapper">
+
+	<insert id="registerResume" parameterType="com.magnifier.resume.dto.ResumeDto">
+		insert into resume( 
+			resume_id,
+			member_id,
+			title, 
+			school_type, 
+			school_name, 
+			graduate_status, 
+			enter_date, 
+			graduate_date
+		)
+		values(
+			RESUME_SEQ.NEXTVAL,
+			#{memberId},
+			#{title}, 
+			#{schoolType}, 
+			#{schoolName}, 
+			#{graduateStatus}, 
+			#{enterDate}, 
+			#{graduateDate}
+		 )
+	</insert>
+	
+	<resultMap id="resumeResultMap" type="com.magnifier.resume.dto.ResumeDto">
+        <id property="resumeId" column="resume_id" />
+        <result property="memberId" column="member_id" />
+        <result property="title" column="title" />
+        <result property="schoolType" column="school_type" />
+        <result property="schoolName" column="school_name" />
+        <result property="graduateStatus" column="graduate_status" />
+        <result property="enterDate" column="enter_date" />
+        <result property="graduateDate" column="graduate_date" />
+        
+        <collection property="careerList" ofType="com.magnifier.resume.career.dto.CareerDto">
+            <id property="careerId" column="career_id" />
+            <result property="resumeId" column="c_resume_id" />
+            <result property="name" column="c_name" />
+            <result property="joinDate" column="join_date" />
+            <result property="quitDate" column="quit_date" />
+            <result property="job" column="job" />
+            <result property="department" column="department" />
+            <result property="position" column="position" />
+            </collection>
+
+        <collection property="licenseList" ofType="com.magnifier.resume.license.dto.LicenseDto">
+            <id property="licenseId" column="license_id" />
+            <result property="resumeId" column="l_resume_id" />
+            <result property="name" column="l_name" />
+            <result property="publisher" column="publisher" />
+            <result property="passDate" column="pass_date" />
+            </collection>
+    </resultMap>
+
+    <select id="findResumesByMemberId" resultMap="resumeResultMap">
+        SELECT 
+            r.resume_id,
+	        r.member_id,
+	        r.title,
+	        r.school_type,
+	        r.school_name,
+	        r.graduate_status,
+	        r.enter_date,
+	        r.graduate_date,
+	        
+	        c.career_id,
+	        c.resume_id AS c_resume_id,
+	        c.name AS c_name,
+	        c.join_date,
+	        c.quit_date,
+	        c.job,
+	        c.department,
+	        c.position,
+	
+	        l.license_id,
+	        l.resume_id AS l_resume_id,
+	        l.name AS l_name,
+	        l.publisher,
+	        l.pass_date
+        FROM
+            resume r
+        LEFT JOIN 
+            career c ON r.resume_id = c.resume_id
+        LEFT JOIN
+            license l ON r.resume_id = l.resume_id
+        WHERE
+            r.member_id = #{memberId}
+    </select>
+
+</mapper>
