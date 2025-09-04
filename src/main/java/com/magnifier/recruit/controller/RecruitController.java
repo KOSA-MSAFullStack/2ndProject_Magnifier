@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.magnifier.recruit.dto.RecruitDto;
@@ -45,7 +46,7 @@ public class RecruitController {
     // 전체 채용 공고 목록 조회_GET
     // 예외 처리: 채용 공고 목록 조회 실패 시 예외 처리
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model) throws SQLException {
         try {
             // 전체 채용 공고 목록 조회
             List<RecruitDto> recruitList = recruitService.getRecruitList(); 
@@ -60,7 +61,7 @@ public class RecruitController {
     // 기업별 등록한 채용 공고 목록 조회_GET
     // 예외 처리: 기업별 채용 공고 목록 조회 실패 시 예외 처리
     @GetMapping("/list/{enterpriseId}")
-    public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) {
+    public String listById(@PathVariable("enterpriseId") int enterpriseId, Model model) throws SQLException {
         try {
             // 기업별 등록한 채용 공고 목록 조회
             List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
