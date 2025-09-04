@@ -2,12 +2,12 @@
 // RecruitService 채용 공고 상세 조회 기능 테스트
 /*
  * 설명:
- * - RecruitService의 detailRecruit 메서드 정상 동작 확인 테스트 클래스
- * - RecruitMapper를 Mocking하여 서비스 계층의 비즈니스 로직만 독립적으로 테스트
+ * - RecruitService의 detailRecruit 메서드 정상 동작 확인 테스트
+ * - 서비스 계층의 비즈니스 로직 독립 테스트
  *
  * 주요 기능:
- * - 공고 상세 조회 성공 시 DTO 반환 검증
- * - 공고가 존재하지 않을 경우 RuntimeException 발생 검증
+ * - 공고 상세 조회 성공 시, DTO 반환 검증
+ * - 공고 x 경우, RuntimeException 발생 검증
  */
 
 package com.magnifier.recruit.service;
@@ -27,7 +27,6 @@ import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.mapper.RecruitMapper;
 import lombok.extern.log4j.Log4j;
 
-// MockitoJUnitRunner 사용, Mock 객체 주입 및 테스트 실행
 @RunWith(MockitoJUnitRunner.class)
 @Log4j
 public class RecruitServiceTest_detail {
