@@ -1,5 +1,5 @@
 // RecruitController.java
-// 역할: 채용 정보 관련 웹 요청 및 응답 처리
+// 역할: 채용 공고 관련 웹 요청 및 응답 처리
 
 package com.magnifier.recruit.controller;
 
@@ -13,19 +13,19 @@ import com.magnifier.recruit.dto.RecruitDto;
 @RequestMapping("/recruit")
 public class RecruitController {
 
-    // 채용 정보 등록 폼
-    // GET 요청 처리
+    // 채용 공고 등록 폼
+    // GET 요청
     @GetMapping("/register")
     public String registerForm() {
         return "recruit/register"; // recruit/register.jsp 뷰 반환
     }
 
-    // 채용 정보 등록 처리
-    // POST 요청 처리
+    // 채용 공고 등록 처리
+    // POST 요청
     @PostMapping("/register")
     public String register(RecruitDto recruitDto) {
         try {
-            // 서비스 계층 호출 --> 채용 정보 등록 로직 구현
+            // 서비스 계층 호출 --> 채용 공고 등록 로직 구현
             System.out.println("채용 정보 등록: " + recruitDto.getTitle());
             return "redirect:/recruit/list"; // 등록 성공 시, 목록 페이지로 리다이렉트
         } catch (Exception e) {
