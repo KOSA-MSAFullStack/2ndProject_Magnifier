@@ -1,0 +1,124 @@
+body {
+    margin: 0;
+    background: #c8d9e4;
+    font-family: 'Inter', sans-serif;
+}
+
+.background {
+    min-height: 100vh;
+    width: 100vw;
+    background: #c8d9e4;
+    position: relative;
+}
+
+.main-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75vh;
+}
+
+.login-card {
+	margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background: #f7f3ea;
+    border-radius: 20px;
+    min-width: 800px;
+    max-width: 880px;
+    height: 500px;
+}
+
+.login-tabs {
+    display: flex;
+    width: 800px;
+    font-size: 40px;
+    margin-bottom: 18px;
+    font-family: 'Inter', sans-serif;
+}
+
+.login-tab {
+    flex: 1;
+    padding: 17px 0;
+    text-align: center;
+    background: #d9d9d9;
+    color: #545454;
+    border-radius: 12px 12px 0 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.login-tab.active {
+    background: #f7f3ea;
+    color: #181818;
+    font-weight: 700;
+}
+
+.login-form {
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 2;
+}
+
+.form-fields input {
+    width: 500px;
+    font-size: 40px;
+    padding: 13px 18px;
+    border: 1.8px solid #aaa;
+    border-radius: 11px;
+    background: #fff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a4089;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 700;
+    border-radius: 11px;
+    border: none;
+    min-width: 180px;
+    height: 160px;
+    margin-left: 11px;
+    cursor: pointer;
+    transition: background 0.13s;
+}
+
+.login-button:hover {
+    background: #25366e;
+}
+
+.login-links {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 40px;
+    color: #404040;
+    letter-spacing: 1px;
+}
+
+.login-links a {
+    color: #343434;
+    text-decoration: none;
+    margin: 0 6px;
+    transition: color 0.13s;
+}
+
+.login-links a:hover {
+    color: #2a4089;
+}

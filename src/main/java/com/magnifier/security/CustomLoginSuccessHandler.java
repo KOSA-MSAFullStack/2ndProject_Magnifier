@@ -46,8 +46,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         } // end if
 
         if (roleNames.contains("ROLE_MEMBER")) {
-            // ROLE_MEMBER가 있으면 '/member' 페이지로 이동
-            response.sendRedirect("/member");
+            // ROLE_MEMBER가 있으면 '/main' 페이지로 이동
+            response.sendRedirect("/main");
             return;
         } // end if
 

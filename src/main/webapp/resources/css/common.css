@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    background: #c8d9e4;
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 35px 0 0 36px;
+    background: transparent;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    margin-right: 38px;
+}
+
+.nav-menu {	
+    display: flex;
+    gap: 60px;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.nav-menu a {
+    color: #222;
+    text-decoration: none;
+    transition: color 0.18s;
+}
+
+.nav-menu a.active {
+    color: #1435bd;
+}
+
+.error-msg {
+	color: #FF0000; 
+	font-size: 30px;
+}

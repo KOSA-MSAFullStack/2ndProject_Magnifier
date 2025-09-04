@@ -20,15 +20,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        
-        log.warn("Load User By UserName :" + username);
-        log.warn("membermapper is null? : " + (membermapper == null));
-       
+        log.warn("Load User By UserName :" + username);      
         // 회원 아이디(username)를 받아 DB에서 회원 정보(MemberDto)를 조회
         MemberDto dto = membermapper.read(username);     
-        log.warn("MemberDto is null? : " + (dto == null));
         log.warn("Query by member mapper :" + dto);
-        log.warn("dto.getLoginId(): " + dto.getLoginId());
-        log.warn("dto.getPassword(): " + dto.getPassword());
         
         return new CustomMember(dto);
     }

@@ -31,7 +31,7 @@ public class MemberController {
 
 	    // 로그인 오류가 있다면, 에러 메시지를 모델에 담아 뷰에 전달
 	    if(error != null) {
-	        model.addAttribute("error", "Login Error check your Account");
+	        model.addAttribute("error", "로그인 정보가 일치하지 않습니다.");
 	    } // end if
 
 	    // 로그아웃이 성공적으로 처리된 경우, 메시지를 모델에 담아 뷰에 전달
