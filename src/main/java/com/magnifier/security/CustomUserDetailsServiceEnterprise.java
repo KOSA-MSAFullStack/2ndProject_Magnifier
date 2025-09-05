@@ -5,26 +5,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.magnifier.member.dto.MemberDto;
-import com.magnifier.member.mapper.MemberMapper;
-import com.magnifier.security.domain.CustomMember;
+import com.magnifier.enterprise.dto.EnterpriseDto;
+import com.magnifier.enterprise.mapper.EnterpriseMapper;
+import com.magnifier.security.domain.CustomEnterprise;
 
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceEnterprise implements UserDetailsService {
    
     @Autowired
-    private MemberMapper membermapper; // DB에서 회원 정보를 조회하는 매퍼
+    private EnterpriseMapper mapper; // DB에서 회원 정보를 조회하는 매퍼
    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        
         log.warn("Load User By UserName :" + username);      
-        // 회원 아이디(username)를 받아 DB에서 회원 정보(MemberDto)를 조회
-        MemberDto dto = membermapper.read(username);     
+        // 회원 아이디(registerNumber)를 받아 DB에서 기업 정보(EnterpriseDto)를 조회
+        EnterpriseDto dto = mapper.read(username);     
         log.warn("Query by member mapper :" + dto);
         
-        return new CustomMember(dto);
+        return new CustomEnterprise(dto);
     }
 }
