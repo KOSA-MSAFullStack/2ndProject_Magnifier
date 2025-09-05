@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인 | 개인회원</title>
+	<link rel="stylesheet" href="/resources/css/common.css">
     <link rel="stylesheet" href="/resources/css/login.css">
     <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
 </head>
@@ -35,3 +36,6 @@
                 </div>
             </div>
         </main>
+    </div>
+</body>
+</html>
