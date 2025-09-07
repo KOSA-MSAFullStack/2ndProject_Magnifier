@@ -32,15 +32,17 @@ public class Member {
 	 * @param memberDto
 	 * @return
 	 */
-	public static Member createMember(MemberDto memberDto, String encodePW) {
+	public static Member createMember(MemberDto memberDto, String encodePW, LocalDate birth) {
 		Member member = Member.builder()
-				.memberId(memberDto.getMemberId())
+//				.memberId(memberDto.getMemberId())
 				.loginId(memberDto.getLoginId())
 				.name(memberDto.getName())
 				.gender(memberDto.getGender())
+//				.gender('M')
 				.password(encodePW)
 				.phoneNumber(memberDto.getPhoneNumber())
-				.birth(memberDto.getBirth())
+//				.birth(memberDto.getBirth())
+				.birth(birth)
 				.address(memberDto.getAddress())
 				.build();
 		return member;

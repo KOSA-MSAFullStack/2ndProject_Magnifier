@@ -21,7 +21,7 @@
 	<logger name="com.magnifier.security">
 		<level value="DEBUG" />
 	</logger>
-	
+
 	<!-- MyBatis Loggers -->
 	<logger name="org.mybatis.spring">
 		<level value="DEBUG" />
@@ -41,8 +41,18 @@
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="DEBUG" />
 	</logger>
+
+	<logger
+		name="org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor">
+		<level value="DEBUG" />
+	</logger>
+	
+	<logger name="org.springframework.security">
+		<level value="DEBUG" />
+	</logger>
+
 
 	<!-- Root Logger -->
 	<root>

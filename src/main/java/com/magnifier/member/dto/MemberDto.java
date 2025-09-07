@@ -1,8 +1,5 @@
 package com.magnifier.member.dto;
 
-import java.time.LocalDate;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,14 +8,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor 
 public class MemberDto {
-	private int memberId;       // member ID
 	private String loginId;     // 로그인 ID
 	private String name;        // 이름
 	private Character gender;   // 성별(남: M, 여: F)
 	private String password;    // 비밀번호
+	private String passwordConfirm;    // 비밀번호 확인
 	private String phoneNumber; // 휴대폰 번호
-	private LocalDate birth;    // 생년월일
+	private Integer year;    // 생년월일(연도)
+	private Integer month;    // 생년월일(월)
+	private Integer day;    // 생년월일(일)
+	private String postNumber;    // 우편번호
 	private String address;     // 주소
-	private Boolean enabled;    // 로그인 활성화 여부(default: 1)
-	private String auth;        // 권한(default: ROLE_MEMBER)
+	private String addressDetail;     // 주소상세
+	private String reference;     // 주소-참고사항
 }

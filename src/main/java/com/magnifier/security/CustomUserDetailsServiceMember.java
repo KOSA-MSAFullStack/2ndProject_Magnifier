@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.magnifier.member.dto.MemberDto;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
 import com.magnifier.security.domain.CustomMember;

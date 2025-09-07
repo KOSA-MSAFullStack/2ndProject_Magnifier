@@ -1,6 +1,7 @@
 package com.magnifier.member.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.time.LocalDate;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,17 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public void save(MemberDto memberDto) {
-		String encodePW = passwordEncoder.encode(memberDto.getPassword()); // 비밀번호 암호화
-		Member member = Member.createMember(memberDto, encodePW); // Member 객체 생성
+		// 생년월일 조합
+		LocalDate birth = LocalDate.of(
+				memberDto.getYear(), 
+				memberDto.getMonth(), 
+				memberDto.getDay()
+		);
+		
+		// 비밀번호 암호화
+		String encodePW = passwordEncoder.encode(memberDto.getPassword()); 
+		
+		Member member = Member.createMember(memberDto, encodePW, birth); // Member 객체 생성
 		memberMapper.save(member); 
 	}
 	

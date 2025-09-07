@@ -27,10 +27,10 @@
 	</select>
 	
 	<!-- 회원 등록 -->
-	<insert id="save" parameterType="com.magnifier.member.entity.Member" useGeneratedKeys="true" keyProperty="memberId">>
+	<insert id="save" parameterType="com.magnifier.member.entity.Member">
 		INSERT INTO zoomin.MEMBER
 		(member_id, login_id, password, name, gender, phone_number, birth, address)
-		values (#{loginId}, #{name}, #{gender}, #{password}, #{phoneNumber}, #{birth}, #{address})
+		values (MEMBER_SEQ.NEXTVAL, #{loginId}, #{password}, #{name}, #{gender}, #{phoneNumber}, #{birth}, #{address})
 	</insert>
 
 </mapper>
