@@ -1,9 +1,16 @@
 package com.magnifier.security.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.magnifier.member.dto.CheckIdRequest;
+import com.magnifier.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -15,6 +22,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class CommonController {
+	
+	private final MemberService memberService; // 서비스 의존성 주입
+	
+	public CommonController (MemberService memberService) { // 생성자 주입
+		this.memberService = memberService;
+	}
 
 	/**
 	 * 로그아웃 요청 시
@@ -38,4 +51,12 @@ public class CommonController {
         // 뷰단에 전달할 메시지 속성 "msg"에 "Access Denied" 문자열을 세팅
         model.addAttribute("msg", "Access Denied");    
     }//end accessDenied
+    
+    
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public ResponseEntity<Boolean> idCheck(@RequestBody CheckIdRequest dto) {
+		Boolean exist = memberService.idCheck(dto); // 로그인 Id 존재 여부
+		return ResponseEntity.ok().body(exist); // 존재 여부 반환
+	}
 }

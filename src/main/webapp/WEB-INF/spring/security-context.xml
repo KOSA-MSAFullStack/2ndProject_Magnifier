@@ -31,15 +31,15 @@
 	</bean>
 
 	<!-- 개인회원 영역 보안 설정 -->
-	<security:http pattern="/member/**" authentication-manager-ref="authManagerMember">
+	<security:http pattern="/members/**" authentication-manager-ref="authManagerMember">
 		<!-- 로그인과 로그아웃, 회원가입은 모든 사람에게 허용 -->
-		<security:intercept-url pattern="/member/login" access="permitAll" />
-    	<security:intercept-url pattern="/member/logout" access="permitAll" />
-    	<security:intercept-url pattern="/member/signup" access="permitAll" />
-		<!-- URL 패턴 '/member/'하위 페이지에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
-		<security:intercept-url pattern="/member/**" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/members/login" access="permitAll" />
+    	<security:intercept-url pattern="/members/logout" access="permitAll" />
+    	<security:intercept-url pattern="/members/signup" access="permitAll" />
+		<!-- URL 패턴 '/members/'하위 페이지에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/members/**" access="hasRole('ROLE_MEMBER')" />
 		<!-- 커스텀 로그인 페이지 및 로그인 성공 후 핸들러 지정 -->
-		<security:form-login login-page="/member/login"	login-processing-url="/member/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
+		<security:form-login login-page="/members/login"	login-processing-url="/members/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
 		<!-- 권한 거부 핸들러 지정 -->
 		<security:access-denied-handler ref="customAccessDenied" />
 		<!-- 로그아웃 설정 -->
@@ -47,15 +47,15 @@
 	</security:http>
 
 	<!-- 기업회원 영역 보안 설정 -->
-	<security:http pattern="/enterprise/**" authentication-manager-ref="authManagerEnterprise">
+	<security:http pattern="/enterprises/**" authentication-manager-ref="authManagerEnterprise">
 		<!-- 로그인과 로그아웃, 회원가입은 모든 사람에게 허용 -->
-		<security:intercept-url pattern="/enterprise/login" access="permitAll" />
-    	<security:intercept-url pattern="/enterprise/logout" access="permitAll" />
-    	<security:intercept-url pattern="/enterprise/signup" access="permitAll" />
-		<!-- URL 패턴 '/enterprise/'하위 페이지에 대해서는 'ROLE_ENTERPRISE' 권한을 가진 사용자만 접근 허용 -->
-		<security:intercept-url pattern="/enterprise/**" access="hasRole('ROLE_ENTERPRISE')" />
+		<security:intercept-url pattern="/enterprises/login" access="permitAll" />
+    	<security:intercept-url pattern="/enterprises/logout" access="permitAll" />
+    	<security:intercept-url pattern="/enterprises/signup" access="permitAll" />
+		<!-- URL 패턴 '/enterprises/'하위 페이지에 대해서는 'ROLE_ENTERPRISE' 권한을 가진 사용자만 접근 허용 -->
+		<security:intercept-url pattern="/enterprises/**" access="hasRole('ROLE_ENTERPRISE')" />
 		<!-- 커스텀 로그인 페이지 및 로그인 성공 후 핸들러 지정 -->
-		<security:form-login login-page="/enterprise/login" login-processing-url="/enterprise/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
+		<security:form-login login-page="/enterprises/login" login-processing-url="/enterprises/loginProcess" authentication-success-handler-ref="customLoginSuccess" />
 		<!-- 권한 거부 핸들러 지정 -->
 		<security:access-denied-handler
 			ref="customAccessDenied" />

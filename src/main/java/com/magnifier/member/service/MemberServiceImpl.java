@@ -5,7 +5,8 @@ import java.time.LocalDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.dto.CheckIdRequest;
+import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
 
@@ -22,22 +23,41 @@ public class MemberServiceImpl implements MemberService {
 
 	/**
 	 * 회원 등록(회원가입)
-	 * @param memberDto
+	 * @param CreateMemberRequest
 	 */
 	@Override
-	public void save(MemberDto memberDto) {
+	public void save(CreateMemberRequest dto) {
 		// 생년월일 조합
 		LocalDate birth = LocalDate.of(
-				memberDto.getYear(), 
-				memberDto.getMonth(), 
-				memberDto.getDay()
+				dto.getYear(), 
+				dto.getMonth(), 
+				dto.getDay()
 		);
 		
 		// 비밀번호 암호화
-		String encodePW = passwordEncoder.encode(memberDto.getPassword()); 
+		String encodePW = passwordEncoder.encode(dto.getPassword()); 
 		
-		Member member = Member.createMember(memberDto, encodePW, birth); // Member 객체 생성
+		Member member = Member.createMember(dto, encodePW, birth); // Member 객체 생성
 		memberMapper.save(member); 
+	}
+
+	/**
+	 * 아이디 중복 확인
+	 * @param CheckIdRequest
+	 */
+	@Override
+	public Boolean idCheck(CheckIdRequest dto) {
+		Boolean exist = false; // 로그인 Id 존재 여부
+		
+		String loginId = dto.getLoginId(); // 로그인 Id
+		
+		int result = memberMapper.idCheck(loginId); // 로그인 Id 중복 확인
+		
+		if (result == 1) { // 존재한다면
+			exist = true;  // 존재여부 : true
+		}
+		
+		return exist;
 	}
 	
 	
