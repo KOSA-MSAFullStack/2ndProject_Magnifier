@@ -44,6 +44,11 @@
     /* gap: 45px; */
 }
 
+.checkMsg {
+	display: flex;
+	align-items: center;
+}
+
 .label {
     font-size: 40px;
     font-weight: 400;

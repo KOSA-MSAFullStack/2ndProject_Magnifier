@@ -13,15 +13,17 @@
 		<result property="gender" column="gender" />
 		<result property="phoneNumber" column="phone_number" />
 		<result property="birth" column="birth" />
+		<result property="postNumber" column="post_number" />
 		<result property="address" column="address" />
+		<result property="addressDetail" column="address_detail" />
+		<result property="reference" column="reference" />
 		<result property="enabled" column="enabled" />
 		<result property="auth" column="auth" />
 	</resultMap>
 
 	<!-- 회원 조회 -->
 	<select id="read" resultMap="memberMap" parameterType="String">
-		SELECT member_id, login_id, password, name, gender, phone_number, birth,
-		address, enabled, auth
+		SELECT member_id, login_id, password, name, gender, phone_number, birth, post_number, address, address_detail, reference, enabled, auth
 		FROM member
 		WHERE login_id = #{loginId}
 	</select>
@@ -29,8 +31,15 @@
 	<!-- 회원 등록 -->
 	<insert id="save" parameterType="com.magnifier.member.entity.Member">
 		INSERT INTO zoomin.MEMBER
-		(member_id, login_id, password, name, gender, phone_number, birth, address)
-		values (MEMBER_SEQ.NEXTVAL, #{loginId}, #{password}, #{name}, #{gender}, #{phoneNumber}, #{birth}, #{address})
+		(member_id, login_id, password, name, gender, phone_number, birth, post_number, address, address_detail, reference)
+		values (MEMBER_SEQ.NEXTVAL, #{loginId}, #{password}, #{name}, #{gender}, #{phoneNumber}, #{birth}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
 	</insert>
+	
+	<!-- 아이디 중복확인 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM member
+		WHERE login_id = #{loginId}
+	</select>
 
 </mapper>
