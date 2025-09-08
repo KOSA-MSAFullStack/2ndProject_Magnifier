@@ -9,17 +9,22 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="/resources/css/signup.css" />
     <link rel="stylesheet" href="/resources/css/common.css" />
+    <!-- jquery 라이브러리 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="background"></div>
+        <!-- 공통 네비게이션 바 포함 -->
        	<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
         <div class="page-title">회원가입</div>
         
+        <!-- 회원가입 입력 폼 -->
         <form id="signupForm" class="signup-form">
             <div class="form-group name-group">
+	            <!-- 이름 입력란 -->
                 <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" />
+                <!-- 성별 선택 라디오 버튼 -->
                 <div class="gender-options">
                     <div class="radio-box">
                         <input type="radio" id="male" name="gender" value="M"/>
@@ -31,26 +36,29 @@
                     </div>
                 </div>
             </div>
+            <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
                 <input type="text" id="loginId" name="loginId" placeholder="아이디" class="input-box medium" />
                 <button type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
+            <!-- 비밀번호 및 비밀번호 확인 입력란 -->
             <div class="form-group password-group">
                 <input type="password" id="password" name="password" placeholder="비밀번호" class="input-box large" />
             </div>
             <div class="form-group password-confirm-group">
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인" class="input-box large" />
             </div>
+            <!-- 휴대폰 번호 입력란 -->
             <div class="form-group phone-group">
                 <input type="text" id="phoneNumber" name="phoneNumber" placeholder="휴대폰 번호 (번호만 작성해주세요. 예시:010XXXXXXXX )" class="input-box large" />
             </div>
-            
+            <!-- 생년월일 선택 박스: 년, 월, 일 -->
             <div class="form-group birth-group">
                 <select id="year" class="select-box year" name="year"><option selected disabled>생년월일(년도)</option></select>
                 <select id="month" class="select-box month" name="month"><option selected disabled>생년월일(월)</option></select>
                 <select id="day" class="select-box day" name="day"><option selected disabled>생년월일(일)</option></select>
             </div>
-            
+             <!-- 우편번호 입력 및 우편번호 찾기 버튼 -->
             <div class="form-group postal-group">
                 <input type="text" id="postNumber" name="postNumber" placeholder="우편번호" class="input-box medium" />
                 <button type="button" class="btn-postal-search">우편번호 찾기</button>
@@ -64,13 +72,14 @@
                 <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소" class="input-box" />
                 <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box" />
             </div>
-            
+            <!-- 회원가입 제출 버튼 -->
             <button type="submit" class="btn-submit">가입하기</button>
+            <!-- CSRF 토큰 히든 필드 (스프링 시큐리티용) -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
     </div>
     <script>
-      // 생년월일 selectBox 
+      // 생년월일 selectBox 초기화
       // 연도(60세 이상으로 설정)
 	  var yearSelect = document.getElementById("year");
 	  var currentYear = new Date().getFullYear(); // 현재 연도
@@ -100,7 +109,7 @@
 	    daySelect.appendChild(option);
 	  }
 	  
-	  // POST 요청 : 회원가입
+	  // POST 요청 : 회원가입 폼 제출 시 AJAX 처리
 	  $('#signupForm').on('submit', function(event) {
 	    event.preventDefault(); // 폼 기본 제출 차단
 	
@@ -120,26 +129,31 @@
 	      "addressDetail": $('#addressDetail').val(),
 	      "reference": $('#reference').val()
 	    };
-	
+
+		// AJAX POST 요청
 	    $.ajax({
-	      url: '/member/signup',
+	      url: '/member/signup',  // 회원가입 처리 컨트롤러 URL
 	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(formData),
+	      contentType: 'application/json', // JSON 형식으로 전송
+	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송
 	      headers: {
 	        'X-CSRF-TOKEN': '${_csrf.token}', // 스프링 시큐리티 사용
         	'Accept': 'application/json'  
 	      },
 	      success: function(response) {
 	        alert('회원가입이 완료되었습니다.');
-	        window.location.href = '/member/login';
-	      },
+	        window.location.href = '/member/login'; // 가입 완료 후 로그인 페이지로 이동
+          },
 	      error: function(xhr, status, error) {
 	        alert('회원가입에 실패했습니다.');
 	        console.error(error);
 	      }
 	    });
 	  });
+	  
+	  // 아이디 찾기
+	  $('#signupForm').on('submit', function(event) {
+	    event.preventDefault();
 </script>
 </body>
 </html>

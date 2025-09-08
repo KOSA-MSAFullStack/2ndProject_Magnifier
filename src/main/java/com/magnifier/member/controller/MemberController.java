@@ -1,6 +1,5 @@
 package com.magnifier.member.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.magnifier.member.dto.MemberDto;
 import com.magnifier.member.service.MemberService;
@@ -28,7 +26,7 @@ public class MemberController {
 	
 	private final MemberService memberService; // 서비스 의존성 주입
 	
-	public MemberController (MemberService memberService) {
+	public MemberController (MemberService memberService) { // 생성자 주입
 		this.memberService = memberService;
 	}
 	
@@ -65,6 +63,9 @@ public class MemberController {
 	    } // end if
 	}
 	
+	/**
+	 * 회원가입 화면 반환
+	 */
 	@GetMapping("/signup")
 	public void signupForm() {
 	    log.info("회원가입페이지");
