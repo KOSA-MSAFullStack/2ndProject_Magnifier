@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
  */
 @Log4j
 @Controller
-@RequestMapping("/member") // 스프링 시큐리티 권한 체크를 위한 분기처리
+@RequestMapping("/members") // 스프링 시큐리티 권한 체크를 위한 분기처리
 public class MemberController {
 	
 	private final MemberService memberService; // 서비스 의존성 주입

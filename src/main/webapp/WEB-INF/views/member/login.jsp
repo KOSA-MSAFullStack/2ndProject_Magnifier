@@ -12,7 +12,6 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인 | 개인회원</title>
-    
     <link rel="stylesheet" href="/resources/css/login.css">
     <link rel="stylesheet" href="/resources/css/common.css">
     <!-- 로그인 및 공통 스타일시트 연결 -->

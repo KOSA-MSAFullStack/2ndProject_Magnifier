@@ -14,7 +14,7 @@ import lombok.extern.log4j.Log4j;
  */
 @Log4j
 @Controller
-@RequestMapping("/enterprise/*") // 스프링 시큐리티 권한 체크를 위한 분기처리
+@RequestMapping("/enterprises") // 스프링 시큐리티 권한 체크를 위한 분기처리
 public class EnterpriseController {
 	
 	/**
