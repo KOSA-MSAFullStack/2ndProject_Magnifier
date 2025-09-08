@@ -39,14 +39,16 @@
             <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
                 <input type="text" id="loginId" name="loginId" placeholder="아이디" class="input-box medium" />
-                <button type="button" class="btn-duplicate-check">중복 확인</button>
+                <button id="idCheck" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
+            <!--<div id="messageId" class="form-group id-group error-msg"></div>-->
+            <span id="messageId" class="error-msg"><c:out value="${error}" /></span>
             <!-- 비밀번호 및 비밀번호 확인 입력란 -->
             <div class="form-group password-group">
                 <input type="password" id="password" name="password" placeholder="비밀번호" class="input-box large" />
             </div>
             <div class="form-group password-confirm-group">
-                <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호 확인" class="input-box large" />
+                <input type="password" id="passwordCheck" name="passwordConfirm" placeholder="비밀번호 확인" class="input-box large" />
             </div>
             <!-- 휴대폰 번호 입력란 -->
             <div class="form-group phone-group">
@@ -81,18 +83,18 @@
     <script>
       // 생년월일 selectBox 초기화
       // 연도(60세 이상으로 설정)
-	  var yearSelect = document.getElementById("year");
-	  var currentYear = new Date().getFullYear(); // 현재 연도
-	  var minYear = currentYear - 60; // 60세 이상을 위한 최소 연도
+	  const yearSelect = document.getElementById("year");
+	  const currentYear = new Date().getFullYear(); // 현재 연도
+	  const minYear = currentYear - 60; // 60세 이상을 위한 최소 연도
 	  for (var year = minYear; year >= 1900; year--) { // minYear부터 1900년까지 차례로 option 추가
-	    var option = document.createElement("option"); // 옵션 요소 생성
+		const option = document.createElement("option"); // 옵션 요소 생성
 	    option.value = year; // value 속성 설정
 	    option.text = year;  // 표시할 text 설정
 	    yearSelect.appendChild(option); // selectBox에 옵션 추가
 	  }
 	  
 	  // 월(1월 ~ 12월)
-	  var monthSelect = document.getElementById("month");
+	  const monthSelect = document.getElementById("month");
 	  for (var month = 1; month <= 12; month++) {
 	    var option = document.createElement("option");
 	    option.value = month;
@@ -101,9 +103,9 @@
 	  }
 
 	  // 일(1일 ~ 31일)
-	  var daySelect = document.getElementById("day");
+	  const daySelect = document.getElementById("day");
 	  for (var day = 1; day <= 31; day++) {
-	    var option = document.createElement("option");
+		const option = document.createElement("option");
 	    option.value = day;
 	    option.text = day;
 	    daySelect.appendChild(option);
@@ -114,7 +116,7 @@
 	    event.preventDefault(); // 폼 기본 제출 차단
 	
 	    // 폼 데이터 JSON 객체로 생성
-	    var formData = {
+	    const formData = {
    		  "name": $('#name').val(),
   	      "gender": $('input[name="gender"]:checked').val(),
   	      "loginId": $('#loginId').val(),
@@ -149,6 +151,52 @@
 	        console.error(error);
 	      }
 	    });
+	  });
+	  
+	  // POST 요청 : 아이디 중복확인
+	  
+	  let checkId = 0;
+	  $('#idCheck').on('click', function(event) {
+	    if ($('#loginId').val().trim() =='') {
+	    	$('#messageId').text('아이디를 입력하세요.');
+	    	return; // 빈 값일 때 ajax 요청 중단
+	    }
+	    
+	 	// loginId를 JSON 객체로 생성
+	    const loginData = {
+   		  "loginId": $('#loginId').val()
+	    };
+	 
+	    $.ajax({
+		      url: '/member/idCheck',  // 회원가입 처리 컨트롤러 URL
+		      type: 'POST',
+		      contentType: 'application/json', // JSON 형식으로 전송
+		      data: JSON.stringify(loginData),  // JSON 문자열로 변환 후 전송
+		      headers: {
+		        'X-CSRF-TOKEN': '${_csrf.token}', // 스프링 시큐리티 사용
+	        	'Accept': 'application/json'  
+		      },
+		      success: function(response) {
+		    	  if (response.result == 'idNotFound'){
+                    $('#messageId').text('사용가능합니다.');
+                    checkId = 1;	
+                  } else if (param.result == 'idDuplicated'){
+                    $('#messageId').text('존재하는 아이디입니다.');
+                    checkId = 0;
+                  } else if (param.result == 'notMatchPattern'){
+                    $('#messageId').text('4~12자의 영문 소문자, 숫자만 사용 가능합니다.');
+                    checkId = 0;
+                  } else {
+                    checkId = 0;
+                    alert('아이디 중복체크 오류');
+                }
+	          },
+		      error: function(xhr, status, error) {
+		        alert('중복확인에 실패했습니다.');
+		        console.error(error);
+		      }
+		    });
+	    
 	  });
 </script>
 </body>

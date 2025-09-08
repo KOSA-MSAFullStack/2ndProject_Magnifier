@@ -2,7 +2,7 @@ package com.magnifier.member.entity;
 
 import java.time.LocalDate;
 
-import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.dto.CreateMemberRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,15 +32,15 @@ public class Member {
 	 * @param memberDto
 	 * @return
 	 */
-	public static Member createMember(MemberDto memberDto, String encodePW, LocalDate birth) {
+	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
 		Member member = Member.builder()
-				.loginId(memberDto.getLoginId())
-				.name(memberDto.getName())
-				.gender(memberDto.getGender())
+				.loginId(dto.getLoginId())
+				.name(dto.getName())
+				.gender(dto.getGender())
 				.password(encodePW)
-				.phoneNumber(memberDto.getPhoneNumber())
+				.phoneNumber(dto.getPhoneNumber())
 				.birth(birth)
-				.address(memberDto.getAddress())
+				.address(dto.getAddress())
 				.build();
 		return member;
 	}

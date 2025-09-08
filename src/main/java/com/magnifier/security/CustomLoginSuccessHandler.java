@@ -28,6 +28,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 로그인 성공 로그 출력
         log.warn("Login Success");
         log.warn("auth: " + auth);
+        
+        // 사용자 정보를 세션에 저장
+        request.getSession().setAttribute("user", auth.getPrincipal());
 
         // 사용자의 권한(ROLE)을 수집하는 리스트
         List<String> roleNames = new ArrayList<>();
@@ -53,5 +56,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // 기본적으로 '/login'(홈)로 이동
         response.sendRedirect("/login");
+        
     } // end onAuthenticationSuccess
 } // end class

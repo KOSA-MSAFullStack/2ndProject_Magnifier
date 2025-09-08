@@ -2,7 +2,7 @@ package com.magnifier.member.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.entity.Member;
 
 @Mapper
