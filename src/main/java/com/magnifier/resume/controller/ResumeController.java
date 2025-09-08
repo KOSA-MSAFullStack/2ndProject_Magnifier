@@ -5,26 +5,58 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.magnifier.resume.dto.ResumeDto;
 import com.magnifier.resume.service.ResumeService;
 
 import lombok.extern.log4j.Log4j;
 
-@RestController
+/**
+ * 
+ * @author 이상우
+ *
+ */
+@Controller
 @RequestMapping("/resumes")
 @Log4j
 public class ResumeController {
 
 	@Autowired
-    private ResumeService service;  
+    private ResumeService service;
+	
+	@GetMapping("/")
+    public String resume(Model model) {
+        // 일단 임시값, 회원정보 필요
+		int memberId = 4;
+        
+        // Service 계층으로 이력서 존재 여부 확인 요청
+        boolean hasResume = service.hasResume(memberId); 
+        
+        // hasResume 변수를 View로 전달
+        model.addAttribute("hasResume", hasResume);
+        
+        return "resumes/resume"; // resume.jsp 반환
+    }
+	
+	// 이력서 등록 폼을 보여주는 페이지
+    @GetMapping("/create")
+    public String showCreateForm() {
+        return "resumes/create";
+    }
+
+    // 이력서 상세 정보를 보여주는 페이지
+    @GetMapping("/view")
+    public String viewResumePage() {
+        return "resumes/view";
+    }
 	
 	@PostMapping
     public ResponseEntity<String> register(@RequestBody ResumeDto resumeDto) {
@@ -38,7 +70,7 @@ public class ResumeController {
         }
     }
 	
-	@GetMapping("/{memberId}")
+	@GetMapping("/view/{memberId}")
     public ResponseEntity<List<ResumeDto>> findResumesByMemberId(@PathVariable("memberId") int memberId) {
         log.info("findResumesByMemberId 호출: " + memberId);
         

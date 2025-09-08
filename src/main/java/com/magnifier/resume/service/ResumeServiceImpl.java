@@ -32,4 +32,13 @@ public class ResumeServiceImpl implements ResumeService {
 		return mapper.modifyResume(resumeDto);
 	}
 
+	@Override
+	public boolean hasResume(int memberId) {
+		// Mapper 계층의 메소드를 호출하여 이력서 개수를 가져옴
+        int resumeCount = mapper.countResumeByUserId(memberId);
+        
+        // 이력서 개수가 1개 이상이면 true, 아니면 false 반환
+        return resumeCount > 0; 
+	}
+
 }

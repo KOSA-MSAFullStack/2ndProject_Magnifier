@@ -104,5 +104,14 @@
 		 	graduate_date = #{graduateDate}
 		 where resume_id=#{resumeId}
 	 </update>
+	 
+	 <select id="countResumeByUserId" resultType="int">
+	 	SELECT
+	 		count(*)
+	 	FROM
+	 		resume
+	 	WHERE
+	 		member_id = #{memberId}
+	 </select>
 
 </mapper>

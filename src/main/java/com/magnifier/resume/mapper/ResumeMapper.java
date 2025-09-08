@@ -16,4 +16,7 @@ public interface ResumeMapper {
 	
 	// 이력서 수정
 	public int modifyResume(ResumeDto dto);
+	
+	// 이력서 확인
+	public int countResumeByUserId(int memberId);
 }
