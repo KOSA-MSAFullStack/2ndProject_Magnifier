@@ -35,5 +35,5 @@ public class RecruitDto {
 	private LocalDate deadLine;			// 접수 마감일
 	private String step;				// 전형 절차
 	private String contact;				// 담당자 연락처
-	private int enterpriseId;			// 기업회원 ID (FK)
+	private Integer enterpriseId;			// 기업회원 ID (FK)
 }
