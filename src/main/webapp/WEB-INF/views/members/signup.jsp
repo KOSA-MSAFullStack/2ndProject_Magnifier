@@ -155,8 +155,8 @@
 	  	loginId 패턴 검사
 	  */
 	  $('#loginId').on('input', function(){
-      // 한글 제외하고 영문, 숫자만 필터링
-      this.value = this.value.replace(/[^a-z0-9]/gi, '');
+      	// 한글 제외하고 영문, 숫자만 필터링
+		this.value = this.value.replace(/[^가-힣a-z0-9]/gi, '');
 	  });
 	  
 	  /*

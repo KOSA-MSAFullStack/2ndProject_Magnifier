@@ -23,7 +23,10 @@ public class Member {
 	private String password;    // 비밀번호
 	private String phoneNumber; // 휴대폰 번호
 	private LocalDate birth;    // 생년월일
+	private String postNumber;  // 우편번호
 	private String address;     // 주소
+	private String addressDetail; // 상세주소
+	private String reference;     // 참고사항
 	private Boolean enabled;    // 로그인 활성화 여부(default: 1)
 	private String auth;        // 권한(default: ROLE_MEMBER)
 	
@@ -40,7 +43,10 @@ public class Member {
 				.password(encodePW)
 				.phoneNumber(dto.getPhoneNumber())
 				.birth(birth)
+				.postNumber(dto.getPostNumber())
 				.address(dto.getAddress())
+				.addressDetail(dto.getAddressDetail())
+				.reference(dto.getReference())
 				.build();
 		return member;
 	}
