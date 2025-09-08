@@ -19,6 +19,7 @@ body {
     --background: #C8D9E4;
     --red: #ff0000;
     --ivory: #FFFAFA;
+    --green: #008000;
 }
 
 .navbar {
@@ -72,4 +73,11 @@ body {
 .error-msg {
 	color: var(--red); 
 	font-size: 30px;
+	margin-left: 30px;
+}
+
+.success-msg {
+	color: var(--green); 
+	font-size: 30px;
+	margin-left: 30px;
 }

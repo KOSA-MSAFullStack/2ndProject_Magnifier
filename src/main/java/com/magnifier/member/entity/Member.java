@@ -2,7 +2,7 @@ package com.magnifier.member.entity;
 
 import java.time.LocalDate;
 
-import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.dto.CreateMemberRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,24 +23,30 @@ public class Member {
 	private String password;    // 비밀번호
 	private String phoneNumber; // 휴대폰 번호
 	private LocalDate birth;    // 생년월일
+	private String postNumber;  // 우편번호
 	private String address;     // 주소
+	private String addressDetail; // 상세주소
+	private String reference;     // 참고사항
 	private Boolean enabled;    // 로그인 활성화 여부(default: 1)
 	private String auth;        // 권한(default: ROLE_MEMBER)
 	
 	/**
 	 *  memberDto -> member 빌더로 생성
-	 * @param memberDto
+	 * @param CreateMemberRequest
 	 * @return
 	 */
-	public static Member createMember(MemberDto memberDto, String encodePW, LocalDate birth) {
+	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
 		Member member = Member.builder()
-				.loginId(memberDto.getLoginId())
-				.name(memberDto.getName())
-				.gender(memberDto.getGender())
+				.loginId(dto.getLoginId())
+				.name(dto.getName())
+				.gender(dto.getGender())
 				.password(encodePW)
-				.phoneNumber(memberDto.getPhoneNumber())
+				.phoneNumber(dto.getPhoneNumber())
 				.birth(birth)
-				.address(memberDto.getAddress())
+				.postNumber(dto.getPostNumber())
+				.address(dto.getAddress())
+				.addressDetail(dto.getAddressDetail())
+				.reference(dto.getReference())
 				.build();
 		return member;
 	}
