@@ -17,7 +17,7 @@
         <result property="content" column="CONTENT" />
         <result property="careerCondition" column="CAREER_CONDITION" />
         <result property="education" column="EDUCATION" />
-        <result property="employeeType" column="EMPLOYMENT_TYPE" />
+        <result property="employmentType" column="EMPLOYMENT_TYPE" />
         <result property="headCount" column="HEADCOUNT" />
         <result property="workingArea" column="WORKING_AREA" />
         <result property="salaryCondition" column="SALARY_CONDITION" />
@@ -44,7 +44,7 @@
         INSERT INTO RECRUIT (
             <include refid="recruitColumns" />
         ) VALUES (
-            RECRUIT_SEQ.NEXTVAL, #{title}, #{content}, #{careerCondition}, #{education}, #{employeeType},
+            RECRUIT_SEQ.NEXTVAL, #{title}, #{content}, #{careerCondition}, #{education}, #{employmentType},
             #{headCount}, #{workingArea}, #{salaryCondition}, #{workingHours},
             #{workingType}, #{insurance}, #{retirementSalary}, #{deadLine},
             #{step}, #{contact}, #{enterpriseId}
@@ -83,7 +83,7 @@
                CONTENT = #{content}, 
                CAREER_CONDITION = #{careerCondition}, 
                EDUCATION = #{education}, 
-               EMPLOYMENT_TYPE = #{employeeType},
+               EMPLOYMENT_TYPE = #{employmentType},
                HEADCOUNT = #{headCount}, 
                WORKING_AREA = #{workingArea}, 
                SALARY_CONDITION = #{salaryCondition}, 
