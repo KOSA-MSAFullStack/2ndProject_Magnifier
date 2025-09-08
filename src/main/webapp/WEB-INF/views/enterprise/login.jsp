@@ -17,10 +17,10 @@
         <main class="main-center">
             <div class="login-card">
                 <div class="login-tabs">
-                    <div class="login-tab"><a href="/member/login">개인 회원 로그인</a></div>
+                    <div class="login-tab"><a href="/members/login">개인 회원 로그인</a></div>
                     <div class="login-tab active">기업 회원 로그인</div>
                 </div>
-                <form class="login-form" method="post" action="/enterprise/loginProcess">
+                <form class="login-form" method="post" action="/enterprises/loginProcess">
                     <div class="form-fields">
                         <input type="text" placeholder="아이디" name="username" />
                         <input type="password" placeholder="비밀번호" name="password" />
