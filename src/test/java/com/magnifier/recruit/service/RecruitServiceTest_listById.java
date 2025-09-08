@@ -66,7 +66,7 @@ public class RecruitServiceTest_listById {
         assertNotNull(resultList);
         assertEquals(2, resultList.size());
         assertEquals("공고1", resultList.get(0).getTitle());
-        assertEquals(enterpriseId, resultList.get(0).getEnterpriseId());
+        assertEquals(enterpriseId, resultList.get(0).getEnterpriseId().intValue());
         log.info("testGetRecruitListById_Success 테스트 성공: " + resultList);
     }
 
