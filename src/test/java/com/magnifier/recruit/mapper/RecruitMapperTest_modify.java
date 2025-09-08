@@ -13,6 +13,9 @@
 
 package com.magnifier.recruit.mapper;
 
+import org.springframework.transaction.annotation.Transactional;
+
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import java.sql.SQLException;
@@ -28,6 +31,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
+@Transactional
 public class RecruitMapperTest_modify {
 
     @Autowired
