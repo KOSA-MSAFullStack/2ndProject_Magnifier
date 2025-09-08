@@ -150,10 +150,6 @@
 	      }
 	    });
 	  });
-	  
-	  // 아이디 찾기
-	  $('#signupForm').on('submit', function(event) {
-	    event.preventDefault();
 </script>
 </body>
 </html>
