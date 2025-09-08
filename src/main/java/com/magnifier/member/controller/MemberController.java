@@ -86,4 +86,11 @@ public class MemberController {
 		memberService.save(dto); // 비즈니스 로직 서비스에서 처리
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}	
+	
+	// TODO:: 테스트
+	@GetMapping("/main")
+	public void test() {
+	    log.info("메인페이지");
+	}
+	
 }
