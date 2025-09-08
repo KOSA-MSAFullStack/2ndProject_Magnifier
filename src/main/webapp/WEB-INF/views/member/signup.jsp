@@ -132,7 +132,7 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/member/signup',  // 회원가입 처리 컨트롤러 URL
+	      url: '/members/signup',  // 회원가입 처리 컨트롤러 URL
 	      type: 'POST',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송

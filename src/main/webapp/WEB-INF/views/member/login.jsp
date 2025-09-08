@@ -12,12 +12,6 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인 | 개인회원</title>
-<<<<<<< HEAD
-    <!-- 브라우저 탭에 표시될 타이틀 -->
-
-=======
-	<link rel="stylesheet" href="/resources/css/common.css">
->>>>>>> 2a788f73a7338c8ebd36757a1a9b5b9c5e99035f
     <link rel="stylesheet" href="/resources/css/login.css">
     <link rel="stylesheet" href="/resources/css/common.css">
     <!-- 로그인 및 공통 스타일시트 연결 -->
@@ -35,11 +29,11 @@
             	<!-- 개인회원, 기업회원 로그인 탭 -->
                 <div class="login-tabs">
                     <div class="login-tab active">개인 회원 로그인</div>
-                    <div class="login-tab"><a href="/enterprise/login">기업 회원 로그인</a></div>
+                    <div class="login-tab"><a href="/enterprises/login">기업 회원 로그인</a></div>
                 </div>
                 
 				<!-- 로그인 처리 URL로 POST 전송 -->
-                <form class="login-form" method="post" action="/member/loginProcess">
+                <form class="login-form" method="post" action="/members/loginProcess">
                     <div class="form-fields">
                     	<!-- 아이디, 비밀번호 입력 필드 -->
                         <input type="text" placeholder="아이디" name="username" />
@@ -63,8 +57,6 @@
         </main>
     </div>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 2a788f73a7338c8ebd36757a1a9b5b9c5e99035f
+
+
