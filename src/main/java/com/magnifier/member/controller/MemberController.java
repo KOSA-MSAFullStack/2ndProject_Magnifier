@@ -75,7 +75,7 @@ public class MemberController {
 	
 	/**
 	 * 회원가입 요청
-	 * @param memberDto
+	 * @param CreateMemberRequest
 	 * @param model
 	 * @return 회원가입 시 로그인 페이지로 이동
 	 */

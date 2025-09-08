@@ -32,5 +32,12 @@
 		(member_id, login_id, password, name, gender, phone_number, birth, address)
 		values (MEMBER_SEQ.NEXTVAL, #{loginId}, #{password}, #{name}, #{gender}, #{phoneNumber}, #{birth}, #{address})
 	</insert>
+	
+	<!-- 아이디 중복확인 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM member
+		WHERE login_id = #{loginId}
+	</select>
 
 </mapper>

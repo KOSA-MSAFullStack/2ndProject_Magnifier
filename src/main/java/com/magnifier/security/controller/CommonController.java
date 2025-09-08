@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.magnifier.member.dto.CheckIdRequest;
-import com.magnifier.member.dto.CheckIdResponse;
+import com.magnifier.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -25,6 +25,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class CommonController {
+	
+	private final MemberService memberService; // 서비스 의존성 주입
+	
+	public CommonController (MemberService memberService) { // 생성자 주입
+		this.memberService = memberService;
+	}
 
 	/**
 	 * 로그아웃 요청 시
@@ -53,7 +59,7 @@ public class CommonController {
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> idCheck(@RequestBody CheckIdRequest dto) {
-		// 어디에 값을 넣지?
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		Boolean exist = memberService.idCheck(dto); // 로그인 Id 존재 여부
+		return ResponseEntity.ok().body(exist); // 존재 여부 반환
 	}
 }

@@ -29,7 +29,7 @@ public class Member {
 	
 	/**
 	 *  memberDto -> member 빌더로 생성
-	 * @param memberDto
+	 * @param CreateMemberRequest
 	 * @return
 	 */
 	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
