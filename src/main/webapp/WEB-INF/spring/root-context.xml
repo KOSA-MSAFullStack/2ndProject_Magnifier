@@ -39,26 +39,15 @@
 
 	<!-- [4] Mapper 자동 스캔 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.magnifier.**.mapper"/>
+        <property name="basePackage" value="com.magnifier"/>
+		<!-- <property name="basePackage" value="com.magnifier.**.mapper"/> -->
+
+		<!-- annotationClass: Mapper 스캐너는 com.magnifier 전체를 훑어보더라도 정확히 `@Mapper`가 붙은 인터페이스만을 골라서 Bean으로 생성-->
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
         <property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"/>
     </bean>
-	<!--
-	<mybatis-spring:scan base-package="com.magnifier.applylist.mapper" />
-	<mybatis-spring:scan base-package="com.magnifier.enterprise.mapper" />
-	<mybatis-spring:scan base-package="com.magnifier.likes.mapper" />
-	<mybatis-spring:scan base-package="com.magnifier.member.mapper" />
-	<mybatis-spring:scan base-package="com.magnifier.recruit.mapper" />
-	<mybatis-spring:scan base-package="com.magnifier.resume.mapper" />
-	-->
 
 	<!-- [5] 서비스 컴포넌트 스캔 -->
-	<context:component-scan base-package="com.magnifier.**.service"/>
-	<!--
-	<context:component-scan base-package="com.magnifier.applylist.service"></context:component-scan>
-	<context:component-scan base-package="com.magnifier.enterprise.service"></context:component-scan>
-	<context:component-scan base-package="com.magnifier.likes.service"></context:component-scan>
-	<context:component-scan base-package="com.magnifier.member.service"></context:component-scan>
-	<context:component-scan base-package="com.magnifier.recruit.service"></context:component-scan>
-	<context:component-scan base-package="com.magnifier.resume.service"></context:component-scan>
-	-->
+	<context:component-scan base-package="com.magnifier"/>
+	<!-- <context:component-scan base-package="com.magnifier.**.service"/> -->
 </beans>
