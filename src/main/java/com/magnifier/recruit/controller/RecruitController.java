@@ -28,11 +28,19 @@ public class RecruitController {
     public String registerForm() {
         return "recruit/register"; // recruit/register.jsp 뷰 반환
     }
+
     // 채용 공고 등록_POST
     @PostMapping("/register")
-    public String register(@ModelAttribute RecruitDto recruitDto) {
+    public String register(@ModelAttribute RecruitDto recruitDto, Model model) { // Model 추가
         try {
+            // enterpriseId가 비어있는지 확인 (로그인하지 않은 사용자의 접근 차단)
+            if (recruitDto.getEnterpriseId() == null) {
+                model.addAttribute("error", "로그인이 필요합니다.");
+                return "enterprise/login"; // 로그인 페이지로 리다이렉트
+            }
+
             // 채용 공고 등록 로직 구현
+            recruitService.insertRecruit(recruitDto); // 서비스 계층에 공고 등록 요청
             System.out.println("채용 공고 등록: " + recruitDto.getTitle());
             return "redirect:/recruit/list"; // 등록 성공 시, 목록 페이지로 리다이렉트
         } catch (Exception e) {
@@ -46,7 +54,7 @@ public class RecruitController {
     public String list(Model model) {
         try {
             // 전체 채용 공고 목록 조회
-            List<RecruitDto> recruitList = recruitService.getRecruitList(); 
+            List<RecruitDto> recruitList = recruitService.getRecruitList();
             model.addAttribute("recruitList", recruitList);
             return "recruit/list"; // recruit/list.jsp 뷰 반환
         } catch (Exception e) {
@@ -96,6 +104,7 @@ public class RecruitController {
             return "error/errorPage";
         }
     }
+
     // 채용 공고 수정_POST
     @PostMapping("/modify")
     public String modify(RecruitDto recruitDto) {
