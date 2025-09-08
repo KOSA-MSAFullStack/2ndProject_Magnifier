@@ -12,8 +12,12 @@
 <head>
     <meta charset="UTF-8">
     <title>로그인 | 개인회원</title>
+<<<<<<< HEAD
     <!-- 브라우저 탭에 표시될 타이틀 -->
 
+=======
+	<link rel="stylesheet" href="/resources/css/common.css">
+>>>>>>> 2a788f73a7338c8ebd36757a1a9b5b9c5e99035f
     <link rel="stylesheet" href="/resources/css/login.css">
     <link rel="stylesheet" href="/resources/css/common.css">
     <!-- 로그인 및 공통 스타일시트 연결 -->
@@ -59,4 +63,8 @@
         </main>
     </div>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 2a788f73a7338c8ebd36757a1a9b5b9c5e99035f
