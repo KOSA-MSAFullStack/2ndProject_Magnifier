@@ -41,18 +41,19 @@
             
             <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
-                <input type="text" id="loginId" name="loginId" placeholder="아이디" class="input-box medium" required/>
+                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" required/>
                 <button id="idCheck" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
-            <div class="checkMsg"></div>
+            <div id="idCheckMsg"></div>
             
             <!-- 비밀번호 및 비밀번호 확인 입력란 -->
             <div class="form-group password-group">
-                <input type="password" id="password" name="password" placeholder="비밀번호 (최소  4자, 최대  12자를 입력하세요.)" class="input-box large" minlength="4" maxlength="12" required/>
+                <input type="password" id="password" name="password" placeholder="비밀번호 (최소  4자, 최대  12자를 입력하세요.)" class="input-box large password" minlength="4" maxlength="12" required/>
             </div>
             <div class="form-group password-confirm-group">
-                <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" class="input-box large" minlength="4" maxlength="12" required/>
+                <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" class="input-box large password" minlength="4" maxlength="12" required/>
             </div>
+            <div id="passwordCheckMsg"></div>
             
             <!-- 휴대폰 번호 입력란 -->
             <div class="form-group phone-group">
@@ -119,13 +120,44 @@
 	    daySelect.appendChild(option);
 	  }
 	  
+	  //== 비밀번호 재확인 ==//
+	  $('.password').focusout(function(){
+	    const password = $("#password").val(); // 비밀번호
+	    const passwordCheck = $("#passwordCheck").val(); // 비밀번호 확인
+	
+	    if (password !== "" || passwordCheck !== "") {
+	        // 메시지 초기화 (기존 메시지 제거)
+	        $("#passwordCheckMsg").empty();
+	
+	        if (password === passwordCheck) { // 일치할 때
+	            $("#passwordCheckMsg")
+	                .css({ 'margin-bottom': '30px' })
+	                .append('<span class="success-msg">비밀번호가 일치합니다.</span>');
+	        } else { // 일치하지 않을 때
+	            $("#passwordCheckMsg")
+	                .css({ 'margin-bottom': '30px' })
+	                // 오류 메시지 내용 수정
+	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
+	        }
+	    } else {
+	        // 둘 다 비어있으면 메시지 제거
+	        $("#passwordCheckMsg").empty();
+	    }
+	  });
+	  
+	  //== loginId 영문만 가능 ==//
+	  $('#loginId').on('input', function(){
+      // 한글 제외하고 영문, 숫자만 필터링
+      this.value = this.value.replace(/[^a-z0-9]/gi, '');
+	  });
+	  
 	  //== POST 요청 : 아이디 중복확인 ==//
 	  let checkId = 0;
 	  $('#idCheck').on('click', function(event) {
 		// 중복확인 결과 메세지 동적할당, 있으면 텍스트만 변경
         if ($('#loginId').val().trim() === '') {
           if ($('#messageId').length === 0) {
-        	  $('.checkMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId" class="error-msg">아이디를 입력해주세요.</span>');
+        	  $('#idCheckMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId" class="error-msg">아이디를 입력해주세요.</span>');
           } else {
             $('#messageId').text('아이디를 입력해주세요.')
                            .removeClass('success-msg')
@@ -151,7 +183,7 @@
 		      success: function(response) {
 		    	// 중복확인 결과 메세지 동적할당
 	            if ($('#messageId').length === 0) {
-	            	$('.checkMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId"></span>');
+	            	$('#idCheckMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId"></span>');
 	            }
 	    	    if (response === true) {
 	    	        $('#messageId').text('존재하는 아이디입니다.')
