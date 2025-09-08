@@ -36,6 +36,22 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 스프링 시큐리티 한글 처리 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
 	<!-- 스프링 시큐리티의 필터 체인을 웹 필터로 등록해 웹 요청에 보안 적용 -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>

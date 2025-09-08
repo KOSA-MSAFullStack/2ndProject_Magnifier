@@ -10,14 +10,15 @@ body {
 }
 
 :root{
-    --blue: #287bff;
-    --darkblue: #0056b3;
+    --blue: #0056b3;
+    --darkblue: #2A4089;
     --white: #fff;
     --grey: #f5f5f5;
     --black1: #222;
     --black2: #999;
     --background: #C8D9E4;
     --red: #ff0000;
+    --ivory: #FFFAFA;
 }
 
 .navbar {

@@ -39,8 +39,8 @@ public class MemberTests {
     		+ "(?,?,?,?,?,?,?,?)";
    
     // 임시 데이터
-    String loginId = "asd";
-    String name = "leee";
+    String loginId = "ruddk1221";
+    String name = "허정범";
     String gender = "M";  
     String phone = "01000000000";  
     String birth = "19900101";       
@@ -56,7 +56,7 @@ public class MemberTests {
 	    pstmt.setString(2, loginId);
 	    pstmt.setString(3, name);
 	    pstmt.setString(4, gender);
-	    pstmt.setString(5, passwordEncoder.encode("asd"));
+	    pstmt.setString(5, passwordEncoder.encode("pw"));
 	    pstmt.setString(6, phone);
 	    pstmt.setString(7, birth);
 	    pstmt.setString(8, address);

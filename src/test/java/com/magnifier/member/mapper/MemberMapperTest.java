@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.entity.Member;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,8 +27,8 @@ public class MemberMapperTest {
 	@Test
 	public void testRead() {
 		String username = "ruddk1221"; // 조회할 ID
-		MemberDto dto = mapper.read(username); // mapper로 회원 조회
-		log.info("dto : " + dto);
+		Member member = mapper.read(username); // mapper로 회원 조회
+		log.info("member : " + member);
 
 	}// end testRead()
 }// end class

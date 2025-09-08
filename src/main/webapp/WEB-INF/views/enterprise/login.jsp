@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <title>로그인 | 기업회원</title>
     <link rel="stylesheet" href="/resources/css/login.css">
+    <link rel="stylesheet" href="/resources/css/common.css">
     <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -31,7 +32,10 @@
                 <div class="login-links">
                     <a href="#">아이디 찾기</a> | 
                     <!-- <a href="#">비밀번호 찾기</a> |  -->
-                    <a href="#">회원가입</a>
+                    <a href="/member/signup">회원가입</a>
                 </div>
             </div>
         </main>
+	</div>
+</body>
+</html>
