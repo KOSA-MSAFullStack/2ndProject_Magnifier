@@ -66,5 +66,10 @@ body {
 
 .error-msg {
 	color: var(--red); 
+	font-size: 26px;
+}
+
+.error-msg {
+	color: var(--red); 
 	font-size: 30px;
 }
