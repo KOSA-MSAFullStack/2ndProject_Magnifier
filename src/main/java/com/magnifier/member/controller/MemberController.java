@@ -75,8 +75,7 @@ public class MemberController {
 	
 	/**
 	 * 회원가입 요청
-	 * @param CreateMemberRequest
-	 * @param model
+	 * @param dto
 	 * @return 회원가입 시 로그인 페이지로 이동
 	 */
 	@PostMapping("/signup")
