@@ -2,9 +2,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
         http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 
 	<!-- Root Context: 프로젝트 전체에서 공유하는 주요 자원(데이터베이스 연결, 공통 Bean 등)을 등록하는 설정 파일입니다. 
@@ -46,8 +48,17 @@
         <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
         <property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"/>
     </bean>
-
+	
 	<!-- [5] 서비스 컴포넌트 스캔 -->
 	<context:component-scan base-package="com.magnifier"/>
 	<!-- <context:component-scan base-package="com.magnifier.**.service"/> -->
+
+
+	<!-- [6] 트랜잭션 매니저 등록 -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"/>
+		</bean>
+
+	<!-- [7] @Transactional 어노테이션 활성화 -->
+		<tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
