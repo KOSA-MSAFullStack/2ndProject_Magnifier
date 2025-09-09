@@ -30,11 +30,9 @@
  import org.springframework.test.context.web.WebAppConfiguration;
  import org.springframework.test.web.servlet.MockMvc;
  import org.springframework.test.web.servlet.setup.MockMvcBuilders;
- 
  import java.time.LocalDate;
  import java.util.Arrays;
  import java.util.List;
- 
  import static org.mockito.Mockito.*;
  import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
  import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,7 +66,7 @@
          // GET /recruits/register 요청 수행
          mockMvc.perform(get("/recruits/register"))
                  .andExpect(status().isOk())
-                 .andExpect(view().name("recruit/register"));
+                 .andExpect(view().name("recruits/register"));
      }
  
      // 채용 공고 등록 처리 테스트
@@ -130,7 +128,7 @@
          // GET /recruits/list 요청 수행
          mockMvc.perform(get("/recruits/list"))
                  .andExpect(status().isOk())
-                 .andExpect(view().name("recruit/list")) // 뷰 이름 "recruit/list" 검증
+                 .andExpect(view().name("recruits/list")) // 뷰 이름 "recruit/list" 검증
                  .andExpect(model().attributeExists("recruitList")); // 모델에 "recruitList" 속성 존재 검증
  
          verify(recruitService, times(1)).getRecruitList();
@@ -147,7 +145,7 @@
          // GET /recruits/list/{enterpriseId} 요청 수행
          mockMvc.perform(get("/recruits/list/" + enterpriseId))
                  .andExpect(status().isOk())
-                 .andExpect(view().name("recruit/list")) // 뷰 이름 "recruit/list" 검증
+                 .andExpect(view().name("recruits/listById")) // 뷰 이름 "recruit/list" 검증
                  .andExpect(model().attributeExists("recruitList")); // 모델에 "recruitList" 속성 존재 검증
  
          verify(recruitService, times(1)).getRecruitListById(enterpriseId);
@@ -164,7 +162,7 @@
          // GET /recruits/detail/{recruitId} 요청 수행
          mockMvc.perform(get("/recruits/detail/" + recruitId))
                  .andExpect(status().isOk())
-                 .andExpect(view().name("recruit/detail"))
+                 .andExpect(view().name("recruits/detail"))
                  .andExpect(model().attributeExists("recruitDto"));
  
          verify(recruitService, times(1)).detailRecruit(recruitId);
@@ -181,7 +179,7 @@
          // GET /recruits/modify/{recruitId} 요청 수행
          mockMvc.perform(get("/recruits/modify/" + recruitId))
                  .andExpect(status().isOk())
-                 .andExpect(view().name("recruit/modify"))
+                 .andExpect(view().name("recruits/modify"))
                  .andExpect(model().attributeExists("recruitDto"));
  
          verify(recruitService, times(1)).detailRecruit(recruitId);

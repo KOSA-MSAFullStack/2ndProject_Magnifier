@@ -14,23 +14,7 @@
  * - 채용 공고 삭제
  */
 
- // RecruitController.java
-// 역할: 채용 공고 관련 웹 요청 및 응답 처리
-/*
- * 설명:
- * - 클라이언트의 채용 공고 관련 HTTP 요청 처리
- * - 서비스 계층과 연동하여 비즈니스 로직 수행
- * - 적절한 뷰(JSP) 또는 리다이렉트 경로 반환
- *
- * 주요 기능:
- * - 채용 공고 등록 (폼, 처리)
- * - 채용 공고 목록 조회 (전체, 기업별)
- * - 채용 공고 상세 조회
- * - 채용 공고 수정 (폼, 처리)
- * - 채용 공고 삭제
- */
-
- package com.magnifier.recruit.controller;
+ package com.magnifier.recruit.controller; 
 
  import org.springframework.stereotype.Controller;
  import org.springframework.ui.Model;
@@ -39,13 +23,10 @@
  import org.springframework.web.bind.annotation.RequestMapping;
  import org.springframework.web.bind.annotation.PathVariable;
  import org.springframework.web.bind.annotation.ModelAttribute;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.security.core.Authentication;
- import java.util.List;
- 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
  import com.magnifier.recruit.dto.RecruitDto;
  import com.magnifier.recruit.service.RecruitService;
- import com.magnifier.security.domain.CustomEnterprise;
  
  @Controller
  @RequestMapping("/recruits")
