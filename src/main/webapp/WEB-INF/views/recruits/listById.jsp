@@ -17,8 +17,10 @@
         <div class="recruitList">
             <c:forEach var="recruit" items="${recruitList}">
                 <div class="recruit">
+                    <div class="recruit-info">
                     <input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="${recruit.recruitId}">
                     <span class="title">${recruit.title}</span>
+                </div>
                     <span class="details">${recruit.workingArea}</span>
                 </div>
             </c:forEach>
