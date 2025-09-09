@@ -56,7 +56,7 @@
 
             <div class="form-group address-group">
                 <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소" class="input-box" required/>
-                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box" required/>
+                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box"/>
             </div>
             
             <!-- 회원가입 제출 버튼 -->
