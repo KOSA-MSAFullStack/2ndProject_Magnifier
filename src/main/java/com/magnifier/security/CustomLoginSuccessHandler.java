@@ -28,6 +28,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 로그인 성공 로그 출력
         log.warn("Login Success");
         log.warn("auth: " + auth);
+        
+        // 사용자 정보를 세션에 저장
+        request.getSession().setAttribute("user", auth.getPrincipal());
 
         // 사용자의 권한(ROLE)을 수집하는 리스트
         List<String> roleNames = new ArrayList<>();
@@ -41,17 +44,18 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 권한에 따라 다른 URL로 리다이렉트
         if (roleNames.contains("ROLE_ENTERPRISE")) {
             // ROLE_ENTERPRISE이 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/main");
+            response.sendRedirect("/main"); //TODO: 변경
             return;
         } // end if
 
         if (roleNames.contains("ROLE_MEMBER")) {
             // ROLE_MEMBER가 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/main");
+            response.sendRedirect("/members/main"); //TODO: 변경
             return;
         } // end if
 
         // 기본적으로 '/login'(홈)로 이동
         response.sendRedirect("/login");
+        
     } // end onAuthenticationSuccess
 } // end class
