@@ -3,6 +3,11 @@ package com.magnifier.member.service;
 import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
 
+/**
+ * 
+ * @author 김경아
+ *
+ */
 public interface MemberService {
 	public void save(CreateMemberRequest dto); // 회원 등록(회원가입)
 	

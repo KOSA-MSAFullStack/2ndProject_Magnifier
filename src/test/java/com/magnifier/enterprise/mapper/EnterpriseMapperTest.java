@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.magnifier.enterprise.dto.EnterpriseDto;
+import com.magnifier.enterprise.entity.Enterprise;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,7 +26,7 @@ public class EnterpriseMapperTest {
 	@Test
 	public void testRead() {
 		String registerNumber = "1248100998"; // 조회할 ID
-		EnterpriseDto dto = mapper.read(registerNumber); // mapper로 회원 조회
-		log.info("dto : " + dto);
+		Enterprise enterprise = mapper.read(registerNumber); // mapper로 회원 조회
+		log.info("dto : " + enterprise);
 	}// end testRead()
 }// end class
