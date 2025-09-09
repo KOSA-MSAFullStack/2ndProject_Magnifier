@@ -69,7 +69,7 @@
 
     <div class="register-form-container">
         <h1>채용공고 등록</h1>
-        <form action="${pageContext.request.contextPath}/recruit/register" method="post">
+        <form action="${pageContext.request.contextPath}/recruits/register" method="post">
             <table class="form-table">
                 <tr>
                     <th>공고 제목</th>

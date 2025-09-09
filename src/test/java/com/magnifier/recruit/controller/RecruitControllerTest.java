@@ -65,8 +65,8 @@
      // 채용 공고 등록 폼 테스트
      @Test
      public void testRegisterForm() throws Exception {
-         // GET /recruit/register 요청 수행
-         mockMvc.perform(get("/recruit/register"))
+         // GET /recruits/register 요청 수행
+         mockMvc.perform(get("/recruits/register"))
                  .andExpect(status().isOk())
                  .andExpect(view().name("recruit/register"));
      }
@@ -95,8 +95,8 @@
  
          when(recruitService.insertRecruit(any(RecruitDto.class))).thenReturn(1);
  
-         // POST /recruit/register 요청 수행 및 파라미터 설정
-         mockMvc.perform(post("/recruit/register")
+         // POST /recruits/register 요청 수행 및 파라미터 설정
+         mockMvc.perform(post("/recruits/register")
                          .param("title", recruitDto.getTitle())
                          .param("content", recruitDto.getContent())
                          .param("careerCondition", recruitDto.getCareerCondition())
@@ -114,7 +114,7 @@
                          .param("contact", recruitDto.getContact())
                          .param("enterpriseId", recruitDto.getEnterpriseId().toString()))
                  .andExpect(status().is3xxRedirection())
-                 .andExpect(redirectedUrl("/recruit/list")); // "/recruit/list"로 리다이렉트 검증
+                 .andExpect(redirectedUrl("/recruits/list")); // "/recruits/list"로 리다이렉트 검증
  
          // recruitService.insertRecruit 메서드가 1번 호출되었는지 검증
          verify(recruitService, times(1)).insertRecruit(any(RecruitDto.class));
@@ -127,8 +127,8 @@
          List<RecruitDto> recruitList = Arrays.asList(new RecruitDto(), new RecruitDto());
          when(recruitService.getRecruitList()).thenReturn(recruitList);
  
-         // GET /recruit/list 요청 수행
-         mockMvc.perform(get("/recruit/list"))
+         // GET /recruits/list 요청 수행
+         mockMvc.perform(get("/recruits/list"))
                  .andExpect(status().isOk())
                  .andExpect(view().name("recruit/list")) // 뷰 이름 "recruit/list" 검증
                  .andExpect(model().attributeExists("recruitList")); // 모델에 "recruitList" 속성 존재 검증
@@ -144,8 +144,8 @@
          List<RecruitDto> recruitList = Arrays.asList(new RecruitDto(), new RecruitDto());
          when(recruitService.getRecruitListById(enterpriseId)).thenReturn(recruitList);
  
-         // GET /recruit/list/{enterpriseId} 요청 수행
-         mockMvc.perform(get("/recruit/list/" + enterpriseId))
+         // GET /recruits/list/{enterpriseId} 요청 수행
+         mockMvc.perform(get("/recruits/list/" + enterpriseId))
                  .andExpect(status().isOk())
                  .andExpect(view().name("recruit/list")) // 뷰 이름 "recruit/list" 검증
                  .andExpect(model().attributeExists("recruitList")); // 모델에 "recruitList" 속성 존재 검증
@@ -161,8 +161,8 @@
          recruitDto.setRecruitId(recruitId);
          when(recruitService.detailRecruit(recruitId)).thenReturn(recruitDto);
  
-         // GET /recruit/detail/{recruitId} 요청 수행
-         mockMvc.perform(get("/recruit/detail/" + recruitId))
+         // GET /recruits/detail/{recruitId} 요청 수행
+         mockMvc.perform(get("/recruits/detail/" + recruitId))
                  .andExpect(status().isOk())
                  .andExpect(view().name("recruit/detail"))
                  .andExpect(model().attributeExists("recruitDto"));
@@ -178,8 +178,8 @@
          recruitDto.setRecruitId(recruitId);
          when(recruitService.detailRecruit(recruitId)).thenReturn(recruitDto);
  
-         // GET /recruit/modify/{recruitId} 요청 수행
-         mockMvc.perform(get("/recruit/modify/" + recruitId))
+         // GET /recruits/modify/{recruitId} 요청 수행
+         mockMvc.perform(get("/recruits/modify/" + recruitId))
                  .andExpect(status().isOk())
                  .andExpect(view().name("recruit/modify"))
                  .andExpect(model().attributeExists("recruitDto"));
@@ -202,12 +202,12 @@
              return 1;
          }).when(recruitService).updateRecruit(any(RecruitDto.class));
  
-         // POST /recruit/modify 요청 수행 및 JSON 데이터 전송
-         mockMvc.perform(post("/recruit/modify")
+         // POST /recruits/modify 요청 수행 및 JSON 데이터 전송
+         mockMvc.perform(post("/recruits/modify")
                          .contentType("application/json")
                          .content(objectMapper.writeValueAsString(recruitDto)))
                  .andExpect(status().is3xxRedirection())
-                 .andExpect(redirectedUrl("/recruit/detail/" + recruitDto.getRecruitId()));
+                 .andExpect(redirectedUrl("/recruits/detail/" + recruitDto.getRecruitId()));
  
          verify(recruitService, times(1)).updateRecruit(any(RecruitDto.class));
      }
@@ -221,12 +221,12 @@
  
          when(recruitService.deleteRecruit(any(RecruitDto.class))).thenReturn(1);
  
-         // POST /recruit/delete 요청 수행 및 JSON 데이터 전송
-         mockMvc.perform(post("/recruit/delete")
+         // POST /recruits/delete 요청 수행 및 JSON 데이터 전송
+         mockMvc.perform(post("/recruits/delete")
                          .contentType("application/json")
                          .content(objectMapper.writeValueAsString(recruitDto)))
                  .andExpect(status().is3xxRedirection())
-                 .andExpect(redirectedUrl("/recruit/list"));
+                 .andExpect(redirectedUrl("/recruits/list"));
  
          verify(recruitService, times(1)).deleteRecruit(any(RecruitDto.class));
      }
