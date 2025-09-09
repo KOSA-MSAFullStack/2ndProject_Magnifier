@@ -75,8 +75,7 @@ public class MemberController {
 	
 	/**
 	 * 회원가입 요청
-	 * @param CreateMemberRequest
-	 * @param model
+	 * @param dto
 	 * @return 회원가입 시 로그인 페이지로 이동
 	 */
 	@PostMapping("/signup")
@@ -86,4 +85,11 @@ public class MemberController {
 		memberService.save(dto); // 비즈니스 로직 서비스에서 처리
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}	
+	
+	// TODO:: 테스트
+	@GetMapping("/main")
+	public void test() {
+	    log.info("메인페이지");
+	}
+	
 }
