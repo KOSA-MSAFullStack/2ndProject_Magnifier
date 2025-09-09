@@ -1,9 +1,17 @@
 package com.magnifier.enterprise.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
+import com.magnifier.enterprise.service.EnterpriseService;
 
 import lombok.extern.log4j.Log4j;
  
@@ -16,6 +24,12 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/enterprises") // 스프링 시큐리티 권한 체크를 위한 분기처리
 public class EnterpriseController {
+	
+	private final EnterpriseService enterpriseService; // 서비스 의존성 주입
+	
+	public EnterpriseController(EnterpriseService enterpriseService) { // 생성자 주입
+		this.enterpriseService = enterpriseService;
+	}
 	
 	/**
 	 * 로그아웃
@@ -49,4 +63,25 @@ public class EnterpriseController {
 	        model.addAttribute("logout", "로그아웃 되었습니다. ");
 	    } // end if
 	}
+	
+	/**
+	 * 회원가입 화면 반환
+	 */
+	@GetMapping("/signup")
+	public void signupForm() {
+	    log.info("회원가입페이지");
+	}
+	
+	/**
+	 * 회원가입 요청
+	 * @param dto
+	 * @return 회원가입 시 로그인 페이지로 이동
+	 */
+	@PostMapping("/signup")
+	@ResponseBody // json 데이터를 받기 위함
+	public ResponseEntity<String> signup(@RequestBody CreateEnterpriseRequest dto) {
+		log.info(dto);
+		enterpriseService.save(dto);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}	
 }

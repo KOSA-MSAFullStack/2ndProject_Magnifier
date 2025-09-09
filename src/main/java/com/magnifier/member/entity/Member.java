@@ -10,6 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * DB에 저장할 필드
+ * @author 김경아
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,8 +36,10 @@ public class Member {
 	private String auth;        // 권한(default: ROLE_MEMBER)
 	
 	/**
-	 *  memberDto -> member 빌더로 생성
-	 * @param CreateMemberRequest
+	 * dto의 값이나 서비스계층에서 재조합한 데이터를 빌더로 값을 채워 member 객체 생성
+	 * @param dto
+	 * @param encodePW
+	 * @param birth
 	 * @return
 	 */
 	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
