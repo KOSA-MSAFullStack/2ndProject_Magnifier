@@ -1,5 +1,6 @@
 package com.magnifier.member.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.magnifier.member.dto.MemberDto;
+import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
@@ -21,7 +22,7 @@ import lombok.extern.log4j.Log4j;
  */
 @Log4j
 @Controller
-@RequestMapping("/member") // 스프링 시큐리티 권한 체크를 위한 분기처리
+@RequestMapping("/members") // 스프링 시큐리티 권한 체크를 위한 분기처리
 public class MemberController {
 	
 	private final MemberService memberService; // 서비스 의존성 주입
@@ -74,15 +75,15 @@ public class MemberController {
 	
 	/**
 	 * 회원가입 요청
-	 * @param memberDto
+	 * @param CreateMemberRequest
 	 * @param model
 	 * @return 회원가입 시 로그인 페이지로 이동
 	 */
 	@PostMapping("/signup")
 	@ResponseBody // json 데이터를 받기 위함
-	public ResponseEntity<String> signup(@RequestBody MemberDto memberDto) {
-		log.info(memberDto);
-		memberService.save(memberDto); // 비즈니스 로직 서비스에서 처리
-		return ResponseEntity.ok().build();
-	}
+	public ResponseEntity<String> signup(@RequestBody CreateMemberRequest dto) {
+		log.info(dto);
+		memberService.save(dto); // 비즈니스 로직 서비스에서 처리
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}	
 }
