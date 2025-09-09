@@ -41,10 +41,16 @@
 
     <!-- 채용 공고 등록 -->
     <insert id="insertRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
+        <selectKey keyProperty="recruitId" resultType="int" order="BEFORE">
+            SELECT RECRUIT_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO RECRUIT (
-            <include refid="recruitColumns" />
+            RECRUIT_ID, TITLE, CONTENT, CAREER_CONDITION, EDUCATION, EMPLOYMENT_TYPE,
+            HEADCOUNT, WORKING_AREA, SALARY_CONDITION, WORKING_HOURS,
+            WORKING_TYPE, INSURANCE, RETIREMENT_SALARY, DEADLINE, STEP,
+            CONTACT, ENTERPRISE_ID
         ) VALUES (
-            RECRUIT_SEQ.NEXTVAL, #{title}, #{content}, #{careerCondition}, #{education}, #{employmentType},
+            #{recruitId}, #{title}, #{content}, #{careerCondition}, #{education}, #{employmentType},
             #{headCount}, #{workingArea}, #{salaryCondition}, #{workingHours},
             #{workingType}, #{insurance}, #{retirementSalary}, #{deadLine},
             #{step}, #{contact}, #{enterpriseId}
