@@ -21,7 +21,7 @@
 	</security:authorize>
     <a href="#">지원내역</a>
     
-    <a href="#">내 정보</a>
+    <a href="/members/mypage">내 정보</a>
 
 	<!-- 로그인 되어있을 때는 로그아웃이 보이도록, 로그아웃 상태면 로그인이 보이도록 -->
     <security:authorize access="isAuthenticated()">

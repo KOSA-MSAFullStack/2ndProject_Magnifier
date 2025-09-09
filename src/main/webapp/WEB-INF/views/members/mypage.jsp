@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>개인회원 | 회원가입</title>
+    <title>개인회원 | 내 정보</title>
     <link rel="stylesheet" href="/resources/css/signup.css" />
     <link rel="stylesheet" href="/resources/css/common.css" />
     <!-- jquery 라이브러리 추가 -->
@@ -19,14 +19,14 @@
         <div class="background"></div>
         <!-- 공통 네비게이션 바 포함 -->
        	<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-        <div class="page-title">회원가입</div>
+        <div class="page-title">개인 정보</div>
         
-        <!-- 회원가입 입력 폼 -->
-        <form id="signupForm" class="signup-form">
+        <!-- 개인 정보 입력 폼 -->
+        <form id="modifyForm" class="signup-form">
             <div class="form-group name-group">
             
 	            <!-- 이름 입력란 -->
-                <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" required/>
+                <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" readonly/>
                 
                 <!-- 성별 선택 라디오 버튼 -->
                 <div class="gender-options">
@@ -43,7 +43,7 @@
             
             <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
-                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" required/>
+                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" readonly/>
                 <button id="idCheck" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
             <div id="idCheckMsg"></div>
@@ -92,6 +92,37 @@
         </form>
     </div>
     <script >
+      $(document).ready(function() {
+        $.ajax({
+          url: '/members/api/mypage',  // 개인 정보 요청 api
+          type: 'GET',
+          success: function(data) {
+        	console.log(data);
+            // data 는 JSON 형태, FindMemberResponse 구조에 맞게 값을 폼에 넣음
+            $('#name').val(data.name);
+            $('#loginId').val(data.loginId);
+            if (data.gender === 'M') {
+              $('#male').prop('checked', true);
+            } else if (data.gender === 'F') {
+              $('#female').prop('checked', true);
+            }
+            $('#phoneNumber').val(data.phoneNumber);
+
+            $('#year').val(data.year);
+            $('#month').val(data.month);
+            $('#day').val(data.day);
+
+            $('#postNumber').val(data.postNumber);
+            $('#address').val(data.address);
+            $('#addressDetail').val(data.addressDetail);
+            $('#reference').val(data.reference);
+       	  },
+          error: function() {
+            alert('회원 정보를 불러오는 데 실패했습니다.');
+          }
+        });
+      });	
+    
       /*
       	생년월일 selectBox 초기화
       */
@@ -151,14 +182,6 @@
 	    }
 	  });
 	  
-	  /* 
-	  	loginId 패턴 검사
-	  */
-	  $('#loginId').on('input', function(){
-      	// 한글 제외하고 영문, 숫자만 필터링
-		this.value = this.value.replace(/[^가-힣a-z0-9]/gi, '');
-	  });
-	  
 	  /*
 	  	우편번호 찾기
 	  */
@@ -209,64 +232,6 @@
             }
         }).open();
       });
-	  
-	  /*
-	  	POST 요청 : 아이디 중복확인
-	  */
-	  let checkId = 0;
-	  $('#idCheck').on('click', function(event) {
-		// 중복확인 결과 메세지 동적할당, 있으면 텍스트만 변경
-        if ($('#loginId').val().trim() === '') {
-          if ($('#messageId').length === 0) {
-        	  $('#idCheckMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId" class="error-msg">아이디를 입력해주세요.</span>');
-          } else {
-            $('#messageId').text('아이디를 입력해주세요.')
-                           .removeClass('success-msg')
-                           .addClass('error-msg');
-          }
-          return; // AJAX 요청 중단
-	    }
-	    
-	 	// loginId를 JSON 객체로 생성
-	    const loginData = {
-   		  "loginId": $('#loginId').val()
-	    };
-	 
-	    $.ajax({
-		      url: '/idCheck',  // 회원가입 처리 컨트롤러 URL
-		      type: 'POST',
-		      contentType: 'application/json', // JSON 형식으로 전송
-		      data: JSON.stringify(loginData),  // JSON 문자열로 변환 후 전송
-		      headers: {
-		        'X-CSRF-TOKEN': '${_csrf.token}', // 스프링 시큐리티 사용
-	        	'Accept': 'application/json'  
-		      },
-		      success: function(response) {
-		    	// 중복확인 결과 메세지 동적할당
-	            if ($('#messageId').length === 0) {
-	            	$('#idCheckMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId"></span>');
-	            }
-	    	    if (response === true) {
-	    	        $('#messageId').text('존재하는 아이디입니다.')
-	    	        .removeClass('success-msg')  
-	    	        .addClass('error-msg');      
-	    	        checkId = 0;
-	    	    } else if (response === false) {
-	    	        $('#messageId').text('사용 가능한 아이디입니다.')
-	    	        .removeClass('error-msg')   
-	    	        .addClass('success-msg');   
-	    	        checkId = 1;
-	    	    } else {
-	    	        checkId = 0;
-	    	        alert('아이디 중복체크 오류');
-	    	    }
-	    	  },
-		      error: function(xhr, status, error) {
-		        alert('중복확인에 실패했습니다.');
-		        console.error(error);
-		      }
-	    });
-	  });
 	  	  
 	  /*
 	    POST 요청 : 회원가입 폼 제출 시 AJAX 처리
@@ -287,18 +252,10 @@
 	        alert('생년월일을 선택해주세요.');
 	        return false;  // 폼 제출 중단
 	    }
-	    
-	    // 아이디 중복확인 체크
-	    if (checkId === 0) {
-	        alert('아이디 중복 확인을 해주세요.');
-	        return false; // 회원가입 진행 중단
-	    }
 	
 	    // 폼 데이터 JSON 객체로 생성
 	    const formData = {
-   		  "name": $('#name').val(),
   	      "gender": $('input[name="gender"]:checked').val(),
-  	      "loginId": $('#loginId').val(),
     	  "password": $('#password').val(),
    		  "passwordConfirm": $('#passwordConfirm').val(),
    		  "phoneNumber": $('#phoneNumber').val(),
@@ -313,7 +270,7 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/members/api/signup',  // 회원가입 처리 컨트롤러 URL
+	      url: '/members/signup',  // 회원가입 처리 컨트롤러 URL
 	      type: 'POST',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송

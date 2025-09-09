@@ -40,7 +40,7 @@ public class Member {
 	 * @param dto
 	 * @param encodePW
 	 * @param birth
-	 * @return
+	 * @return member
 	 */
 	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
 		Member member = Member.builder()
