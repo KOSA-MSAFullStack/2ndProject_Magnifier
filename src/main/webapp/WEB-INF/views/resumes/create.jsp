@@ -98,38 +98,11 @@
         <div class="career">
             <span>경력사항 <button class="add-btn"><ion-icon name="add-outline"></ion-icon>경력 추가</button></span>
         </div>
-        <!-- <div class="form-section">
-            <div class="form-group">
-                <input type="text" placeholder="회사명">
-                <input class="join-date" type="text" id="joinMonth" placeholder="입사년월">
-                <input class="quit-date" type="text" id="quitMonth" placeholder="퇴사년월">
-            </div>
-            <div class="form-group">
-                <input type="text" placeholder="직무">
-                <input type="text" placeholder="근무부서">
-                <input type="text" placeholder="직급/직책">
-            </div>
-            <div class="button-group">
-                <button class="cancel-btn">취소</button>
-                <button class="save-btn">저장</button>
-            </div>
-        </div> -->
 
         <!-- 자격사항 -->
         <div class="license">
             <span>자격사항 <button class="add-btn"><ion-icon name="add-outline"></ion-icon>자격 추가</button></span>
         </div>
-        <!-- <div class="form-section">
-            <div class="form-group">
-                <input type="text" placeholder="자격증명">
-                <input type="text" placeholder="발행처/기관">
-                <input class="pass-date" type="text" id="passMonth" placeholder="취득일자">
-            </div>
-            <div class="button-group">
-                <button class="cancel-btn">취소</button>
-                <button class="save-btn">저장</button>
-            </div>
-        </div> -->
 
         <button class="submit-btn">저장하기</button>
     	</div>
@@ -246,11 +219,12 @@
                 <p>근무부서: ${department}</p>
                 <p>직급: ${position}</p>
             </div>
-        `;
-
+        	`;
+			console.log(`입사: ${joinDate}, 퇴사: ${quitDate}`);
             // 새로운 요소를 생성하고, 템플릿 내용을 추가
             const savedInfoContainer = document.createElement('div');
             savedInfoContainer.innerHTML = savedInfoTemplate;
+            console.log(savedInfoContainer);
 
             // 기존 폼 섹션을 제거하고, 그 자리에 저장된 정보를 삽입
             newFormContainer.remove();
@@ -313,7 +287,7 @@
             // 1. 입력 필드 유효성 검사
             const inputValues = Array.from(inputs).map(input => input.value.trim());
             const allFieldsFilled = inputValues.every(value => value !== '');
-
+            
             if (!allFieldsFilled) {
                 alert('모든 입력란을 채워주세요.');
                 return;
@@ -323,6 +297,7 @@
             const licenseName = inputs[0].value;
             const issuer = inputs[1].value;
             const passDate = inputs[2].value;
+            console.log(licenseName);
 
             // 3. 입력된 정보로 새로운 HTML 구조를 만듬
             const savedInfoTemplate = `
@@ -344,6 +319,74 @@
             // 5. '자격 추가' 버튼을 다시 표시
             licenseAddBtn.classList.remove('hidden');
         });
+    });
+    
+ 	// 모든 입력 필드의 데이터를 수집하는 함수
+    function collectAllFormData() {
+        const resumeData = {};
+        
+     	// 0. 기본 입력 필드 데이터 수집
+        resumeData.resumeTitle = document.querySelector('input[name="resumeTitle"]').value;
+
+        // 1. 학력 데이터 수집
+        resumeData.education = {
+            schoolType: document.querySelector('select[name="schoolType"]').value,
+            schoolName: document.querySelector('input[name="schoolName"]').value,
+            graduateStatus: document.querySelector('select[name="graduateStatus"]').value,
+            admissionMonth: document.querySelector('input[name="admissionMonth"]').value,
+            graduationMonth: document.querySelector('input[name="graduationMonth"]').value,
+        };
+
+        // 2. 동적으로 추가된 경력사항 데이터 수집
+        resumeData.careers = [];
+        document.querySelectorAll('.saved-career-info').forEach(careerDiv => {
+            const career = {};
+            career.companyName = careerDiv.querySelector('p:nth-child(1)').textContent.replace('회사명: ', '');
+            career.period = careerDiv.querySelector('p:nth-child(2)').textContent.replace('근무기간: ', '');
+            career.jobTitle = careerDiv.querySelector('p:nth-child(3)').textContent.replace('직무: ', '');
+            career.department = careerDiv.querySelector('p:nth-child(4)').textContent.replace('근무부서: ', '');
+            career.position = careerDiv.querySelector('p:nth-child(5)').textContent.replace('직급: ', '');
+            resumeData.careers.push(career);
+        });
+
+        // 3. 동적으로 추가된 자격사항 데이터 수집
+        resumeData.licenses = [];
+        document.querySelectorAll('.saved-license-info').forEach(licenseDiv => {
+            const license = {};
+            license.licenseName = licenseDiv.querySelector('p:nth-child(1)').textContent.replace('자격증명: ', '');
+            license.issuer = licenseDiv.querySelector('p:nth-child(2)').textContent.replace('발행처/기관: ', '');
+            license.passDate = licenseDiv.querySelector('p:nth-child(3)').textContent.replace('취득일자: ', '');
+            resumeData.licenses.push(license);
+        });
+
+        return resumeData;
+    }
+
+    // "저장하기" 버튼 클릭 시 서버에 데이터 전송
+    document.querySelector('.submit-btn').addEventListener('click', () => {
+        const data = collectAllFormData();
+        
+        fetch('/members/resumes/create', { // URL은 @PostMapping URL과 일치
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+        	console.log("서버로부터 받은 응답 데이터:", result); // 콘솔 확인
+            if (result.success) {
+                alert('이력서가 성공적으로 등록되었습니다.');
+            } else {
+                alert('등록 실패: ' + result.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('서버와 통신 중 오류가 발생했습니다.');
+        });
+        console.log(data);
     });
 </script>
 </html>

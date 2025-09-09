@@ -22,7 +22,64 @@
     <div class="background">
    		<!-- 공통 네비게이션 바 포함 -->
         <%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-		
+		<div class="resume-container">
+        <!-- 제목 -->
+        <div class="resume-title">
+            <span>${resumes.title}</span>
+        </div>
+
+        <!-- 인적사항 -->
+        <div class="personal-info">
+            <span>인적사항</span>
+        </div>
+        <div class="form-section">
+            <div class="form-group">
+                <span class="personal-name">이상우</span>
+            </div>
+            <div class="form-group">
+                <div class="info-item">
+                    <ion-icon name="phone-portrait-outline"></ion-icon>
+                    <span class="personal-phone">010-1234-1234</span>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="male-female-outline"></ion-icon>
+                    <span class="personal-gender">남성</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="info-item">
+                    <ion-icon name="home-outline"></ion-icon>
+                    <span class="personal-address">대전 유성구 노은로 353</span>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="body-outline"></ion-icon>
+                    <span class="personal-birth">1964 (62세)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 최종학력 -->
+        <div class="education">
+            <span>최종학력</span>
+        </div>
+        <div class="form-section">
+            <div class="form-group">
+                <span>${resumes.schoolName} ${resumes.enterDate} ~ ${resumes.graduateDate} (${resumes.graduateStatus})</span>
+            </div>
+        </div>
+
+        <!-- 경력사항 -->
+        <div class="career">
+            <span>경력사항 </span>
+        </div>
+
+        <!-- 자격사항 -->
+        <div class="license">
+            <span>자격사항</span>
+        </div>
+
+        <button class="modify-btn">수정하기</button>
+    	</div>
     </div>
 </body>
 </html>

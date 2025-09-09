@@ -1,7 +1,5 @@
 package com.magnifier.resume.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.resume.dto.ResumeDto;
@@ -12,7 +10,7 @@ public interface ResumeMapper {
 	public void registerResume(ResumeDto dto);
 	
 	// 이력서 조회
-	public List<ResumeDto> findResumesByMemberId(int memberId);
+	public ResumeDto findResumesByMemberId(int memberId);
 	
 	// 이력서 수정
 	public int modifyResume(ResumeDto dto);

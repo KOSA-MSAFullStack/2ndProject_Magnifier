@@ -67,6 +67,7 @@ body {
     border: none;
 }
 
+.resume-title,
 .personal-info,
 .education,
 .career,
@@ -180,5 +181,21 @@ body {
 }
 
 .submit-btn:hover {
+    background: var(--blue);
+}
+
+.modify-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 50px;
+    border: none;
+    border-radius: 8px;
+    background: var(--darkblue);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.modify-btn:hover {
     background: var(--blue);
 }
