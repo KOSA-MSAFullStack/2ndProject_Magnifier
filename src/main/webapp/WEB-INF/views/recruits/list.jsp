@@ -30,7 +30,7 @@
                     <%-- As per the DTO, company name is not available. Displaying working area instead. --%>
                     <span class="details">${recruit.workingArea}</span>
                     <div class="apply">
-                        <a href="${pageContext.request.contextPath}/recruit/detail/${recruit.recruitId}" class="applyButton">지원하기</a>
+                        <a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>
                         <span class="deadline">마감일 : ${recruit.deadLine}</span>
                     </div>
                 </div>

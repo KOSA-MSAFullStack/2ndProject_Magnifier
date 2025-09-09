@@ -17,7 +17,7 @@
         <result property="content" column="CONTENT" />
         <result property="careerCondition" column="CAREER_CONDITION" />
         <result property="education" column="EDUCATION" />
-        <result property="employeeType" column="EMPLOYMENT_TYPE" />
+        <result property="employmentType" column="EMPLOYMENT_TYPE" />
         <result property="headCount" column="HEADCOUNT" />
         <result property="workingArea" column="WORKING_AREA" />
         <result property="salaryCondition" column="SALARY_CONDITION" />
@@ -41,10 +41,16 @@
 
     <!-- 채용 공고 등록 -->
     <insert id="insertRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
+        <selectKey keyProperty="recruitId" resultType="int" order="BEFORE">
+            SELECT RECRUIT_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO RECRUIT (
-            <include refid="recruitColumns" />
+            RECRUIT_ID, TITLE, CONTENT, CAREER_CONDITION, EDUCATION, EMPLOYMENT_TYPE,
+            HEADCOUNT, WORKING_AREA, SALARY_CONDITION, WORKING_HOURS,
+            WORKING_TYPE, INSURANCE, RETIREMENT_SALARY, DEADLINE, STEP,
+            CONTACT, ENTERPRISE_ID
         ) VALUES (
-            RECRUIT_SEQ.NEXTVAL, #{title}, #{content}, #{careerCondition}, #{education}, #{employeeType},
+            #{recruitId}, #{title}, #{content}, #{careerCondition}, #{education}, #{employmentType},
             #{headCount}, #{workingArea}, #{salaryCondition}, #{workingHours},
             #{workingType}, #{insurance}, #{retirementSalary}, #{deadLine},
             #{step}, #{contact}, #{enterpriseId}
@@ -83,7 +89,7 @@
                CONTENT = #{content}, 
                CAREER_CONDITION = #{careerCondition}, 
                EDUCATION = #{education}, 
-               EMPLOYMENT_TYPE = #{employeeType},
+               EMPLOYMENT_TYPE = #{employmentType},
                HEADCOUNT = #{headCount}, 
                WORKING_AREA = #{workingArea}, 
                SALARY_CONDITION = #{salaryCondition}, 

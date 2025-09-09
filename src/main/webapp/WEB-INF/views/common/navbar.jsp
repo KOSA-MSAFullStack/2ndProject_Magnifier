@@ -13,7 +13,7 @@
 
 	<!-- 기업회원 : 공고관리, 개인회원 및 일반인 : 이력서관리 -->
     <security:authorize access="hasRole('ROLE_ENTERPRISE')">
-      <a href="#">공고관리</a>
+      <a href="/recruits/listById">공고관리</a>
     </security:authorize>
 
 	<security:authorize access="!hasRole('ROLE_ENTERPRISE')">
@@ -44,5 +44,3 @@
     </security:authorize>
   </nav>
 </header>
-
-
