@@ -10,20 +10,25 @@ import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
 
+/**
+ * 비즈니스 로직을 수행
+ * @author 김경아
+ *
+ */
 @Service
 public class MemberServiceImpl implements MemberService {
 	
-	private final MemberMapper memberMapper; 
-	private final PasswordEncoder passwordEncoder; 
+	private final MemberMapper memberMapper;       // 매퍼 의존성 주입
+	private final PasswordEncoder passwordEncoder; // 암호화 의존성 주입 
 	
-	public MemberServiceImpl(MemberMapper memberMapper, PasswordEncoder passwordEncoder) {
-		this.memberMapper = memberMapper;       // 매퍼 의존성 주입
-		this.passwordEncoder = passwordEncoder; // 암호화 의존성 주입
+	public MemberServiceImpl(MemberMapper memberMapper, PasswordEncoder passwordEncoder) { // 생성자 주입
+		this.memberMapper = memberMapper;       
+		this.passwordEncoder = passwordEncoder; 
 	}
 
 	/**
 	 * 회원 등록(회원가입)
-	 * @param CreateMemberRequest
+	 * @param dto
 	 */
 	@Override
 	public void save(CreateMemberRequest dto) {
@@ -37,7 +42,10 @@ public class MemberServiceImpl implements MemberService {
 		// 비밀번호 암호화
 		String encodePW = passwordEncoder.encode(dto.getPassword()); 
 		
-		Member member = Member.createMember(dto, encodePW, birth); // Member 객체 생성
+		// Member 객체 생성
+		Member member = Member.createMember(dto, encodePW, birth); 
+		
+		// 회원 가입 쿼리 실행
 		memberMapper.save(member); 
 	}
 
