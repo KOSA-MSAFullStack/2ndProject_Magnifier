@@ -190,3 +190,28 @@ body {
   background-color: var(--blue);
   color: var(--white);
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.add-button, .delete-button {
+  padding: 15px 30px;
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--darkblue);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.add-button:hover, .delete-button:hover {
+  background-color: var(--blue);
+}
