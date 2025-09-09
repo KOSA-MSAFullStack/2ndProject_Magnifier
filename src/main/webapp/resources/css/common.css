@@ -22,6 +22,11 @@ body {
     --green: #008000;
 }
 
+a {
+	text-decoration: none;
+	color: --black1
+}
+
 .navbar {
     display: flex;
     align-items: center;

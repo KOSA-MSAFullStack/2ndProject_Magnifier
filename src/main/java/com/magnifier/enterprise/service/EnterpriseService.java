@@ -1,5 +1,7 @@
 package com.magnifier.enterprise.service;
 
-public interface EnterpriseService {
+import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
 
+public interface EnterpriseService {
+	public void save(CreateEnterpriseRequest dto); // 회원 등록(회원가입)
 }

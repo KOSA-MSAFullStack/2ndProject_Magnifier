@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.magnifier.enterprise.dto.EnterpriseDto;
+import com.magnifier.enterprise.entity.Enterprise;
 import com.magnifier.enterprise.mapper.EnterpriseMapper;
 import com.magnifier.security.domain.CustomEnterprise;
 
@@ -22,9 +22,9 @@ public class CustomUserDetailsServiceEnterprise implements UserDetailsService {
        
         log.warn("Load User By UserName :" + username);      
         // 회원 아이디(registerNumber)를 받아 DB에서 기업 정보(EnterpriseDto)를 조회
-        EnterpriseDto dto = mapper.read(username);     
-        log.warn("Query by member mapper :" + dto);
+        Enterprise enterprise = mapper.read(username);     
+        log.warn("Query by member mapper :" + enterprise);
         
-        return new CustomEnterprise(dto);
+        return new CustomEnterprise(enterprise);
     }
 }
