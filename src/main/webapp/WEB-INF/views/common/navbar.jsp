@@ -9,7 +9,7 @@
     <a href="#"><img src="/resources/images/logo.png" alt="로고"></a>
   </div>
   <nav class="nav-menu">
-    <a href="#">채용공고</a>
+    <a href="/recruits/list">채용공고</a>
 
 	<!-- 기업회원 : 공고관리, 개인회원 및 일반인 : 이력서관리 -->
     <security:authorize access="hasRole('ROLE_ENTERPRISE')">
