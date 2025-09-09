@@ -84,7 +84,6 @@ public class MemberServiceImpl implements MemberService {
 		// dto 생성
 		FindMemberResponse findMember = FindMemberResponse.createFindMemberResponse(member);
 		
-		log.info(findMember);
 		return findMember;
 	}
 	

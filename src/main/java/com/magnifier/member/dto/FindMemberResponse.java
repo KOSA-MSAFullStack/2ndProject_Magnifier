@@ -1,7 +1,5 @@
 package com.magnifier.member.dto;
 
-import java.time.LocalDate;
-
 import com.magnifier.member.entity.Member;
 
 import lombok.AllArgsConstructor;

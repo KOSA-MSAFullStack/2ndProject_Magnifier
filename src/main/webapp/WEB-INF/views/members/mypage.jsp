@@ -26,7 +26,7 @@
             <div class="form-group name-group">
             
 	            <!-- 이름 입력란 -->
-                <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" readonly/>
+                <input type="text" id="name" name="name" placeholder="이름" class="input-box large" readonly/>
                 
                 <!-- 성별 선택 라디오 버튼 -->
                 <div class="gender-options">
@@ -41,12 +41,10 @@
                 </div>
             </div>
             
-            <!-- 아이디 입력 및 중복확인 버튼 -->
+            <!-- 아이디 입력란 -->
             <div class="form-group id-group">
                 <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" readonly/>
-                <button id="idCheck" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
-            <div id="idCheckMsg"></div>
             
             <!-- 비밀번호 및 비밀번호 확인 입력란 -->
             <div class="form-group password-group">
@@ -97,7 +95,6 @@
           url: '/members/api/mypage',  // 개인 정보 요청 api
           type: 'GET',
           success: function(data) {
-        	console.log(data);
             // data 는 JSON 형태, FindMemberResponse 구조에 맞게 값을 폼에 넣음
             $('#name').val(data.name);
             $('#loginId').val(data.loginId);
