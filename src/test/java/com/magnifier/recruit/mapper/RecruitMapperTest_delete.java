@@ -18,10 +18,11 @@ package com.magnifier.recruit.mapper;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ import com.magnifier.recruit.dto.RecruitDto;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+        "file:src/main/webapp/WEB-INF/spring/security-context.xml" })
 @Log4j
 @Transactional
 public class RecruitMapperTest_delete {
@@ -42,10 +44,28 @@ public class RecruitMapperTest_delete {
     // 채용 공고 삭제 테스트 메서드
     @Test
     public void testDeleteRecruit() throws SQLException {
-        // given: 테스트용 채용 공고 ID 및 기업 ID 설정
-        // 이 ID는 DB에 미리 존재해야 함
-        int recruitIdToDelete = 9999; // 실제 삭제할 유효한 공고ID로 변경 필요
-        int enterpriseId = 2001; // 해당 공고를 등록한 기업 ID
+        // given: 테스트용 채용 공고 데이터 생성 및 삽입
+        RecruitDto newRecruit = new RecruitDto();
+        newRecruit.setTitle("삭제 테스트 공고 제목");
+        newRecruit.setContent("삭제 테스트 직무 내용");
+        newRecruit.setCareerCondition("신입");
+        newRecruit.setEducation("학력무관");
+        newRecruit.setEmploymentType("계약직");
+        newRecruit.setHeadCount("1명");
+        newRecruit.setWorkingArea("서울");
+        newRecruit.setSalaryCondition("협의");
+        newRecruit.setWorkingHours("주 5일");
+        newRecruit.setWorkingType("재택");
+        newRecruit.setInsurance("없음");
+        newRecruit.setRetirementSalary("없음");
+        newRecruit.setDeadLine(LocalDate.of(2025, 12, 31));
+        newRecruit.setStep("서류");
+        newRecruit.setContact("delete@test.com");
+        newRecruit.setEnterpriseId(2001); // 테스트용 기업 ID
+
+        mapper.insertRecruit(newRecruit);
+        int recruitIdToDelete = newRecruit.getRecruitId();
+        int enterpriseId = newRecruit.getEnterpriseId();
 
         // 삭제할 공고 DTO 설정
         RecruitDto deleteDto = new RecruitDto();
