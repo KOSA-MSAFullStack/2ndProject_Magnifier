@@ -20,11 +20,14 @@ body {
     --red: #ff0000;
     --ivory: #FFFAFA;
     --green: #008000;
+<<<<<<< HEAD
 }
 
 a {
 	text-decoration: none;
 	color: --black1
+=======
+>>>>>>> feature/resume_register
 }
 
 .navbar {
