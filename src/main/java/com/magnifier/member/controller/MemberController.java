@@ -1,22 +1,14 @@
 package com.magnifier.member.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.magnifier.member.dto.CreateMemberRequest;
-import com.magnifier.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
 
 /**
- * 
+ * 화면 반환을 위한 컨트롤러
  * @author 김경아
  *
  */
@@ -24,21 +16,6 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/members") // 스프링 시큐리티 권한 체크를 위한 분기처리
 public class MemberController {
-	
-	private final MemberService memberService; // 서비스 의존성 주입
-	
-	public MemberController (MemberService memberService) { // 생성자 주입
-		this.memberService = memberService;
-	}
-	
-	/**
-	 * 로그아웃 요청 시
-	 */
-	@GetMapping("/logout")
-	public void logout() {
-	    // 로그아웃 요청이 들어왔을 때 로그 기록
-	    log.info("member logout");
-	} // end logout...
 	
 	/**
 	 * 로그인 요청 시
@@ -72,24 +49,18 @@ public class MemberController {
 	    log.info("회원가입페이지");
 	}
 	
-	
-	/**
-	 * 회원가입 요청
-	 * @param dto
-	 * @return 회원가입 시 로그인 페이지로 이동
-	 */
-	@PostMapping("/signup")
-	@ResponseBody // json 데이터를 받기 위함
-	public ResponseEntity<String> signup(@RequestBody CreateMemberRequest dto) {
-		log.info(dto);
-		memberService.save(dto); // 비즈니스 로직 서비스에서 처리
-		return ResponseEntity.status(HttpStatus.CREATED).build();
-	}	
-	
 	// TODO:: 테스트
 	@GetMapping("/main")
 	public void test() {
 	    log.info("메인페이지");
+	}
+	
+	/*
+	 * 개인 정보 화면 반환
+	 */
+	@GetMapping("/mypage")
+	public void mypage() {
+		log.info("개인정보페이지");
 	}
 	
 }
