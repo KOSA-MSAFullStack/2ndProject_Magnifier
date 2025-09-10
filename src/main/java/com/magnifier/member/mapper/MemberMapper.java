@@ -13,4 +13,6 @@ public interface MemberMapper {
 	public int idCheck(String loginId); // 아이디 중복확인
 	
 	public Member findById(int memberId); // 내 정보에서 개인 정보 조회
+	
+	public int update(Member member); // 회원정보 수정
 }

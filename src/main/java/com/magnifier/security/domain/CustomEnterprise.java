@@ -15,7 +15,7 @@ public class CustomEnterprise extends User {
     private static final long serialVersionUID = 1L;
 
     // 회원 도메인 정보를 담는 필드
-    private Enterprise enterprise;
+    private int enterpriseId; // enterpriseId만 저장(최소한의 정보)
 
     // User 클래스로 직접 생성할 때 사용하는 생성자(필요에 따라 사용 가능)
     public CustomEnterprise(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -33,6 +33,6 @@ public class CustomEnterprise extends User {
                 ? java.util.Collections.singletonList(new SimpleGrantedAuthority(enterprise.getAuth()))
                 : java.util.Collections.emptyList()  // auth가 없으면 빈 리스트
         );
-        this.enterprise = enterprise;  // 도메인 객체 참조 저장
+        this.enterpriseId = enterprise.getEnterpriseId();  // 도메인 객체 참조 저장
     }
 }
