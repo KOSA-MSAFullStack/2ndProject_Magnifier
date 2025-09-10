@@ -6,6 +6,9 @@
 <mapper namespace="com.magnifier.resume.mapper.ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.magnifier.resume.dto.ResumeDto">
+		<selectKey keyProperty="resumeId" resultType="int" order="BEFORE">
+	        SELECT RESUME_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
 		insert into resume( 
 			resume_id,
 			member_id,
@@ -17,7 +20,7 @@
 			graduate_date
 		)
 		values(
-			RESUME_SEQ.NEXTVAL,
+			#{resumeId},
 			#{memberId},
 			#{title}, 
 			#{schoolType}, 
@@ -38,6 +41,18 @@
         <result property="enterDate" column="enter_date" />
         <result property="graduateDate" column="graduate_date" />
         
+        <association property="member" javaType="com.magnifier.member.entity.Member">
+	        <id property="memberId" column="member_id" />
+	        <result property="name" column="m_name" />
+	        <result property="phoneNumber" column="phone_number" />
+	        <result property="gender" column="gender" />
+	        <result property="birth" column="birth" />
+	        <result property="postNumber" column="post_number" />
+	        <result property="address" column="address" />
+	        <result property="addressDetail" column="address_detail" />
+	        <result property="reference" column="reference" />
+	    </association>
+        
         <collection property="careerList" ofType="com.magnifier.resume.career.dto.CareerDto">
             <id property="careerId" column="career_id" />
             <result property="resumeId" column="c_resume_id" />
@@ -47,7 +62,7 @@
             <result property="job" column="job" />
             <result property="department" column="department" />
             <result property="position" column="position" />
-            </collection>
+        </collection>
 
         <collection property="licenseList" ofType="com.magnifier.resume.license.dto.LicenseDto">
             <id property="licenseId" column="license_id" />
@@ -55,11 +70,21 @@
             <result property="name" column="l_name" />
             <result property="publisher" column="publisher" />
             <result property="passDate" column="pass_date" />
-            </collection>
+        </collection>
     </resultMap>
 
     <select id="findResumesByMemberId" resultMap="resumeResultMap">
         SELECT 
+	        m.member_id AS m_member_id,
+	        m.name AS m_name,
+	        m.phone_number,
+	        m.gender,
+	        m.birth,
+	        m.post_number,
+	        m.address,
+	        m.address_detail,
+	        m.reference,
+        
             r.resume_id,
 	        r.member_id,
 	        r.title,
@@ -85,6 +110,8 @@
 	        l.pass_date
         FROM
             resume r
+        LEFT JOIN
+        	member m ON r.member_id = m.member_id
         LEFT JOIN 
             career c ON r.resume_id = c.resume_id
         LEFT JOIN
@@ -104,5 +131,14 @@
 		 	graduate_date = #{graduateDate}
 		 where resume_id=#{resumeId}
 	 </update>
+	 
+	 <select id="countResumeByUserId" resultType="int">
+	 	SELECT
+	 		count(*)
+	 	FROM
+	 		resume
+	 	WHERE
+	 		member_id = #{memberId}
+	 </select>
 
 </mapper>
