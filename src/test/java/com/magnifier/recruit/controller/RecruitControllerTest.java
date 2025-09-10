@@ -16,7 +16,6 @@ package com.magnifier.recruit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.service.RecruitService;
 import org.junit.Before;
@@ -25,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -33,9 +33,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -58,7 +60,7 @@ public class RecruitControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(recruitController).build();
-        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
@@ -120,20 +122,33 @@ public class RecruitControllerTest {
         verify(recruitService, times(1)).insertRecruit(any(RecruitDto.class));
     }
 
-    // 전체 채용 공고 목록 조회 테스트
+    // 전체 채용 공고 목록 조회 테스트 (페이지네이션)
     @Test
     public void testList() throws Exception {
-        // 테스트용 채용 공고 목록 생성
-        List<RecruitDto> recruitList = Arrays.asList(new RecruitDto(), new RecruitDto());
-        when(recruitService.getRecruitList()).thenReturn(recruitList);
+        // given: 테스트용 채용 공고 목록 및 페이지 정보 설정
+        RecruitDto recruit1 = new RecruitDto();
+        recruit1.setTitle("Test Recruit 1");
+        List<RecruitDto> recruitList = Arrays.asList(recruit1);
+        int currentPage = 1;
+        int totalCount = 1;
+        int totalPages = 1;
 
-        // GET /recruits/list 요청 수행
-        mockMvc.perform(get("/recruits/list"))
+        when(recruitService.getRecruitList(anyInt(), anyInt())).thenReturn(recruitList);
+        when(recruitService.getCount()).thenReturn(totalCount);
+
+        // when & then: GET /recruits/list 요청 수행 및 결과 검증
+        mockMvc.perform(get("/recruits/list")
+                .param("page", "1")
+                .param("size", "5"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recruits/list")) // 뷰 이름 "recruit/list" 검증
-                .andExpect(model().attributeExists("recruitList")); // 모델에 "recruitList" 속성 존재 검증
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.recruits").isArray())
+                .andExpect(jsonPath("$.recruits[0].title").value("Test Recruit 1"))
+                .andExpect(jsonPath("$.currentPage").value(currentPage))
+                .andExpect(jsonPath("$.totalPages").value(totalPages));
 
-        verify(recruitService, times(1)).getRecruitList();
+        verify(recruitService, times(1)).getRecruitList(1, 5);
+        verify(recruitService, times(1)).getCount();
     }
 
     // 기업별 채용 공고 목록 조회 테스트
