@@ -58,7 +58,7 @@ public class RecruitController {
             // 현재 로그인한 기업 회원의 ID를 Authentication 객체에서 가져와 설정
             // 보안 강화를 위해 클라이언트에서 보낸 ID가 아닌 서버의 인증 정보 사용
             CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
-            recruitDto.setEnterpriseId(customEnterprise.getEnterprise().getEnterpriseId());
+            recruitDto.setEnterpriseId(customEnterprise.getEnterpriseId());
 
             // 채용 공고 등록 서비스 호출
             recruitService.insertRecruit(recruitDto);
@@ -106,14 +106,14 @@ public class RecruitController {
         try {
             // 현재 로그인한 기업 회원의 ID 가져오기
             CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
-            int enterpriseId = customEnterprise.getEnterprise().getEnterpriseId();
+            int enterpriseId = customEnterprise.getEnterpriseId();
 
             // 해당 기업이 등록한 채용 공고 목록 조회 서비스 호출
             List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
             return new ResponseEntity<>(recruitList, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (인증된 사용자 ID: "
-                    + ((CustomEnterprise) auth.getPrincipal()).getEnterprise().getEnterpriseId() + "): "
+                    + ((CustomEnterprise) auth.getPrincipal()).getEnterpriseId() + "): "
                     + e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
