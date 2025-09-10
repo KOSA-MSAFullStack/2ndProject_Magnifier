@@ -140,21 +140,7 @@
 	  */
 	  $('#modifyForm').on('submit', function(event) {
 	    event.preventDefault(); // 폼 기본 제출 차단
-	    
-	 	// 성별 선택 검사
-	    if (!$('input[name="gender"]:checked').val()) {
-	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
-	        alert('성별을 선택해주세요.');
-	        return false;  // 폼 제출 중단
-	    }
 
-	    // 생년월일 검사
-	    if (!$('#year').val() || !$('#month').val() || !$('#day').val()) {
-	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
-	        alert('생년월일을 선택해주세요.');
-	        return false;  // 폼 제출 중단
-	    }
-	
 	    // 폼 데이터 JSON 객체로 생성
 	    const formData = {
   	      "gender": $('input[name="gender"]:checked').val(),

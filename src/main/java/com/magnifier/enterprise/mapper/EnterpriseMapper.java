@@ -10,5 +10,5 @@ public interface EnterpriseMapper {
 	
 	public void save(Enterprise enterprise); // 회원가입
 	
-	public Enterprise findById(int enterpriseId); // 내 정보에서 개인 정보 조회
+	public Enterprise findById(int enterpriseId); // 내 정보에서 기업 정보 조회
 }
