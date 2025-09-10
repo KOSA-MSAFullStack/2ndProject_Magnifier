@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 개인정보 조회를 하기 위한 dto
+ * 기업정보 조회를 하기 위한 dto
  * @author 김경아
  */
 @Getter

@@ -19,7 +19,7 @@ import com.magnifier.security.domain.CustomEnterprise;
 import lombok.extern.log4j.Log4j;
  
 /**
- *
+ * 데이터 요청을 위한 api 컨트롤러
  * @author 김경아
  *
  */

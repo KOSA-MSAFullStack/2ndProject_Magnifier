@@ -30,11 +30,12 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	 * @param dto(CreateEnterpriseRequest)
 	 */
 	@Override
+	@Transactional
 	public void save(CreateEnterpriseRequest dto) {
 		// 비밀번호 암호화
 		String encodePW = passwordEncoder.encode(dto.getPassword());
 		
-		// Member 객체 생성
+		// Enterprise 객체 생성
 		Enterprise enterprise = Enterprise.createEnterprise(dto, encodePW);
 		
 		// 회원 가입 쿼리 실행

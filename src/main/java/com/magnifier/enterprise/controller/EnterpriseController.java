@@ -10,7 +10,7 @@ import com.magnifier.enterprise.service.EnterpriseService;
 import lombok.extern.log4j.Log4j;
  
 /**
- *
+ * 화면 반환을 위한 컨트롤러
  * @author 김경아
  *
  */
