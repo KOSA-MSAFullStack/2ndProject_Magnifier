@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>기업회원 | 회원가입</title>
+    <title>개인회원 | 내 정보</title>
     <link rel="stylesheet" href="/resources/css/signup.css" />
     <link rel="stylesheet" href="/resources/css/common.css" />
     <!-- jquery 라이브러리 추가 -->
@@ -19,21 +19,32 @@
         <div class="background"></div>
         <!-- 공통 네비게이션 바 포함 -->
        	<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-        <div class="page-title">회원가입</div>
+        <div class="page-title">개인 정보</div>
         
-        <!-- 회원가입 입력 폼 -->
-        <form id="signupForm" class="signup-form">
+        <!-- 개인 정보 입력 폼 -->
+        <form id="modifyForm" class="signup-form">
             <div class="form-group name-group">
-	            <!-- 기업명 입력란 -->
-                <input type="text" id="name" name="name" placeholder="기업명" class="input-box large" required/>
+            
+	            <!-- 이름 입력란 -->
+                <input type="text" id="name" name="name" placeholder="이름" class="input-box large" readonly/>
+                
+                <!-- 성별 선택 라디오 버튼 -->
+                <div class="gender-options">
+                    <div class="radio-box">
+                        <input type="radio" id="male" name="gender" value="M"/>
+                        <label for="male">남</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" id="female" name="gender" value="F"/>
+                        <label for="female">여</label>
+                    </div>
+                </div>
             </div>
             
-            <!-- 아이디 입력 및 중복확인 버튼 -->
+            <!-- 아이디 입력란 -->
             <div class="form-group id-group">
-                <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box medium" required/>
-                <button id="certification" type="button" class="btn-duplicate-check">인증</button>
+                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" readonly/>
             </div>
-            <div id="idCheckMsg"></div>
             
             <!-- 비밀번호 및 비밀번호 확인 입력란 -->
             <div class="form-group password-group">
@@ -43,8 +54,20 @@
                 <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" class="input-box large password" minlength="4" maxlength="12" required/>
             </div>
             <div id="passwordCheckMsg"></div>
-
-            <!-- 우편번호 입력 및 우편번호 찾기 버튼 -->
+            
+            <!-- 휴대폰 번호 입력란 -->
+            <div class="form-group phone-group">
+                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="휴대폰 번호 (번호만 작성해주세요. 예시:01012345678 )" class="input-box large" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required/>
+            </div>
+            
+            <!-- 생년월일 선택 박스: 년, 월, 일 -->
+            <div class="form-group birth-group">
+                <select id="year" class="select-box year" name="year"><option selected disabled>생년월일(년도)</option></select>
+                <select id="month" class="select-box month" name="month"><option selected disabled>생년월일(월)</option></select>
+                <select id="day" class="select-box day" name="day"><option selected disabled>생년월일(일)</option></select>
+            </div>
+            
+             <!-- 우편번호 입력 및 우편번호 찾기 버튼 -->
             <div class="form-group postal-group">
                 <input type="text" id="postNumber" name="postNumber" placeholder="우편번호" class="input-box medium" required/>
                 <button type="button" id="findAddressBtn" class="btn-postal-search">우편번호 찾기</button>
@@ -56,7 +79,7 @@
 
             <div class="form-group address-group">
                 <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소" class="input-box" required/>
-                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box"/>
+                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box" required/>
             </div>
             
             <!-- 회원가입 제출 버튼 -->
@@ -67,6 +90,68 @@
         </form>
     </div>
     <script >
+      $(document).ready(function() {
+        $.ajax({
+          url: '/members/api/mypage',  // 개인 정보 요청 api
+          type: 'GET',
+          success: function(data) {
+            // data 는 JSON 형태, FindMemberResponse 구조에 맞게 값을 폼에 넣음
+            $('#name').val(data.name);
+            $('#loginId').val(data.loginId);
+            if (data.gender === 'M') {
+              $('#male').prop('checked', true);
+            } else if (data.gender === 'F') {
+              $('#female').prop('checked', true);
+            }
+            $('#phoneNumber').val(data.phoneNumber);
+
+            $('#year').val(data.year);
+            $('#month').val(data.month);
+            $('#day').val(data.day);
+
+            $('#postNumber').val(data.postNumber);
+            $('#address').val(data.address);
+            $('#addressDetail').val(data.addressDetail);
+            $('#reference').val(data.reference);
+       	  },
+          error: function() {
+            alert('회원 정보를 불러오는 데 실패했습니다.');
+          }
+        });
+      });	
+    
+      /*
+      	생년월일 selectBox 초기화
+      */
+      // 연도(60세 이상으로 설정)
+	  const yearSelect = document.getElementById("year");
+	  const currentYear = new Date().getFullYear(); // 현재 연도
+	  const minYear = currentYear - 60; // 60세 이상을 위한 최소 연도
+	  for (var year = minYear; year >= 1900; year--) { // minYear부터 1900년까지 차례로 option 추가
+		const option = document.createElement("option"); // 옵션 요소 생성
+	    option.value = year; // value 속성 설정
+	    option.text = year;  // 표시할 text 설정
+	    yearSelect.appendChild(option); // selectBox에 옵션 추가
+	  }
+	  
+	  // 월(1월 ~ 12월)
+	  const monthSelect = document.getElementById("month");
+	  for (var month = 1; month <= 12; month++) {
+	    var option = document.createElement("option");
+	    option.value = month;
+	    option.text = month;
+	    monthSelect.appendChild(option);
+	  }
+
+	  // 일(1일 ~ 31일)
+	  const daySelect = document.getElementById("day");
+	  for (var day = 1; day <= 31; day++) {
+		const option = document.createElement("option");
+	    option.value = day;
+	    option.text = day;
+	    daySelect.appendChild(option);
+	  }
+	  
 	  /* 
 	       비밀번호 재확인 
 	  */
@@ -150,13 +235,30 @@
 	  */
 	  $('#signupForm').on('submit', function(event) {
 	    event.preventDefault(); // 폼 기본 제출 차단
+	    
+	 	// 성별 선택 검사
+	    if (!$('input[name="gender"]:checked').val()) {
+	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
+	        alert('성별을 선택해주세요.');
+	        return false;  // 폼 제출 중단
+	    }
+
+	    // 생년월일 검사
+	    if (!$('#year').val() || !$('#month').val() || !$('#day').val()) {
+	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
+	        alert('생년월일을 선택해주세요.');
+	        return false;  // 폼 제출 중단
+	    }
 	
 	    // 폼 데이터 JSON 객체로 생성
 	    const formData = {
-   		  "name": $('#name').val(),
-  	      "registerNumber": $('#registerNumber').val(),
+  	      "gender": $('input[name="gender"]:checked').val(),
     	  "password": $('#password').val(),
    		  "passwordConfirm": $('#passwordConfirm').val(),
+   		  "phoneNumber": $('#phoneNumber').val(),
+   		  "year": parseInt($('#year').val(), 10),
+   	      "month": parseInt($('#month').val(), 10),
+   	      "day": parseInt($('#day').val(), 10),
 	      "postNumber": $('#postNumber').val(),
 	      "address": $('#address').val(),
 	      "addressDetail": $('#addressDetail').val(),
@@ -165,7 +267,7 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/enterprises/signup',  // 회원가입 처리 컨트롤러 URL
+	      url: '/members/signup',  // 회원가입 처리 컨트롤러 URL
 	      type: 'POST',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송
@@ -175,9 +277,10 @@
 	      },
 	      success: function(response) {
 	        alert('회원가입이 완료되었습니다.');
-	        window.location.href = '/enterprises/login'; // 가입 완료 후 로그인 페이지로 이동
+	        window.location.href = '/members/login'; // 가입 완료 후 로그인 페이지로 이동
           },
 	      error: function(xhr, status, error) {
+    	    checkId = 0; // 중복확인 다시 하기 위하여 0 부여
 	        alert('회원가입에 실패했습니다.');
 	        console.error(error);
 	      }
