@@ -67,17 +67,17 @@ public class RecruitController {
         }
     }
 
-    // 전체 채용 공고 목록 조회_GET
+    // 전체 채용 공고 목록 조회_GET (RESTful API)
     @GetMapping("/list")
-    public String list(Model model) {
+    @ResponseBody
+    public ResponseEntity<List<RecruitDto>> list() {
         try {
             // 전체 채용 공고 목록 조회 서비스 호출
             List<RecruitDto> recruitList = recruitService.getRecruitList();
-            model.addAttribute("recruitList", recruitList);
-            return "recruits/list"; // recruits/list.jsp 뷰 반환
+            return new ResponseEntity<>(recruitList, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("전체 채용 공고 목록 조회 중 오류 발생: " + e.getMessage());
-            return "error/errorPage";
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
