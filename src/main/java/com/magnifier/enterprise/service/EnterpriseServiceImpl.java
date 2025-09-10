@@ -7,6 +7,11 @@ import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
 import com.magnifier.enterprise.entity.Enterprise;
 import com.magnifier.enterprise.mapper.EnterpriseMapper;
 
+/**
+ * 비즈니스 로직 수행
+ * @author 김경아
+ *
+ */
 @Service
 public class EnterpriseServiceImpl implements EnterpriseService {
 	
@@ -20,7 +25,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
 	/**
 	 * 회원 등록(회원가입)
-	 * @param dto
+	 * @param dto(CreateEnterpriseRequest)
 	 */
 	@Override
 	public void save(CreateEnterpriseRequest dto) {

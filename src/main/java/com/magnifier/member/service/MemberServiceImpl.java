@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
+import com.magnifier.member.dto.FindMemberResponse;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
 
+import lombok.extern.log4j.Log4j;
+
 /**
- * 비즈니스 로직을 수행
+ * 비즈니스 로직 수행
  * @author 김경아
  *
  */
 @Service
+@Log4j
 public class MemberServiceImpl implements MemberService {
 	
 	private final MemberMapper memberMapper;       // 매퍼 의존성 주입
@@ -28,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
 
 	/**
 	 * 회원 등록(회원가입)
-	 * @param dto
+	 * @param dto(CreateMemberRequest)
 	 */
 	@Override
 	public void save(CreateMemberRequest dto) {
@@ -51,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 
 	/**
 	 * 아이디 중복 확인
-	 * @param CheckIdRequest
+	 * @param dto(CheckIdRequest)
 	 */
 	@Override
 	public Boolean idCheck(CheckIdRequest dto) {
@@ -66,6 +70,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return exist;
+	}
+
+	/**
+	 * 개인 회원 정보 조회
+	 * @param memberId
+	 */
+	@Override
+	public FindMemberResponse findMember(int memberId) {
+		// Id로 개인 회원 정보 조회
+		Member member = memberMapper.findById(memberId);	
+		
+		// dto 생성
+		FindMemberResponse findMember = FindMemberResponse.createFindMemberResponse(member);
+		
+		return findMember;
 	}
 	
 	

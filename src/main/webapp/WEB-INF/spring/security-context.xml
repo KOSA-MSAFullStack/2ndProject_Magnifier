@@ -32,8 +32,9 @@
 
 	<!-- 개인회원 영역 보안 설정 -->
 	<security:http pattern="/members/**" authentication-manager-ref="authManagerMember">
-		<!-- 로그인과 로그아웃, 회원가입은 모든 사람에게 허용 -->
+		<!-- 로그인과 회원가입은 모든 사람에게 허용 -->
 		<security:intercept-url pattern="/members/login" access="permitAll" />
+		<security:intercept-url pattern="/members/api/signup" access="permitAll" />
     	<security:intercept-url pattern="/members/signup" access="permitAll" />
 		<!-- URL 패턴 '/members/'하위 페이지에 대해서는 'ROLE_MEMBER' 권한을 가진 사용자만 접근 허용 -->
 		<security:intercept-url pattern="/members/**" access="hasRole('ROLE_MEMBER')" />
@@ -47,9 +48,9 @@
 
 	<!-- 기업회원 영역 보안 설정 -->
 	<security:http pattern="/enterprises/**" authentication-manager-ref="authManagerEnterprise">
-		<!-- 로그인과 로그아웃, 회원가입은 모든 사람에게 허용 -->
+		<!-- 로그인과 회원가입은 모든 사람에게 허용 -->
 		<security:intercept-url pattern="/enterprises/login" access="permitAll" />
-    	<security:intercept-url pattern="/enterprises/logout" access="permitAll" />
+    	<security:intercept-url pattern="/enterprises/api/signup" access="permitAll" />
     	<security:intercept-url pattern="/enterprises/signup" access="permitAll" />
 		<!-- URL 패턴 '/enterprises/'하위 페이지에 대해서는 'ROLE_ENTERPRISE' 권한을 가진 사용자만 접근 허용 -->
 		<security:intercept-url pattern="/enterprises/**" access="hasRole('ROLE_ENTERPRISE')" />
