@@ -19,6 +19,7 @@ package com.magnifier.recruit.service;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import com.magnifier.recruit.dto.RecruitDto;
 
 public interface RecruitService {
@@ -34,7 +35,12 @@ public interface RecruitService {
      * 전체 채용공고 목록 조회 비즈니스 로직 (R, Select) - 기업/개인 회원
      * @return 모든 채용 공고 목록
      */
-    List<RecruitDto> getRecruitList() throws SQLException;
+    List<RecruitDto> getRecruitList(int page, int size) throws SQLException;
+    /**
+     * 전체 채용공고 수 조회
+     * @return 전체 공고 수
+     */
+    int getCount() throws SQLException;
     
     /**
      * 기업이 등록한 채용공고 목록 조회 비즈니스 로직 (R, Select) - 기업회원

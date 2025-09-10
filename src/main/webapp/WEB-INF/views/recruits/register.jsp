@@ -9,6 +9,7 @@
     <title>채용공고 등록</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recruit.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .register-form-container {
             width: 80%;
@@ -69,7 +70,7 @@
 
     <div class="register-form-container">
         <h1>채용공고 등록</h1>
-        <form action="${pageContext.request.contextPath}/recruits/register" method="post">
+        <form id="registerForm" action="${pageContext.request.contextPath}/recruits/register" method="post">
             <table class="form-table">
                 <tr>
                     <th>공고 제목</th>
@@ -135,10 +136,6 @@
                 </tr>
             </table>
             
-            <!-- 현재 로그인한 기업의 ID를 넘겨주기 위한 hidden input -->
-            <sec:authentication property="principal.enterprise.enterpriseId" var="enterpriseId"/>
-            <input type="hidden" name="enterpriseId" value="${enterpriseId}">
-            
             <!-- CSRF 토큰 -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
@@ -147,5 +144,62 @@
             </div>
         </form>
     </div>
+
+<script>
+$(document).ready(function() {
+    // 폼(id='registerForm') 제출 이벤트 리스너
+    $('#registerForm').on('submit', function(event) {
+        event.preventDefault();
+
+        // 폼 데이터 수집, JSON 객체 생성
+        const formData = {
+            title: $('input[name="title"]').val(),
+            content: $('textarea[name="content"]').val(),
+            careerCondition: $('input[name="careerCondition"]').val(),
+            education: $('input[name="education"]').val(),
+            employmentType: $('input[name="employmentType"]').val(),
+            headCount: $('input[name="headCount"]').val(),
+            workingArea: $('input[name="workingArea"]').val(),
+            salaryCondition: $('input[name="salaryCondition"]').val(),
+            workingHours: $('input[name="workingHours"]').val(),
+            workingType: $('input[name="workingType"]').val(),
+            insurance: $('input[name="insurance"]').val(),
+            retirementSalary: $('input[name="retirementSalary"]').val(),
+            deadLine: $('input[name="deadLine"]').val(),
+            step: $('input[name="step"]').val(),
+            contact: $('input[name="contact"]').val()
+        };
+
+        // jQuery를 사용한 Ajax 요청
+        $.ajax({
+            /*
+             * pageContext.request.contextPath:
+             * - 웹 컨텍스트 경로(Context Path) 동적 반환
+             * - ex: if, http://localhost:8080/my-app 에서 실행된다면, 이 값은 "/my-app"
+             * - 서버 환경 바뀌어도 URL 경로 깨지지 않고 유지
+            */
+            url: '${pageContext.request.contextPath}/recruits/register',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),     // JavaScript 객체 -> JSON 문자열로 변환
+            headers: {
+                'X-CSRF-TOKEN': '${_csrf.token}'    // CSRF 공격 방지 위한 토큰 추가
+            },
+            // Ajax 요청 성공 시
+            success: function(response) {
+                alert('채용 공고가 성공적으로 등록되었습니다.');
+                // 공고 목록 페이지로 이동
+                window.location.href = '${pageContext.request.contextPath}/recruits/listbyid';
+            },
+            // Ajax 요청 실패 시
+            error: function(xhr, status, error) {
+                alert('공고 등록에 실패했습니다: ' + xhr.responseText);
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+</script>
+
 </body>
 </html>
