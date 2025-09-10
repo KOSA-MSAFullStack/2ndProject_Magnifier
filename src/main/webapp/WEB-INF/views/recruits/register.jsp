@@ -172,6 +172,12 @@ $(document).ready(function() {
 
         // jQuery를 사용한 Ajax 요청
         $.ajax({
+            /*
+             * pageContext.request.contextPath:
+             * - 웹 컨텍스트 경로(Context Path) 동적 반환
+             * - ex: if, http://localhost:8080/my-app 에서 실행된다면, 이 값은 "/my-app"
+             * - 서버 환경 바뀌어도 URL 경로 깨지지 않고 유지
+            */
             url: '${pageContext.request.contextPath}/recruits/register',
             type: 'POST',
             contentType: 'application/json',
