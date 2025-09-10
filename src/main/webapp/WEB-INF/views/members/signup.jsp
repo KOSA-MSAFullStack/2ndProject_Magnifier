@@ -81,7 +81,7 @@
 
             <div class="form-group address-group">
                 <input type="text" id="addressDetail" name="addressDetail" placeholder="상세 주소" class="input-box" required/>
-                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box" required/>
+                <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box"/>
             </div>
             
             <!-- 회원가입 제출 버튼 -->
@@ -313,7 +313,7 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/members/signup',  // 회원가입 처리 컨트롤러 URL
+	      url: '/members/api/signup',  // 회원가입 처리 컨트롤러 URL
 	      type: 'POST',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송
