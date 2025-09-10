@@ -2,6 +2,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- JSTL core 라이브러리 선언 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!-- JSTL functions 라이브러리 선언 -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
@@ -51,26 +53,47 @@
 			</div>
 			<div class="form-section">
 				<div class="form-group">
-					<span class="personal-name">이상우</span>
+					<span class="personal-name">${member.name}</span>
 				</div>
 				<div class="form-group">
 					<div class="info-item">
 						<ion-icon name="phone-portrait-outline"></ion-icon>
-						<span class="personal-phone">010-1234-1234</span>
+						<span class="personal-phone">
+							${fn:substring(member.phoneNumber, 0, 3)}-
+						    ${fn:substring(member.phoneNumber, 3, 7)}-
+						    ${fn:substring(member.phoneNumber, 7, 11)}
+						</span>
 					</div>
 					<div class="info-item">
-						<ion-icon name="male-female-outline"></ion-icon>
-						<span class="personal-gender">남성</span>
+						<%
+				            // Model에서 resumes 객체를 가져옵니다.
+				            com.magnifier.member.dto.FindMemberResponse member = (com.magnifier.member.dto.FindMemberResponse) request.getAttribute("member");
+				
+				            // 객체가 null이 아닌지 확인합니다.
+				            if (member != null && member.getGender() != null) {
+				                // Member 객체에서 gender 값을 가져와 비교합니다.
+				                char gender = member.getGender();
+				                if (gender == 'M') {
+				                	out.print("<ion-icon name='male-outline'></ion-icon>");
+				                    out.print("<span class='personal-gender'>남성</span>");
+				                } else if (gender == 'F') {
+				                	out.print("<ion-icon name='female-outline'></ion-icon>");
+				                    out.print("<span class='personal-gender'>여성</span>");
+				                } else {
+				                    out.print("성별 정보 없음");
+				                }
+				            }
+				        %>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="info-item">
 						<ion-icon name="home-outline"></ion-icon>
-						<span class="personal-address">대전 유성구 노은로 353</span>
+						<span class="personal-address">(${member.postNumber}) ${member.address} ${member.addressDetail} ${member.reference}</span>
 					</div>
 					<div class="info-item">
 						<ion-icon name="body-outline"></ion-icon>
-						<span class="personal-birth">1964 (62세)</span>
+						<span class="personal-birth">${member.year}-${member.month}-${member.day}</span>
 					</div>
 				</div>
 			</div>
@@ -83,6 +106,8 @@
 				<div class="form-group">
 					<select class="school-type" name="schoolType">
 						<option>학교 구분</option>
+						<option>초등학교</option>
+						<option>중학교</option>
 						<option>고등학교</option>
 						<option>대학교</option>
 						<option>대학원</option>
@@ -380,11 +405,40 @@
 
         return resumeData;
     }
+ 	
+ 	// 모든 필수 항목을 검증하는 함수
+    function validateResumeForm() {
+        // .trim()을 사용하여 앞뒤 공백을 제거하고 값이 비었는지 확인
+        const title = document.querySelector('input[name="title"]').value.trim();
+        // select 태그는 value가 '학교 구분' 또는 '졸업여부'인 경우를 확인
+        const schoolType = document.querySelector('select[name="schoolType"]').value;
+        const schoolName = document.querySelector('input[name="schoolName"]').value.trim();
+        const graduateStatus = document.querySelector('select[name="graduateStatus"]').value;
+        const enterDate = document.querySelector('input[name="enterDate"]').value.trim();
+        const graduateDate = document.querySelector('input[name="graduateDate"]').value.trim();
+
+        // 필수 항목 중 하나라도 비어있으면 false 반환
+        if (
+            title === '' ||
+            schoolType === '학교 구분' || 
+            schoolName === '' ||
+            graduateStatus === '졸업여부' ||
+            enterDate === '' ||
+            graduateDate === ''
+        ) {
+            return false; // 유효성 검사 실패
+        }
+        return true; // 모든 필수 항목이 채워짐
+    }
 
     // "저장하기" 버튼 클릭 시 서버에 데이터 전송
     document.querySelector('.submit-btn').addEventListener('click', () => {
-        const data = collectAllFormData();
-        console.log(data);
+    	if (!validateResumeForm()) {
+            alert('제목과 최종 학력의 모든 필수 항목을 채워주세요.');
+            return; // 유효성 검사 실패 시 함수 실행을 여기서 중단
+        }    	
+    	const data = collectAllFormData();
+
         $.ajax({
             url: '/members/resumes/register',
             type: 'POST',
@@ -398,6 +452,7 @@
                 console.log("서버로부터 받은 응답 데이터:", result);
                 if (result.success) {
                     alert('이력서가 성공적으로 등록되었습니다.');
+                    window.location.href = "${path}/members/resumes/"; 
                 } else {
                     alert('등록 실패: ' + result.message);
                 }

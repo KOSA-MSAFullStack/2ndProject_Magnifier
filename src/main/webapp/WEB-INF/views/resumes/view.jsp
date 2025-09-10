@@ -48,8 +48,6 @@
 					</span>
                 </div>
                 <div class="info-item">
-                    <ion-icon name="male-female-outline"></ion-icon>
-                    <span class="personal-gender">
                     <%
 			            // Model에서 resumes 객체를 가져옵니다.
 			            com.magnifier.resume.dto.ResumeDto resume = (com.magnifier.resume.dto.ResumeDto) request.getAttribute("resumes");
@@ -59,15 +57,16 @@
 			                // Member 객체에서 gender 값을 가져와 비교합니다.
 			                char gender = resume.getMember().getGender();
 			                if (gender == 'M') {
-			                    out.print("남성");
+			                	out.print("<ion-icon name='male-outline'></ion-icon>");
+			                    out.print("<span class='personal-gender'>남성</span>");
 			                } else if (gender == 'F') {
-			                    out.print("여성");
+			                	out.print("<ion-icon name='female-outline'></ion-icon>");
+			                    out.print("<span class='personal-gender'>여성</span>");
 			                } else {
 			                    out.print("성별 정보 없음");
 			                }
 			            }
 			        %>
-					</span>
                 </div>
             </div>
             <div class="form-group">

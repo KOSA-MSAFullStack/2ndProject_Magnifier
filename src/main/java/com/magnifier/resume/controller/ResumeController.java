@@ -7,16 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.magnifier.member.dto.FindMemberResponse;
+import com.magnifier.member.service.MemberService;
 import com.magnifier.resume.dto.ResumeDto;
 import com.magnifier.resume.service.ResumeService;
 import com.magnifier.security.domain.CustomMember;
@@ -34,7 +36,10 @@ import lombok.extern.log4j.Log4j;
 public class ResumeController {
 
 	@Autowired
-    private ResumeService service;
+    private ResumeService resumeService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/")
     public String resume(Model model) {
@@ -51,7 +56,7 @@ public class ResumeController {
 		}
 
         // Service 계층으로 이력서 존재 여부 확인 요청
-		boolean hasResume = service.hasResume(memberId);
+		boolean hasResume = resumeService.hasResume(memberId);
 		
         // hasResume 변수를 View로 전달
         model.addAttribute("hasResume", hasResume);
@@ -62,14 +67,39 @@ public class ResumeController {
 	// 이력서 등록 폼을 보여주는 페이지
     @GetMapping("/register")
     public String showCreateForm(Model model) {
-    	
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int memberId = 0;
+		if (authentication != null && authentication.isAuthenticated()) {
+		    Object principal = authentication.getPrincipal();
+
+		    if (principal instanceof CustomMember) {
+		        CustomMember user = (CustomMember) principal;
+		        // 사용자 도메인 정보 접근 가능
+		        memberId = user.getMember().getMemberId();
+		    }
+		}
+		FindMemberResponse member = memberService.findMember(memberId);
+		model.addAttribute("member", member);
         return "resumes/form";
     }
     
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> register(@RequestBody ResumeDto resumeDto) {
-    	service.registerResume(resumeDto);
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int memberId = 0;
+		if (authentication != null && authentication.isAuthenticated()) {
+		    Object principal = authentication.getPrincipal();
+
+		    if (principal instanceof CustomMember) {
+		    	CustomMember user = (CustomMember) principal;
+		        // 사용자 도메인 정보 접근 가능
+		        memberId = user.getMember().getMemberId();
+		    }
+		}
+    	
+    	resumeDto.setMemberId(memberId);
+    	resumeService.registerResume(resumeDto);
     	
     	// 성공 메시지를 담을 JSON 객체(Map) 생성
         Map<String, Object> response = new HashMap<>();
@@ -95,7 +125,7 @@ public class ResumeController {
 		}
 
 		 // 1. 서비스에서 DTO 목록을 가져옵니다.
-        ResumeDto resumes = service.findResumesByMemberId(memberId);
+        ResumeDto resumes = resumeService.findResumesByMemberId(memberId);
         
         // 2. 'resumes'라는 이름으로 DTO 목록을 Model에 담습니다.
         //    이 이름이 JSP에서 데이터를 꺼내 쓸 때 사용됩니다.
