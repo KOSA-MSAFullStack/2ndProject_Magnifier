@@ -4,6 +4,7 @@ import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.dto.FindMemberResponse;
 import com.magnifier.member.dto.UpdateMemberRequest;
+import com.magnifier.security.domain.CustomMember;
 
 
 /**
@@ -18,5 +19,5 @@ public interface MemberService {
 	
 	public FindMemberResponse findMember(int memberId); // 개인 회원 정보 조회
 	
-	public void update(UpdateMemberRequest dto); // 회원정보 수정
+	public void update(UpdateMemberRequest dto, CustomMember member); // 회원정보 수정
 }

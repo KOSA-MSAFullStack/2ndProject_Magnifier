@@ -2,7 +2,6 @@ package com.magnifier.member.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.magnifier.member.dto.UpdateMemberRequest;
 import com.magnifier.member.entity.Member;
 
 @Mapper
@@ -15,5 +14,5 @@ public interface MemberMapper {
 	
 	public Member findById(int memberId); // 내 정보에서 개인 정보 조회
 	
-	public void update(UpdateMemberRequest dto); // 회원정보 수정
+	public int update(Member member); // 회원정보 수정
 }

@@ -74,42 +74,45 @@
             </div>
             
             <!-- 회원가입 제출 버튼 -->
-            <button type="submit" class="btn-submit">가입하기</button>
+            <button type="submit" class="btn-submit">수정하기</button>
             
             <!-- CSRF 토큰 히든 필드 (스프링 시큐리티용) -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
     </div>
     <script >
-      $(document).ready(function() {
-        $.ajax({
-          url: '/members/api/mypage',  // 개인 정보 요청 api
-          type: 'GET',
-          success: function(response) {
-            // response 는 JSON 형태, FindMemberResponse 구조에 맞게 값을 폼에 넣음
-            $('#name').val(response.name);
-            $('#loginId').val(response.loginId);
-            if (response.gender === 'M') {
-              $('#male').prop('checked', true);
-            } else if (response.gender === 'F') {
-              $('#female').prop('checked', true);
-            }
-            $('#phoneNumber').val(response.phoneNumber);
-
-            $('#year').val(response.year);
-            $('#month').val(response.month);
-            $('#day').val(response.day);
-
-            $('#postNumber').val(response.postNumber);
-            $('#address').val(response.address);
-            $('#addressDetail').val(response.addressDetail);
-            $('#reference').val(response.reference);
-       	  },
-          error: function() {
-            alert('회원 정보를 불러오는 데 실패했습니다.');
-          }
-        });
-      });	
+	  // 페이지 로드 시에도 회원 정보 로드 실행
+	    $(document).ready(function() {
+	      reloadMemberInfo(); // 회원 정보 조회
+	    });
+	  
+	  // 회원 정보 다시 불러와서 폼에 채우는 메서드
+	  function reloadMemberInfo() {
+	    $.ajax({
+	      url: '/members/api/mypage',
+	      type: 'GET',
+	      success: function(response) {
+	        $('#name').val(response.name);
+	        $('#loginId').val(response.loginId);
+	        if (response.gender === 'M') {
+	          $('#male').prop('checked', true);
+	        } else if (response.gender === 'F') {
+	          $('#female').prop('checked', true);
+	        }
+	        $('#phoneNumber').val(response.phoneNumber);
+	        $('#year').val(response.year);
+	        $('#month').val(response.month);
+	        $('#day').val(response.day);
+	        $('#postNumber').val(response.postNumber);
+	        $('#address').val(response.address);
+	        $('#addressDetail').val(response.addressDetail);
+	        $('#reference').val(response.reference);
+	      },
+	      error: function() {
+	        alert('회원 정보를 불러오는 데 실패했습니다.');
+	      }
+	    });
+	  }
     
       /*
       	생년월일 selectBox 초기화
@@ -240,7 +243,7 @@
 	      },
 	      success: function(response) {
 	        alert('개인 정보 수정이 완료되었습니다.');
-	        window.location.href = '/members/mypage'; // 가입 완료 후 로그인 페이지로 이동
+	        reloadMemberInfo(); // 회원 정보 조회
           },
 	      error: function(xhr, status, error) {
     	    checkId = 0; // 중복확인 다시 하기 위하여 0 부여

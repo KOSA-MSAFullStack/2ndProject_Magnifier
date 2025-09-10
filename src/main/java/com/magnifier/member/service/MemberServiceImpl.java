@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
@@ -11,6 +12,7 @@ import com.magnifier.member.dto.FindMemberResponse;
 import com.magnifier.member.dto.UpdateMemberRequest;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
+import com.magnifier.security.domain.CustomMember;
 
 import lombok.extern.log4j.Log4j;
 
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @param dto(CreateMemberRequest)
 	 */
 	@Override
+	@Transactional
 	public void save(CreateMemberRequest dto) {
 		// 생년월일 조합
 		LocalDate birth = LocalDate.of(
@@ -47,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		// 비밀번호 암호화
 		String encodePW = passwordEncoder.encode(dto.getPassword()); 
 		
-		// Member 객체 생성
+		// Member 객체로 매핑
 		Member member = Member.createMember(dto, encodePW, birth); 
 		
 		// 회원 가입 쿼리 실행
@@ -60,6 +63,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @return exist(로그인 Id 존재여부)
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean idCheck(CheckIdRequest dto) {
 		Boolean exist = false; // 로그인 Id 존재 여부
 		
@@ -80,6 +84,7 @@ public class MemberServiceImpl implements MemberService {
 	 * @return dto(FindMemberResponse)
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public FindMemberResponse findMember(int memberId) {
 		// Id로 개인 회원 정보 조회
 		Member member = memberMapper.findById(memberId);	
@@ -95,13 +100,22 @@ public class MemberServiceImpl implements MemberService {
 	 * @param dto(UpdateMemberRequest)
 	 */
 	@Override
-	public void update(UpdateMemberRequest dto) {
+	@Transactional
+	public void update(UpdateMemberRequest dto, CustomMember member) {
+		// dto에 memberId값 추가
+		dto.setMemberId(member.getMemberId());
 		
+		// 생년월일 조합
+		LocalDate birth = LocalDate.of(
+				dto.getYear(), 
+				dto.getMonth(), 
+				dto.getDay()
+		);
 		
-//		// dto에 memberId 채우기
-//		dto.setMemberId(memberId);
-//		
-//		memberMapper.update(dto); // 회원정보 수정 
+		// Member 객체로 매핑
+		Member updateMember = Member.createMember(dto, birth);
 		
+		int rows = memberMapper.update(updateMember); // 회원정보 수정  -> 변경된 행 수 반환
+		log.info("update 영향 받은 행: " + rows);
 	}
 }
