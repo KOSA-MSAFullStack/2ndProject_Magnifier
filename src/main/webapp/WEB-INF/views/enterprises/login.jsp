@@ -32,11 +32,7 @@
                 <div class="login-links">
                     <a href="#">아이디 찾기</a> | 
                     <!-- <a href="#">비밀번호 찾기</a> |  -->
-<<<<<<< HEAD
                     <a href="/enterprises/signup">회원가입</a>
-=======
-                    <a href="/members/signup">회원가입</a>
->>>>>>> feature/resume_register
                 </div>
             </div>
         </main>
