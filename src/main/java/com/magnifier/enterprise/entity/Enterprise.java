@@ -31,7 +31,7 @@ public class Enterprise {
 	private String auth;        	 // 권한(default: ROLE_ENTERPRISE)
 	
 	/**
-	 * dto의 값이나 서비스계층에서 재조합한 데이터를 빌더로 값을 채워
+	 * dto의 값이나 서비스계층에서 재조합한 데이터를 빌더로 값을 채워줌
 	 * @param dto
 	 * @param encodePW
 	 * @return
