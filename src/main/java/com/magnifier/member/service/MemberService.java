@@ -4,6 +4,7 @@ import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.dto.FindMemberResponse;
 
+
 /**
  * 
  * @author 김경아
