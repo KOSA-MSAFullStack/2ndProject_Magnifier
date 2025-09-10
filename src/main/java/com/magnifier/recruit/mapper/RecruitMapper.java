@@ -18,7 +18,9 @@ package com.magnifier.recruit.mapper;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
+
 import com.magnifier.recruit.dto.RecruitDto;
 
 @Mapper
@@ -35,7 +37,12 @@ public interface RecruitMapper {
      * 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원
      * @return 채용 공고 DTO 리스트
      */
-    List<RecruitDto> getRecruitList() throws SQLException;
+    List<RecruitDto> getRecruitList(Map<String, Integer> params) throws SQLException;
+    /**
+     * 전체 채용공고 수 조회
+     * @return 전체 공고 수
+     */
+    int getCount() throws SQLException;
     
     /**
      * 기업이 등록한 채용공고 목록 조회 (R, Select) - 기업회원
