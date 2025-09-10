@@ -13,12 +13,15 @@
 package com.magnifier.recruit.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
+
 import com.magnifier.recruit.mapper.RecruitMapper;
 import com.magnifier.recruit.dto.RecruitDto;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -42,15 +45,30 @@ public class RecruitServiceImpl implements RecruitService {
         }
     }
 
-    // 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원
+    // 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원 (페이지네이션 적용)
     @Override
-    public List<RecruitDto> getRecruitList() throws SQLException {
-        log.info("[전체 채용 공고 목록 조회] 서비스 실행");
+    public List<RecruitDto> getRecruitList(int page, int size) throws SQLException {
+        log.info("[전체 채용 공고 목록 조회] 서비스 실행 (페이지: {}, 사이즈: {})", page, size);
         try {
-            // 전체 채용 공고 목록 조회
-            return recruitMapper.getRecruitList();
+            int startRow = (page - 1) * size + 1;
+            int endRow = page * size;
+            Map<String, Integer> params = new HashMap<>();
+            params.put("startRow", startRow);
+            params.put("endRow", endRow);
+            return recruitMapper.getRecruitList(params);
         } catch (Exception e) {
             log.error("[전체 채용 공고 목록 조회] 중 예외 발생", e);
+            throw e;
+        }
+    }
+    // 전체 채용공고 수 조회
+    @Override
+    public int getCount() throws SQLException {
+        log.info("[전체 공고 수 조회] 서비스 실행");
+        try {
+            return recruitMapper.getCount();
+        } catch (Exception e) {
+            log.error("[전체 공고 수 조회] 중 예외 발생", e);
             throw e;
         }
     }
