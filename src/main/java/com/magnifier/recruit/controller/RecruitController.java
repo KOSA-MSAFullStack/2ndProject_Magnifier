@@ -22,13 +22,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.service.RecruitService;
 import com.magnifier.security.domain.CustomEnterprise;
@@ -67,21 +71,35 @@ public class RecruitController {
         }
     }
 
-    // 전체 채용 공고 목록 조회_GET (RESTful API)
+    // 전체 채용 공고 목록 조회_GET
     @GetMapping("/list")
     @ResponseBody
-    public ResponseEntity<List<RecruitDto>> list() {
+    public ResponseEntity<Map<String, Object>> list(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
-            // 전체 채용 공고 목록 조회 서비스 호출
-            List<RecruitDto> recruitList = recruitService.getRecruitList();
-            return new ResponseEntity<>(recruitList, HttpStatus.OK);
+            // 서비스에서 페이지네이션 적용된 목록 가져오기
+            List<RecruitDto> recruitList = recruitService.getRecruitList(page, size);
+            // 전체 아이템 수 가져오기
+            int totalCount = recruitService.getCount();
+            // 전체 페이지 수 계산
+            int totalPages = (int) Math.ceil((double) totalCount / size);
+
+            // 응답 데이터 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("recruits", recruitList);
+            response.put("currentPage", page);
+            response.put("totalPages", totalPages);
+            response.put("totalCount", totalCount);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("전체 채용 공고 목록 조회 중 오류 발생: " + e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // 기업별 등록한 채용 공고 목록 조회_GET (기존 listById를 manage로 변경하고 뷰도 listById로 변경)
+        // 기업별 등록한 채용 공고 목록 조회_GET (기존 listById를 manage로 변경하고 뷰도 listById로 변경)
     @GetMapping("/listbyid")
     public String listById(Authentication auth, Model model) {
         try {
