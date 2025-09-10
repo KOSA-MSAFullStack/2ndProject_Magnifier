@@ -3,9 +3,9 @@ package com.magnifier.member.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.dto.FindMemberResponse;
+import com.magnifier.member.dto.UpdateMemberRequest;
 import com.magnifier.member.service.MemberService;
 import com.magnifier.security.domain.CustomMember;
 
@@ -49,26 +50,32 @@ public class MemberApiController {
 	
 	/**
 	 * 개인 회원 정보 조회 요청 api
-	 * @return
+	 * @return dto(FindMemberResponse)
 	 */
 	@GetMapping("/mypage")
-	public ResponseEntity<FindMemberResponse> findMember() {
+	public ResponseEntity<FindMemberResponse> findMember(Authentication authentication) {
 		// 로그인한 회원 정보
-		int memberId = 0; // memberId를 담을 변수
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // 현재 스프링 시큐리티 컨텍스트에서 인증 정보를 가져옴
-		if (authentication != null && authentication.isAuthenticated()) { // 인증 정보가 존재하고, 인증된 상태인지 확인
-		    Object principal = authentication.getPrincipal(); // 인증된 사용자의 세부 정보를 담고 있는 principal 객체를 얻음
-		    
-		    if (principal instanceof CustomMember) { // principal이 CustomMember 타입인지 확인 (사용자 정의 UserDetails 구현체)
-		        CustomMember user = (CustomMember) principal;  // CustomMember 객체로 캐스팅하여 사용자 도메인 객체 접근
-		        memberId = user.getMember().getMemberId(); // CustomMember 내부에 있는 실제 회원 도메인 객체에서 memberId를 얻음
-		    }
-		}
+		CustomMember member = (CustomMember) authentication.getPrincipal();
+		int memberId = member.getMemberId();
 
-		// 서비스 계층에서 로직 구현
+		// 비즈니스 로직 서비스에서 처리
 		FindMemberResponse findMember = memberService.findMember(memberId); 
 		
 		return ResponseEntity.ok().body(findMember);
 	}
 	
+	/**
+	 * 회원 정보 수정 요청 api
+	 * @param dto
+	 * @return http 응답 코드
+	 */
+	@PutMapping("/mypage")
+	public ResponseEntity<String> updateMember(@RequestBody UpdateMemberRequest dto, Authentication authentication) {
+		// 로그인한 회원 정보
+		CustomMember member = (CustomMember) authentication.getPrincipal();
+		
+		// 비즈니스 로직 서비스에서 처리
+		memberService.update(dto, member); 
+		return ResponseEntity.ok().build();
+	}
 }
