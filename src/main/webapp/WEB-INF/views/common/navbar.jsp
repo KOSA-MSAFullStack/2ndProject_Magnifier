@@ -22,14 +22,12 @@
     <a href="#">지원내역</a>
     
     <!-- 개인회원 : 개인회원정보, 기업회원: 기업회원정보 -->
-    <security:authorize access="isAuthenticated()">
-	    <security:authorize access="hasRole('ROLE_ENTERPRISE')">
-	        <a href=/enterprises/mypage>내 정보</a>
-	    </security:authorize>
-	    <security:authorize access="!hasRole('ROLE_ENTERPRISE')">
-	        <a href="/members/mypage">내 정보</a>
-	    </security:authorize>
-	</security:authorize>
+    <security:authorize access="hasRole('ROLE_ENTERPRISE')">
+        <a href=/enterprises/mypage>내 정보</a>
+    </security:authorize>
+    <security:authorize access="!hasRole('ROLE_ENTERPRISE')">
+        <a href="/members/mypage">내 정보</a>
+    </security:authorize>
 
 	<!-- 로그인 되어있을 때는 로그아웃이 보이도록, 로그아웃 상태면 로그인이 보이도록 -->
     <security:authorize access="isAuthenticated()">
