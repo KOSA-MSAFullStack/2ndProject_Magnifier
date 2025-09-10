@@ -17,14 +17,16 @@
         <div class="recruitList">
             <c:forEach var="recruit" items="${recruitList}">
                 <div class="recruit">
+                    <div class="recruit-info">
                     <input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="${recruit.recruitId}">
                     <span class="title">${recruit.title}</span>
+                </div>
                     <span class="details">${recruit.workingArea}</span>
                 </div>
             </c:forEach>
             <div class="button-container">
-                <button class="add-button">공고추가</button>
-                <button class="delete-button">공고삭제</button>
+                <button class="add-button" onclick="location.href='${pageContext.request.contextPath}/recruits/register'">공고 추가</button>
+                <button class="delete-button onclick="location.href='${pageContext.request.contextPath}/recruits/delete'">공고 삭제</button>
             </div>
         </div>
     </div>

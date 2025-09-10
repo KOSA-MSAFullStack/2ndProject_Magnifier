@@ -129,14 +129,26 @@ body {
   border-bottom: none;
 }
 
+.recruit-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.recruit-checkbox {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
 .title {
-  font-size: 40px;
+  font-size: 48px;
   font-weight: bold;
   color: var(--black1);
 }
 
 .details {
-  font-size: 32px;
+  font-size: 40px;
   color: var(--black1);
 }
 
@@ -189,4 +201,29 @@ body {
   cursor: pointer;
   background-color: var(--blue);
   color: var(--white);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.add-button, .delete-button {
+  padding: 20px 40px;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--white);
+  background-color: var(--darkblue);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.add-button:hover, .delete-button:hover {
+  background-color: var(--blue);
 }
