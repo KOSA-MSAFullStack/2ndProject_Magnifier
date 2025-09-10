@@ -1,0 +1,200 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: var(--background);
+    font-family: 'Inter', sans-serif;
+    padding-top: 220px;
+}
+
+:root{
+    --blue: #0056b3;
+    --darkblue: #2A4089;
+    --white: #fff;
+    --grey: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+    --background: #C8D9E4;
+    --red: #ff0000;
+    --ivory: #FFFAFA;
+}
+
+.resume-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.resume-btn {
+    font-size: 50px;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--darkblue);
+    color: var(--white);
+    cursor: pointer;
+    width: 75%;
+    height: 150px;
+}
+
+.resume-btn:hover {
+    background-color: var(--blue);
+}
+
+.resume-container {
+    width: 70%;
+    margin: 30px auto;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.resume-title {
+    font-size: 50px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+}
+
+.personal-info,
+.education,
+.career,
+.license {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.career span,
+.license span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 32px;
+}
+
+.info-item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-basis: calc(50% - 5px);
+}
+
+.school-type {
+    width: 30%;
+}
+
+.form-group input,
+.form-group select {
+    flex: 1;
+    min-width: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 40px;
+}
+
+.add-btn {
+    background-color: var(--white);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.add-btn:hover {
+    background-color: #ddd;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.button-group button {
+    font-size: 40px;
+    border: 1px solid var(--darkblue);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: var(--white);
+    color: var(--darkblue);
+}
+
+.cancel-btn:hover {
+    background-color: var(--grey);
+}
+
+.save-btn {
+    background-color: var(--darkblue);
+    color: var(--white);
+}
+
+.save-btn:hover {
+    background-color: var(--blue);
+}
+
+.hidden {
+    display: none;
+}
+
+.saved-career-info,
+.saved-license-info {
+    font-size: 40px;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 50px;
+    border: none;
+    border-radius: 8px;
+    background: var(--darkblue);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: var(--blue);
+}
+
+.modify-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 50px;
+    border: none;
+    border-radius: 8px;
+    background: var(--darkblue);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.modify-btn:hover {
+    background: var(--blue);
+}
