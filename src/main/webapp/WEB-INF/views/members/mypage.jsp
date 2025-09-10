@@ -26,7 +26,7 @@
             <div class="form-group name-group">
             
 	            <!-- 이름 입력란 -->
-                <input type="text" id="name" name="name" placeholder="이름" class="input-box large" readonly/>
+                <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" readonly/>
                 
                 <!-- 성별 선택 라디오 버튼 -->
                 <div class="gender-options">
@@ -43,17 +43,8 @@
             
             <!-- 아이디 입력란 -->
             <div class="form-group id-group">
-                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" readonly/>
+                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box large" readonly/>
             </div>
-            
-            <!-- 비밀번호 및 비밀번호 확인 입력란 -->
-            <div class="form-group password-group">
-                <input type="password" id="password" name="password" placeholder="비밀번호 (최소  4자, 최대  12자를 입력하세요.)" class="input-box large password" minlength="4" maxlength="12" required/>
-            </div>
-            <div class="form-group password-confirm-group">
-                <input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 확인" class="input-box large password" minlength="4" maxlength="12" required/>
-            </div>
-            <div id="passwordCheckMsg"></div>
             
             <!-- 휴대폰 번호 입력란 -->
             <div class="form-group phone-group">
@@ -83,42 +74,45 @@
             </div>
             
             <!-- 회원가입 제출 버튼 -->
-            <button type="submit" class="btn-submit">가입하기</button>
+            <button type="submit" class="btn-submit">수정하기</button>
             
             <!-- CSRF 토큰 히든 필드 (스프링 시큐리티용) -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
     </div>
     <script >
-      $(document).ready(function() {
-        $.ajax({
-          url: '/members/api/mypage',  // 개인 정보 요청 api
-          type: 'GET',
-          success: function(data) {
-            // data 는 JSON 형태, FindMemberResponse 구조에 맞게 값을 폼에 넣음
-            $('#name').val(data.name);
-            $('#loginId').val(data.loginId);
-            if (data.gender === 'M') {
-              $('#male').prop('checked', true);
-            } else if (data.gender === 'F') {
-              $('#female').prop('checked', true);
-            }
-            $('#phoneNumber').val(data.phoneNumber);
-
-            $('#year').val(data.year);
-            $('#month').val(data.month);
-            $('#day').val(data.day);
-
-            $('#postNumber').val(data.postNumber);
-            $('#address').val(data.address);
-            $('#addressDetail').val(data.addressDetail);
-            $('#reference').val(data.reference);
-       	  },
-          error: function() {
-            alert('회원 정보를 불러오는 데 실패했습니다.');
-          }
-        });
-      });	
+	  // 페이지 로드 시에도 회원 정보 로드 실행
+	    $(document).ready(function() {
+	      reloadMemberInfo(); // 회원 정보 조회
+	    });
+	  
+	  // 회원 정보 다시 불러와서 폼에 채우는 메서드
+	  function reloadMemberInfo() {
+	    $.ajax({
+	      url: '/members/api/mypage',
+	      type: 'GET',
+	      success: function(response) {
+	        $('#name').val(response.name);
+	        $('#loginId').val(response.loginId);
+	        if (response.gender === 'M') {
+	          $('#male').prop('checked', true);
+	        } else if (response.gender === 'F') {
+	          $('#female').prop('checked', true);
+	        }
+	        $('#phoneNumber').val(response.phoneNumber);
+	        $('#year').val(response.year);
+	        $('#month').val(response.month);
+	        $('#day').val(response.day);
+	        $('#postNumber').val(response.postNumber);
+	        $('#address').val(response.address);
+	        $('#addressDetail').val(response.addressDetail);
+	        $('#reference').val(response.reference);
+	      },
+	      error: function() {
+	        alert('회원 정보를 불러오는 데 실패했습니다.');
+	      }
+	    });
+	  }
     
       /*
       	생년월일 selectBox 초기화
@@ -151,33 +145,6 @@
 	    option.text = day;
 	    daySelect.appendChild(option);
 	  }
-	  
-	  /* 
-	       비밀번호 재확인 
-	  */
-	  $('.password').focusout(function(){
-	    const password = $("#password").val(); // 비밀번호
-	    const passwordCheck = $("#passwordCheck").val(); // 비밀번호 확인
-	
-	    if (password !== "" || passwordCheck !== "") {
-	        // 메시지 초기화 (기존 메시지 제거)
-	        $("#passwordCheckMsg").empty();
-	
-	        if (password === passwordCheck) { // 일치할 때
-	            $("#passwordCheckMsg")
-	                .css({ 'margin-bottom': '30px' })
-	                .append('<span class="success-msg">비밀번호가 일치합니다.</span>');
-	        } else { // 일치하지 않을 때
-	            $("#passwordCheckMsg")
-	                .css({ 'margin-bottom': '30px' })
-	                // 오류 메시지 내용 수정
-	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
-	        }
-	    } else {
-	        // 둘 다 비어있으면 메시지 제거
-	        $("#passwordCheckMsg").empty();
-	    }
-	  });
 	  
 	  /*
 	  	우편번호 찾기
@@ -231,9 +198,9 @@
       });
 	  	  
 	  /*
-	    POST 요청 : 회원가입 폼 제출 시 AJAX 처리
+	    PUT 요청 : 정보 수정 폼 제출 시 AJAX 처리
 	  */
-	  $('#signupForm').on('submit', function(event) {
+	  $('#modifyForm').on('submit', function(event) {
 	    event.preventDefault(); // 폼 기본 제출 차단
 	    
 	 	// 성별 선택 검사
@@ -254,7 +221,6 @@
 	    const formData = {
   	      "gender": $('input[name="gender"]:checked').val(),
     	  "password": $('#password').val(),
-   		  "passwordConfirm": $('#passwordConfirm').val(),
    		  "phoneNumber": $('#phoneNumber').val(),
    		  "year": parseInt($('#year').val(), 10),
    	      "month": parseInt($('#month').val(), 10),
@@ -267,8 +233,8 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/members/signup',  // 회원가입 처리 컨트롤러 URL
-	      type: 'POST',
+	      url: '/members/api/mypage',  // 회원정보 수정 처리 컨트롤러 URL
+	      type: 'PUT',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송
 	      headers: {
@@ -276,12 +242,12 @@
         	'Accept': 'application/json'  
 	      },
 	      success: function(response) {
-	        alert('회원가입이 완료되었습니다.');
-	        window.location.href = '/members/login'; // 가입 완료 후 로그인 페이지로 이동
+	        alert('개인 정보 수정이 완료되었습니다.');
+	        reloadMemberInfo(); // 회원 정보 조회
           },
 	      error: function(xhr, status, error) {
     	    checkId = 0; // 중복확인 다시 하기 위하여 0 부여
-	        alert('회원가입에 실패했습니다.');
+	        alert('개인 정보 수정이 실패했습니다.');
 	        console.error(error);
 	      }
 	    });

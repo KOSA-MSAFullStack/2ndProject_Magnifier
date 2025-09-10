@@ -46,7 +46,8 @@ public class ResumeController {
 		    if (principal instanceof CustomMember) {
 		        CustomMember user = (CustomMember) principal;
 		        // 사용자 도메인 정보 접근 가능
-		        memberId = user.getMember().getMemberId();
+		        memberId = user.getMemberId();
+//		        memberId = user.getMember().getMemberId();
 		    }
 		}
 
@@ -90,7 +91,8 @@ public class ResumeController {
 		    if (principal instanceof CustomMember) {
 		    	CustomMember user = (CustomMember) principal;
 		        // 사용자 도메인 정보 접근 가능
-		        memberId = user.getMember().getMemberId();
+		        memberId = user.getMemberId();
+//		        memberId = user.getMember().getMemberId();
 		    }
 		}
 

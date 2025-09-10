@@ -28,7 +28,7 @@
                 <input type="text" id="name" name="name" placeholder="기업명" class="input-box large" required/>
             </div>
             
-            <!-- 아이디 입력 및 중복확인 버튼 -->
+            <!-- 사업자 등록 번호 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
                 <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box medium" required/>
                 <button id="certification" type="button" class="btn-duplicate-check">인증</button>
@@ -156,7 +156,6 @@
    		  "name": $('#name').val(),
   	      "registerNumber": $('#registerNumber').val(),
     	  "password": $('#password').val(),
-   		  "passwordConfirm": $('#passwordConfirm').val(),
 	      "postNumber": $('#postNumber').val(),
 	      "address": $('#address').val(),
 	      "addressDetail": $('#addressDetail').val(),
