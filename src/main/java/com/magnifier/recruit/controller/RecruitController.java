@@ -81,9 +81,10 @@ public class RecruitController {
         }
     }
 
-    // 기업별 등록한 채용 공고 목록 조회_GET (기존 listById를 manage로 변경하고 뷰도 listById로 변경)
+        // 기업별 등록한 채용 공고 목록 조회_GET (RESTful API)
     @GetMapping("/listbyid")
-    public String listById(Authentication auth, Model model) {
+    @ResponseBody
+    public ResponseEntity<List<RecruitDto>> listById(Authentication auth) {
         try {
             // 현재 로그인한 기업 회원의 ID 가져오기
             CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
@@ -91,13 +92,12 @@ public class RecruitController {
 
             // 해당 기업이 등록한 채용 공고 목록 조회 서비스 호출
             List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
-            model.addAttribute("recruitList", recruitList);
-            return "recruits/listById"; // recruits/listById.jsp 뷰 반환
+            return new ResponseEntity<>(recruitList, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (인증된 사용자 ID: "
                     + ((CustomEnterprise) auth.getPrincipal()).getEnterprise().getEnterpriseId() + "): "
                     + e.getMessage());
-            return "error/errorPage";
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
