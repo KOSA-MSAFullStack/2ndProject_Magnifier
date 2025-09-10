@@ -4,7 +4,7 @@
  * 설명:
  * - 클라이언트의 채용 공고 관련 HTTP 요청 처리
  * - 서비스 계층과 연동하여 비즈니스 로직 수행
- * - 적절한 뷰(JSP) 또는 리다이렉트 경로 반환
+ * - 적절한 뷰(JSP) 또는 RESTful API 응답(JSON) 반환
  *
  * 주요 기능:
  * - 채용 공고 등록 (폼, 처리)
@@ -14,18 +14,25 @@
  * - 채용 공고 삭제
  */
 
-package com.magnifier.recruit.controller; 
+package com.magnifier.recruit.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.service.RecruitService;
 import com.magnifier.security.domain.CustomEnterprise;
@@ -43,55 +50,72 @@ public class RecruitController {
         return "recruits/register"; // recruits/register.jsp 뷰 반환
     }
 
-    // 채용 공고 등록_POST
+    // 채용 공고 등록_POST (RESTful API)
     @PostMapping("/register")
-    public String register(@ModelAttribute RecruitDto recruitDto, Model model) { // Model 추가
+    @ResponseBody
+    public ResponseEntity<String> register(@RequestBody RecruitDto recruitDto, Authentication auth) {
         try {
-            // enterpriseId가 비어있는지 확인 (로그인하지 않은 사용자의 접근 차단)
-            if (recruitDto.getEnterpriseId() == null) {
-                model.addAttribute("error", "로그인이 필요합니다.");
-                return "enterprise/login"; // 로그인 페이지로 리다이렉트
-            }
+            // 현재 로그인한 기업 회원의 ID를 Authentication 객체에서 가져와 설정
+            // 보안 강화를 위해 클라이언트에서 보낸 ID가 아닌 서버의 인증 정보 사용
+            CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
+            recruitDto.setEnterpriseId(customEnterprise.getEnterpriseId());
 
             // 채용 공고 등록 서비스 호출
-            recruitService.insertRecruit(recruitDto); // 서비스 계층에 공고 등록 요청
+            recruitService.insertRecruit(recruitDto);
             System.out.println("채용 공고 등록: " + recruitDto.getTitle());
-            return "redirect:/recruits/list"; // 등록 성공 시, 목록 페이지로 리다이렉트
+
+            return new ResponseEntity<>("SUCCESS", HttpStatus.CREATED);
         } catch (Exception e) {
             System.err.println("채용 공고 등록 중 오류 발생: " + e.getMessage());
-            return "error/errorPage";
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // 전체 채용 공고 목록 조회_GET
     @GetMapping("/list")
-    public String list(Model model) {
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> list(
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         try {
-            // 전체 채용 공고 목록 조회 서비스 호출
-            List<RecruitDto> recruitList = recruitService.getRecruitList();
-            model.addAttribute("recruitList", recruitList);
-            return "recruits/list"; // recruits/list.jsp 뷰 반환
+            // 서비스에서 페이지네이션 적용된 목록 가져오기
+            List<RecruitDto> recruitList = recruitService.getRecruitList(page, size);
+            // 전체 아이템 수 가져오기
+            int totalCount = recruitService.getCount();
+            // 전체 페이지 수 계산
+            int totalPages = (int) Math.ceil((double) totalCount / size);
+
+            // 응답 데이터 구성
+            Map<String, Object> response = new HashMap<>();
+            response.put("recruits", recruitList);
+            response.put("currentPage", page);
+            response.put("totalPages", totalPages);
+            response.put("totalCount", totalCount);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("전체 채용 공고 목록 조회 중 오류 발생: " + e.getMessage());
-            return "error/errorPage";
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // 기업별 등록한 채용 공고 목록 조회_GET (기존 listById를 manage로 변경하고 뷰도 listById로 변경)
+    // 기업별 등록한 채용 공고 목록 조회_GET (RESTful API)
     @GetMapping("/listbyid")
-    public String listById(Authentication auth, Model model) {
+    @ResponseBody
+    public ResponseEntity<List<RecruitDto>> listById(Authentication auth) {
         try {
             // 현재 로그인한 기업 회원의 ID 가져오기
             CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
-            int enterpriseId = customEnterprise.getEnterprise().getEnterpriseId();
+            int enterpriseId = customEnterprise.getEnterpriseId();
 
             // 해당 기업이 등록한 채용 공고 목록 조회 서비스 호출
             List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
-            model.addAttribute("recruitList", recruitList);
-            return "recruits/listById"; // recruits/listById.jsp 뷰 반환
+            return new ResponseEntity<>(recruitList, HttpStatus.OK);
         } catch (Exception e) {
-            System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (인증된 사용자 ID: " + ((CustomEnterprise) auth.getPrincipal()).getEnterprise().getEnterpriseId() + "): " + e.getMessage());
-            return "error/errorPage";
+            System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (인증된 사용자 ID: "
+                    + ((CustomEnterprise) auth.getPrincipal()).getEnterpriseId() + "): "
+                    + e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

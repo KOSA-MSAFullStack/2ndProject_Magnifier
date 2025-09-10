@@ -12,7 +12,8 @@
 package com.magnifier.recruit.mapper;
 
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.HashMap;
+import java.util.Map;
 import static org.junit.Assert.assertNotNull;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,8 +22,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.magnifier.recruit.dto.RecruitDto;
 import lombok.extern.log4j.Log4j;
+
+import com.magnifier.recruit.dto.RecruitDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
@@ -34,11 +36,16 @@ public class RecruitMapperTest_list {
     @Autowired
     private RecruitMapper mapper;
 
-    // 전체 채용 공고 목록 조회 테스트 메서드
+    // 전체 채용 공고 목록 조회 테스트 메서드 (페이지네이션)
     @Test
     public void testGetList() throws SQLException {
+        // given: 페이지네이션 파라미터 설정 (1페이지, 5개)
+        Map<String, Integer> params = new HashMap<>();
+        params.put("startRow", 1);
+        params.put("endRow", 5);
+
         // when: mapper의 getRecruitList 메서드 호출
-        List<RecruitDto> list = mapper.getRecruitList();
+        List<RecruitDto> list = mapper.getRecruitList(params);
 
         // then: 실행 결과 확인
         // 1. 리스트가 null이 아닌지 검증
@@ -48,7 +55,7 @@ public class RecruitMapperTest_list {
         list.forEach(recruit -> log.info(recruit));
 
         log.info("----------");
-        log.info("전체 공고 수: " + list.size());
-        log.info("RecruitMapper getRecruitList 테스트 성공");
+        log.info("조회된 공고 수: " + list.size());
+        log.info("RecruitMapper getRecruitList (페이지네이션) 테스트 성공");
     }
 }

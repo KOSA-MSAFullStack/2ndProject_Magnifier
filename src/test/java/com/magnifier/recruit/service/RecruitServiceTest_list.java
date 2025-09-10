@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.when;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,10 +42,12 @@ public class RecruitServiceTest_list {
     @InjectMocks
     private RecruitServiceImpl recruitService;
 
-    // 전체 채용 공고 목록 조회 성공 테스트
+    // 전체 채용 공고 목록 조회 성공 테스트 (페이지네이션)
     @Test
     public void testGetRecruitList_Success() throws SQLException {
         // given: Mock 객체 동작 정의 (데이터 포함 리스트 반환)
+        int page = 1;
+        int size = 5;
         RecruitDto recruit1 = new RecruitDto();
         recruit1.setRecruitId(1);
         recruit1.setTitle("공고1");
@@ -53,11 +56,11 @@ public class RecruitServiceTest_list {
         recruit2.setTitle("공고2");
         List<RecruitDto> expectedList = Arrays.asList(recruit1, recruit2);
 
-        // when: recruitMapper.getRecruitList 호출 시, expectedList 반환
-        when(recruitMapper.getRecruitList()).thenReturn(expectedList);
+        // when: recruitMapper.getRecruitList가 어떤 Map이든 받으면 expectedList를 반환하도록 설정
+        when(recruitMapper.getRecruitList(anyMap())).thenReturn(expectedList);
 
         // when: 서비스 메서드 호출
-        List<RecruitDto> resultList = recruitService.getRecruitList();
+        List<RecruitDto> resultList = recruitService.getRecruitList(page, size);
 
         // then: 결과 검증
         assertNotNull(resultList);
@@ -66,15 +69,17 @@ public class RecruitServiceTest_list {
         log.info("testGetRecruitList_Success 테스트 성공: " + resultList);
     }
 
-    // 전체 채용 공고 목록 조회 (빈 목록 반환) 테스트
+    // 전체 채용 공고 목록 조회 (빈 목록 반환) 테스트 (페이지네이션)
     @Test
     public void testGetRecruitList_EmptyList() throws SQLException {
         // given: Mock 객체 동작 정의 (빈 리스트 반환)
+        int page = 1;
+        int size = 5;
         List<RecruitDto> expectedList = new ArrayList<>();
-        when(recruitMapper.getRecruitList()).thenReturn(expectedList);
+        when(recruitMapper.getRecruitList(anyMap())).thenReturn(expectedList);
 
         // when: 서비스 메서드 호출
-        List<RecruitDto> resultList = recruitService.getRecruitList();
+        List<RecruitDto> resultList = recruitService.getRecruitList(page, size);
 
         // then: 결과 검증
         assertNotNull(resultList);
@@ -82,15 +87,17 @@ public class RecruitServiceTest_list {
         log.info("testGetRecruitList_EmptyList 테스트 성공: " + resultList);
     }
 
-    // 전체 채용 공고 목록 조회 중 예외 발생 테스트
+    // 전체 채용 공고 목록 조회 중 예외 발생 테스트 (페이지네이션)
     @Test
     public void testGetRecruitList_Exception() throws SQLException {
         // given: Mock 객체 동작 정의 (SQLException 발생)
-        when(recruitMapper.getRecruitList()).thenThrow(new SQLException("DB 연결 오류"));
+        int page = 1;
+        int size = 5;
+        when(recruitMapper.getRecruitList(anyMap())).thenThrow(new SQLException("DB 연결 오류"));
 
         // when, then: SQLException 발생 검증
         SQLException exception = assertThrows(SQLException.class, () -> {
-            recruitService.getRecruitList();
+            recruitService.getRecruitList(page, size);
         });
 
         // 예외 메시지 검증
