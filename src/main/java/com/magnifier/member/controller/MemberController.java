@@ -62,5 +62,4 @@ public class MemberController {
 	public void mypage() {
 		log.info("개인정보페이지");
 	}
-	
 }
