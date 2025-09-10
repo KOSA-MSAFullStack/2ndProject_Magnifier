@@ -21,7 +21,7 @@
 		<result property="auth" column="auth" />
 	</resultMap>
 
-	<!-- 회원 조회 -->
+	<!-- 스프링 시큐리티 - 회원 조회 -->
 	<select id="read" resultMap="memberMap" parameterType="String">
 		SELECT member_id, login_id, password, name, gender, phone_number, birth, post_number, address, address_detail, reference, enabled, auth
 		FROM member
@@ -40,6 +40,13 @@
 		SELECT count(*)
 		FROM member
 		WHERE login_id = #{loginId}
+	</select>
+	
+	<!-- 내정보 - 회원 정보 조회 -->
+	<select id="findById" resultMap="memberMap" parameterType="int">
+		SELECT login_id, name, gender, phone_number, birth, post_number, address, address_detail, reference
+		FROM member
+		WHERE member_id = #{memberId}
 	</select>
 
 </mapper>

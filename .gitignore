@@ -138,4 +138,7 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# open API 요청을 위한 인증키 파일
+application-security.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/git,eclipse,java,maven
