@@ -34,7 +34,7 @@
 		        <button class="resume-btn" onclick="location.href='view';">이력서 확인하기</button>
 		    </c:if>
 		    <c:if test="${!hasResume}">
-		        <button class="resume-btn" onclick="location.href='create';">이력서 등록하기</button>
+		        <button class="resume-btn" onclick="location.href='register';">이력서 등록하기</button>
 		    </c:if>
 	    </div>
     </div>

@@ -1,6 +1,7 @@
 package com.magnifier.resume.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,9 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.magnifier.resume.dto.ResumeDto;
 import com.magnifier.resume.service.ResumeService;
@@ -51,8 +52,7 @@ public class ResumeController {
 
         // Service 계층으로 이력서 존재 여부 확인 요청
 		boolean hasResume = service.hasResume(memberId);
-        //boolean hasResume = service.hasResume(user.getMember().getMemberId()); 
-        
+		
         // hasResume 변수를 View로 전달
         model.addAttribute("hasResume", hasResume);
         
@@ -60,21 +60,23 @@ public class ResumeController {
     }
 	
 	// 이력서 등록 폼을 보여주는 페이지
-    @GetMapping("/create")
-    public String showCreateForm() {
-        return "resumes/create";
+    @GetMapping("/register")
+    public String showCreateForm(Model model) {
+    	
+        return "resumes/form";
     }
     
-    @PostMapping
-    public ResponseEntity<String> register(@RequestBody ResumeDto resumeDto) {
-        try {
-            service.registerResume(resumeDto);
-            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("이력서 등록 실패: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping("/register")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> register(@RequestBody ResumeDto resumeDto) {
+    	service.registerResume(resumeDto);
+    	
+    	// 성공 메시지를 담을 JSON 객체(Map) 생성
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "이력서가 성공적으로 등록되었습니다.");
+        
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // 이력서 상세 정보를 보여주는 페이지
@@ -101,6 +103,13 @@ public class ResumeController {
         System.out.println(resumes);
         return "resumes/view";
     }
+    
+    @GetMapping("/edit")
+    public String showEditForm(Model model) {
+        //ResumeDto resumeToEdit = service.findResumesByMemberId(resumeId);
+        //model.addAttribute("resumes", resumeToEdit);
+        return "resumes/form"; // 등록 페이지와 동일한 JSP 재사용
+    }
 	
 //	@GetMapping("/view/{memberId}")
 //    public ResponseEntity<List<ResumeDto>> findResumesByMemberId(@PathVariable("memberId") int memberId) {
@@ -120,17 +129,17 @@ public class ResumeController {
 //        }
 //    }
 //	
-	@PutMapping("/{memberId}")
-	public ResponseEntity<String> update(@PathVariable("memberId") int memberId, @RequestBody ResumeDto dto) {
-	    try {
-	        dto.setMemberId(memberId);
-	        service.modifyResume(dto);
-	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-	    } catch (Exception e) {
-	        log.error("이력서 수정 실패: " + e.getMessage());
-	        e.printStackTrace();
-	        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	}
+//	@PutMapping("/{memberId}")
+//	public ResponseEntity<String> update(@PathVariable("memberId") int memberId, @RequestBody ResumeDto dto) {
+//	    try {
+//	        dto.setMemberId(memberId);
+//	        service.modifyResume(dto);
+//	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+//	    } catch (Exception e) {
+//	        log.error("이력서 수정 실패: " + e.getMessage());
+//	        e.printStackTrace();
+//	        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//	    }
+//	}
 
 }

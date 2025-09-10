@@ -2,6 +2,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- JSTL core 라이브러리 선언 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- JSTL functions 라이브러리 선언 -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
@@ -34,26 +36,48 @@
         </div>
         <div class="form-section">
             <div class="form-group">
-                <span class="personal-name">이상우</span>
+                <span class="personal-name">${resumes.member.name}</span>
             </div>
             <div class="form-group">
                 <div class="info-item">
                     <ion-icon name="phone-portrait-outline"></ion-icon>
-                    <span class="personal-phone">010-1234-1234</span>
+                    <span class="personal-phone">
+						${fn:substring(resumes.member.phoneNumber, 0, 3)}-
+					    ${fn:substring(resumes.member.phoneNumber, 3, 7)}-
+					    ${fn:substring(resumes.member.phoneNumber, 7, 11)}
+					</span>
                 </div>
                 <div class="info-item">
                     <ion-icon name="male-female-outline"></ion-icon>
-                    <span class="personal-gender">남성</span>
+                    <span class="personal-gender">
+                    <%
+			            // Model에서 resumes 객체를 가져옵니다.
+			            com.magnifier.resume.dto.ResumeDto resume = (com.magnifier.resume.dto.ResumeDto) request.getAttribute("resumes");
+			
+			            // 객체가 null이 아닌지 확인합니다.
+			            if (resume != null && resume.getMember() != null) {
+			                // Member 객체에서 gender 값을 가져와 비교합니다.
+			                char gender = resume.getMember().getGender();
+			                if (gender == 'M') {
+			                    out.print("남성");
+			                } else if (gender == 'F') {
+			                    out.print("여성");
+			                } else {
+			                    out.print("성별 정보 없음");
+			                }
+			            }
+			        %>
+					</span>
                 </div>
             </div>
             <div class="form-group">
                 <div class="info-item">
                     <ion-icon name="home-outline"></ion-icon>
-                    <span class="personal-address">대전 유성구 노은로 353</span>
+                    <span class="personal-address">(${resumes.member.postNumber}) ${resumes.member.address} ${resumes.member.addressDetail} ${resumes.member.reference}</span>
                 </div>
                 <div class="info-item">
                     <ion-icon name="body-outline"></ion-icon>
-                    <span class="personal-birth">1964 (62세)</span>
+                    <span class="personal-birth">${resumes.member.birth}</span>
                 </div>
             </div>
         </div>
@@ -71,15 +95,36 @@
         <!-- 경력사항 -->
         <div class="career">
             <span>경력사항 </span>
+            <c:forEach items="${resumes.careerList}" var="career">
+            	<hr>
+	            <div class="saved-career-info">
+	                <p>회사명: ${career.name}</p>
+	                <p>근무기간: ${career.joinDate} ~ ${career.quitDate}</p>
+	                <p>직무: ${career.job}</p>
+	                <p>근무부서: ${career.department}</p>
+	                <p>직급: ${career.position}</p>
+	            </div>
+            </c:forEach>
         </div>
 
         <!-- 자격사항 -->
         <div class="license">
             <span>자격사항</span>
+            <c:forEach items="${resumes.licenseList}" var="license">
+            	<hr>
+                <div class="saved-license-info">
+                    <p>자격증명: ${license.name}</p>
+                    <p>발행처/기관: ${license.publisher}</p>
+                    <p>취득일자: ${license.passDate}</p>
+                </div>
+            </c:forEach>
         </div>
 
-        <button class="modify-btn">수정하기</button>
+        <button class="modify-btn" onclick="location.href='edit';">수정하기</button>
     	</div>
     </div>
 </body>
+<!-- Ionicons CDN -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </html>

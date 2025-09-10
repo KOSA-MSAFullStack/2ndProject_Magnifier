@@ -61,13 +61,11 @@ body {
 }
 
 .resume-title {
-    font-size: 40px;
-    width: 100%;
+    font-size: 50px;
     border-radius: 5px;
     border: none;
 }
 
-.resume-title,
 .personal-info,
 .education,
 .career,
