@@ -3,6 +3,7 @@ package com.magnifier.member.entity;
 import java.time.LocalDate;
 
 import com.magnifier.member.dto.CreateMemberRequest;
+import com.magnifier.member.dto.UpdateMemberRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,11 +37,11 @@ public class Member {
 	private String auth;        // 권한(default: ROLE_MEMBER)
 	
 	/**
-	 * dto의 값이나 서비스계층에서 재조합한 데이터를 빌더로 값을 채워 member 객체 생성
-	 * @param dto
+	 * 회원 가입 요청 dto -> Member 객체로 생성
+	 * @param dto(CreateMemberRequest)
 	 * @param encodePW
 	 * @param birth
-	 * @return member
+	 * @return Member
 	 */
 	public static Member createMember(CreateMemberRequest dto, String encodePW, LocalDate birth) {
 		Member member = Member.builder()
@@ -48,6 +49,26 @@ public class Member {
 				.name(dto.getName())
 				.gender(dto.getGender())
 				.password(encodePW)
+				.phoneNumber(dto.getPhoneNumber())
+				.birth(birth)
+				.postNumber(dto.getPostNumber())
+				.address(dto.getAddress())
+				.addressDetail(dto.getAddressDetail())
+				.reference(dto.getReference())
+				.build();
+		return member;
+	}
+	
+	/**
+	 * 회원 수정 요청 dto -> Member 객체로 생성
+	 * @param dto(UpdateMemberRequest)
+	 * @param birth
+	 * @return Member
+	 */
+	public static Member createMember(UpdateMemberRequest dto, LocalDate birth) {
+		Member member = Member.builder()
+				.memberId(dto.getMemberId())
+				.gender(dto.getGender())
 				.phoneNumber(dto.getPhoneNumber())
 				.birth(birth)
 				.postNumber(dto.getPostNumber())

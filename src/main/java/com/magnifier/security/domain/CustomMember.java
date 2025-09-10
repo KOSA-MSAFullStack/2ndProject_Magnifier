@@ -10,11 +10,8 @@ import lombok.Getter;
 
 @Getter
 public class CustomMember extends User {
-
-    private static final long serialVersionUID = 1L;
-
     // 회원 도메인 정보를 담는 필드
-    private Member member;
+    private int memberId;   // memberId만 저장(최소한의 정보)
 
     // User 클래스로 직접 생성할 때 사용하는 생성자(필요에 따라 사용 가능)
     public CustomMember(String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -32,6 +29,6 @@ public class CustomMember extends User {
                 ? java.util.Collections.singletonList(new SimpleGrantedAuthority(member.getAuth()))
                 : java.util.Collections.emptyList()  // auth가 없으면 빈 리스트
         );
-        this.member = member;  // 도메인 객체 참조 저장
+        this.memberId = member.getMemberId();  // 도메인 객체 참조 저장
     }
 }
