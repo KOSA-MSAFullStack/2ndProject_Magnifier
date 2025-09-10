@@ -300,7 +300,6 @@
   	      "gender": $('input[name="gender"]:checked').val(),
   	      "loginId": $('#loginId').val(),
     	  "password": $('#password').val(),
-   		  "passwordConfirm": $('#passwordConfirm').val(),
    		  "phoneNumber": $('#phoneNumber').val(),
    		  "year": parseInt($('#year').val(), 10),
    	      "month": parseInt($('#month').val(), 10),

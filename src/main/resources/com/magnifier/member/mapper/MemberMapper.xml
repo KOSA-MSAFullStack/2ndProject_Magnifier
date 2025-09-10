@@ -48,4 +48,12 @@
 		FROM member
 		WHERE member_id = #{memberId}
 	</select>
+	
+	<update id="update" parameterType="com.magnifier.member.dto.UpdateMemberRequest">
+		UPDATE zoomin.MEMBER
+		SET gender=#{gender}, phone_number=#{phoneNumber}, birth=#{birth}, post_number=#{phoneNumber}, address=#{address},
+		address_detail=#{addressDetail}, reference=#{reference}
+		WHERE member_id = #{memberId}
+		
+	</update>
 </mapper>

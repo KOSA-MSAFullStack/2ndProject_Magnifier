@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.magnifier.member.dto.CheckIdRequest;
 import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.dto.FindMemberResponse;
+import com.magnifier.member.dto.UpdateMemberRequest;
 import com.magnifier.member.entity.Member;
 import com.magnifier.member.mapper.MemberMapper;
 
@@ -56,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	/**
 	 * 아이디 중복 확인
 	 * @param dto(CheckIdRequest)
+	 * @return exist(로그인 Id 존재여부)
 	 */
 	@Override
 	public Boolean idCheck(CheckIdRequest dto) {
@@ -75,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
 	/**
 	 * 개인 회원 정보 조회
 	 * @param memberId
+	 * @return dto(FindMemberResponse)
 	 */
 	@Override
 	public FindMemberResponse findMember(int memberId) {
@@ -85,5 +88,20 @@ public class MemberServiceImpl implements MemberService {
 		FindMemberResponse findMember = FindMemberResponse.createFindMemberResponse(member);
 		
 		return findMember;
+	}
+
+	/**
+	 * 회원정보 수정
+	 * @param dto(UpdateMemberRequest)
+	 */
+	@Override
+	public void update(UpdateMemberRequest dto) {
+		
+		
+//		// dto에 memberId 채우기
+//		dto.setMemberId(memberId);
+//		
+//		memberMapper.update(dto); // 회원정보 수정 
+		
 	}
 }
