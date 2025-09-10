@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>개인회원 | 내 정보</title>
+    <title>기업회원 | 내 정보</title>
     <link rel="stylesheet" href="/resources/css/signup.css" />
     <link rel="stylesheet" href="/resources/css/common.css" />
     <!-- jquery 라이브러리 추가 -->
@@ -19,46 +19,22 @@
         <div class="background"></div>
         <!-- 공통 네비게이션 바 포함 -->
        	<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-        <div class="page-title">개인 정보</div>
+        <div class="page-title">회원가입</div>
         
-        <!-- 개인 정보 입력 폼 -->
-        <form id="modifyForm" class="signup-form">
+        <!-- 회원가입 입력 폼 -->
+        <form id="signupForm" class="signup-form">
             <div class="form-group name-group">
-            
-	            <!-- 이름 입력란 -->
-                <input type="text" id="name" name="name" placeholder="이름" class="input-box medium" readonly/>
-                
-                <!-- 성별 선택 라디오 버튼 -->
-                <div class="gender-options">
-                    <div class="radio-box">
-                        <input type="radio" id="male" name="gender" value="M"/>
-                        <label for="male">남</label>
-                    </div>
-                    <div class="radio-box">
-                        <input type="radio" id="female" name="gender" value="F"/>
-                        <label for="female">여</label>
-                    </div>
-                </div>
+	            <!-- 기업명 입력란 -->
+                <input type="text" id="name" name="name" placeholder="기업명" class="input-box large" readonly/>
             </div>
             
-            <!-- 아이디 입력란 -->
+            <!-- 사업자 등록 번호 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
-                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box large" readonly/>
+                <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box large" readonly/>
             </div>
-            
-            <!-- 휴대폰 번호 입력란 -->
-            <div class="form-group phone-group">
-                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="휴대폰 번호 (번호만 작성해주세요. 예시:01012345678 )" class="input-box large" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required/>
-            </div>
-            
-            <!-- 생년월일 선택 박스: 년, 월, 일 -->
-            <div class="form-group birth-group">
-                <select id="year" class="select-box year" name="year"><option selected disabled>생년월일(년도)</option></select>
-                <select id="month" class="select-box month" name="month"><option selected disabled>생년월일(월)</option></select>
-                <select id="day" class="select-box day" name="day"><option selected disabled>생년월일(일)</option></select>
-            </div>
-            
-             <!-- 우편번호 입력 및 우편번호 찾기 버튼 -->
+            <div id="idCheckMsg"></div>
+
+            <!-- 우편번호 입력 및 우편번호 찾기 버튼 -->
             <div class="form-group postal-group">
                 <input type="text" id="postNumber" name="postNumber" placeholder="우편번호" class="input-box medium" required/>
                 <button type="button" id="findAddressBtn" class="btn-postal-search">우편번호 찾기</button>
@@ -73,7 +49,7 @@
                 <input type="text" id="reference" name="reference" placeholder="참고 항목" class="input-box"/>
             </div>
             
-            <!-- 수정하기 제출 버튼 -->
+           	<!-- 수정하기 제출 버튼 -->
             <button type="submit" class="btn-submit">수정하기</button>
             
             <!-- CSRF 토큰 히든 필드 (스프링 시큐리티용) -->
@@ -89,17 +65,11 @@
 	  // 회원 정보 다시 불러와서 폼에 채우는 메서드
 	  function reloadMemberInfo() {
 	    $.ajax({
-	      url: '/members/api/mypage',
+	      url: '/enterprises/api/mypage',
 	      type: 'GET',
 	      success: function(response) {
 	        $('#name').val(response.name);
-	        $('#loginId').val(response.loginId);
-	        if (response.gender === 'M') {
-	          $('#male').prop('checked', true);
-	        } else if (response.gender === 'F') {
-	          $('#female').prop('checked', true);
-	        }
-	        $('#phoneNumber').val(response.phoneNumber);
+	        $('#registerNumber').val(response.registerNumber);
 	        $('#year').val(response.year);
 	        $('#month').val(response.month);
 	        $('#day').val(response.day);
@@ -112,38 +82,6 @@
 	        alert('회원 정보를 불러오는 데 실패했습니다.');
 	      }
 	    });
-	  }
-    
-      /*
-      	생년월일 selectBox 초기화
-      */
-      // 연도(60세 이상으로 설정)
-	  const yearSelect = document.getElementById("year");
-	  const currentYear = new Date().getFullYear(); // 현재 연도
-	  const minYear = currentYear - 60; // 60세 이상을 위한 최소 연도
-	  for (var year = minYear; year >= 1900; year--) { // minYear부터 1900년까지 차례로 option 추가
-		const option = document.createElement("option"); // 옵션 요소 생성
-	    option.value = year; // value 속성 설정
-	    option.text = year;  // 표시할 text 설정
-	    yearSelect.appendChild(option); // selectBox에 옵션 추가
-	  }
-	  
-	  // 월(1월 ~ 12월)
-	  const monthSelect = document.getElementById("month");
-	  for (var month = 1; month <= 12; month++) {
-	    var option = document.createElement("option");
-	    option.value = month;
-	    option.text = month;
-	    monthSelect.appendChild(option);
-	  }
-
-	  // 일(1일 ~ 31일)
-	  const daySelect = document.getElementById("day");
-	  for (var day = 1; day <= 31; day++) {
-		const option = document.createElement("option");
-	    option.value = day;
-	    option.text = day;
-	    daySelect.appendChild(option);
 	  }
 	  
 	  /*

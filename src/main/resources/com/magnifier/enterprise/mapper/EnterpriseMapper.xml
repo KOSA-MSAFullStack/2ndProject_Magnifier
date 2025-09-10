@@ -31,5 +31,12 @@
 		(enterprise_id, name, register_number, password, post_number, address, address_detail, reference)
 		values (MEMBER_SEQ.NEXTVAL, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
 	</insert>
+	
+	<!-- 내정보 - 회원 정보 조회 -->
+	<select id="findById" resultMap="enterpriseMap" parameterType="int">
+		SELECT name, register_number, post_number, address, address_detail, reference
+		FROM enterprise
+		WHERE enterprise_id = #{enterpriseId}
+	</select>
 
 </mapper>

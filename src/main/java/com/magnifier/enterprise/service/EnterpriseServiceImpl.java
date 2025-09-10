@@ -2,8 +2,10 @@ package com.magnifier.enterprise.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
+import com.magnifier.enterprise.dto.FindEnterpriseResponse;
 import com.magnifier.enterprise.entity.Enterprise;
 import com.magnifier.enterprise.mapper.EnterpriseMapper;
 
@@ -37,6 +39,23 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		
 		// 회원 가입 쿼리 실행
 		enterpriseMapper.save(enterprise); 
+	}
+
+	/**
+	 * 기업 회원 정보 조회
+	 * @param enterpriseId
+	 * @return dto(FindEnterpriseResponse)
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public FindEnterpriseResponse findMember(int enterpriseId) {
+		// Id로 기업 회원 정보 조회
+		Enterprise enterprise = enterpriseMapper.findById(enterpriseId);	
+		
+		// dto 생성
+		FindEnterpriseResponse findMember = FindEnterpriseResponse.createFindEnterpriseResponse(enterprise);
+		
+		return findMember;
 	}
 
 }
