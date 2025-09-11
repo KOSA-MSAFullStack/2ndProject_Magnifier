@@ -19,7 +19,14 @@
 	<security:authorize access="!hasRole('ROLE_ENTERPRISE')">
       <a href="/resumes/">이력서관리</a>
 	</security:authorize>
-    <a href="#">지원내역</a>
+	
+    <!-- 개인회원 : 개인이 지원한 내역, 기업회원: 기업 공고에 지원한 지원자 내역 -->
+    <security:authorize access="hasRole('ROLE_ENTERPRISE')">
+        <a href=/enterprises/applylist>지원내역</a>
+    </security:authorize>
+    <security:authorize access="!hasRole('ROLE_ENTERPRISE')">
+        <a href="/members/applylist">지원내역</a>
+    </security:authorize>
     
     <!-- 개인회원 : 개인회원정보, 기업회원: 기업회원정보 -->
     <security:authorize access="hasRole('ROLE_ENTERPRISE')">
