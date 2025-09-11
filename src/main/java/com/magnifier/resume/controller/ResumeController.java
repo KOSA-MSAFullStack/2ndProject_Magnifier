@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
  *
  */
 @Controller
-@RequestMapping("members/resumes")
+@RequestMapping("/resumes")
 @Log4j
 public class ResumeController {
 

@@ -17,7 +17,7 @@
     </security:authorize>
 
 	<security:authorize access="!hasRole('ROLE_ENTERPRISE')">
-      <a href="/members/resumes/">이력서관리</a>
+      <a href="/resumes/">이력서관리</a>
 	</security:authorize>
     <a href="#">지원내역</a>
     

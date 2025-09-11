@@ -634,7 +634,7 @@
 	
 	        const data = collectAllFormData();
 	        $.ajax({
-	            url: '/members/resumes/register',
+	            url: '/resumes/register',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
@@ -675,7 +675,7 @@
 	        
 	        
 	        $.ajax({
-	            url: '/members/resumes/' + resumeId, // 수정 전용 URL (ID를 포함)
+	            url: '/resumes/' + resumeId, // 수정 전용 URL (ID를 포함)
 	            type: 'PUT', // 수정 요청에 맞는 HTTP 메서드
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
