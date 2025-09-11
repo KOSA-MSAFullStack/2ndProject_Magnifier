@@ -136,6 +136,7 @@ body {
     background-color: #ddd;
 }
 
+.actions,
 .button-group {
     display: flex;
     justify-content: flex-end;
@@ -147,6 +148,34 @@ body {
     border: 1px solid var(--darkblue);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.actions button {
+	margin-bottom: 20px;
+}
+
+.edit-btn {
+	background-color: var(--white);
+    color: var(--darkblue);
+    font-size: 40px;
+    border: 1px solid var(--darkblue);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit-btn:hover {
+	background-color: var(--grey);
+}
+
+.delete-btn {
+	background-color: var(--white);
+    color: var(--red);
+    font-size: 40px;
+    border: 1px solid var(--red);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.delete-btn:hover {
+	background-color: var(--grey);
 }
 
 .cancel-btn {
@@ -175,7 +204,12 @@ body {
 .saved-license-info {
     font-size: 40px;
 }
+.saved-career-info:hover,
+.saved-license-info:hover {
+    background-color: var(--grey);
+}
 
+.update-btn,
 .submit-btn {
     display: block;
     width: 100%;
@@ -186,8 +220,10 @@ body {
     background: var(--darkblue);
     color: var(--white);
     cursor: pointer;
+    margin-top: 10px;
 }
 
+.update-btn:hover,
 .submit-btn:hover {
     background: var(--blue);
 }

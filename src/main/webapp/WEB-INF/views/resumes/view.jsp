@@ -98,7 +98,7 @@
             	<hr>
 	            <div class="saved-career-info">
 	                <p>회사명: ${career.name}</p>
-	                <p>근무기간: ${career.joinDate} ~ ${career.quitDate}</p>
+	                <p>근무기간: ${fn:substring(fn:replace(career.joinDate, '-', '.'), 0, 7)} ~ ${fn:substring(fn:replace(career.quitDate, '-', '.'), 0, 7)}</p>
 	                <p>직무: ${career.job}</p>
 	                <p>근무부서: ${career.department}</p>
 	                <p>직급: ${career.position}</p>
@@ -114,12 +114,12 @@
                 <div class="saved-license-info">
                     <p>자격증명: ${license.name}</p>
                     <p>발행처/기관: ${license.publisher}</p>
-                    <p>취득일자: ${license.passDate}</p>
+                    <p>취득일자: ${fn:substring(fn:replace(license.passDate, '-', '.'), 0, 7)}</p>
                 </div>
             </c:forEach>
         </div>
 
-        <button class="modify-btn" onclick="location.href='edit';">수정하기</button>
+        <button class="modify-btn" onclick="location.href='register';">수정하기</button>
     	</div>
     </div>
 </body>
