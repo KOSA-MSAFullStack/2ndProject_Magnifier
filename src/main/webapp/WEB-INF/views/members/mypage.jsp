@@ -246,7 +246,6 @@
 	        reloadMemberInfo(); // 회원 정보 조회
           },
 	      error: function(xhr, status, error) {
-    	    checkId = 0; // 중복확인 다시 하기 위하여 0 부여
 	        alert('개인 정보 수정이 실패했습니다.');
 	        console.error(error);
 	      }
