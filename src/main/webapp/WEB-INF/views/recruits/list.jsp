@@ -33,58 +33,60 @@
     </div>
 
 <script>
-// 페이지 번호를 인자로 받아 해당 페이지의 공고 목록을 불러오는 함수
+// 공고 목록과 페이지네이션을 화면에 표시하는 함수
+function displayRecruits(recruits, currentPage, totalPages, totalCount) {
+    const recruitListContainer = $('.recruitList');
+    const paginationContainer = $('.pagination');
+
+    // 기존 목록과 페이지네이션을 비웁니다.
+    recruitListContainer.empty();
+    paginationContainer.empty();
+
+    // 데이터가 없거나 비어있는 경우 메시지를 표시합니다.
+    if (!recruits || recruits.length === 0) {
+        recruitListContainer.html("<p>등록된 채용 공고가 없습니다.</p>");
+        return;
+    }
+
+    // 각 공고에 대한 HTML을 생성하고 컨테이너에 추가합니다.
+    recruits.forEach(function(recruit) {
+        const recruitHtml = `
+            <div class="recruit">
+                <span class="title">${recruit.title}</span>
+                <span class="details">${recruit.workingArea}</span>
+                <div class="apply">
+                    <a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>
+                    <span class="deadline">마감일 : ${recruit.deadLine}</span>
+                </div>
+            </div>
+        `;
+        recruitListContainer.append(recruitHtml);
+    });
+
+    // 페이지네이션 HTML을 생성합니다.
+    if (currentPage > 1) {
+        paginationContainer.append(`<a href="#" class="page-link" data-page="${currentPage - 1}">이전</a>`);
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        let activeClass = (i === currentPage) ? 'active' : '';
+        paginationContainer.append(`<a href="#" class="page-link ${activeClass}" data-page="${i}">${i}</a>`);
+    }
+
+    if (currentPage < totalPages) {
+        paginationContainer.append(`<a href="#" class="page-link" data-page="${currentPage + 1}">다음</a>`);
+    }
+}
+
+// 페이지 번호를 인자로 받아 해당 페이지의 공고 목록을 API에서 불러오는 함수
 function fetchRecruits(page) {
     $.ajax({
-        url: "${pageContext.request.contextPath}/recruits/list",
+        url: "${pageContext.request.contextPath}/recruits/api/list", // API 엔드포인트 호출
         type: "GET",
-        data: { page: page, size: 5 }, // 한 페이지에 5개씩 보여주기
+        data: { page: page, size: 10 }, // 한 페이지에 10개씩 보여주기
         dataType: "json",
         success: function(response) {
-            const recruitListContainer = $('.recruitList');
-            const paginationContainer = $('.pagination');
-
-            // 기존 목록과 페이지네이션을 비웁니다.
-            recruitListContainer.empty();
-            paginationContainer.empty();
-
-            // 데이터가 없거나 비어있는 경우 메시지를 표시합니다.
-            if (!response || !response.recruits || response.recruits.length === 0) {
-                recruitListContainer.html("<p>등록된 채용 공고가 없습니다.</p>");
-                return;
-            }
-
-            // 각 공고에 대한 HTML을 생성하고 컨테이너에 추가합니다.
-            response.recruits.forEach(function(recruit) {
-                const recruitHtml = `
-                    <div class="recruit">
-                        <span class="title">${recruit.title}</span>
-                        <span class="details">${recruit.workingArea}</span>
-                        <div class="apply">
-                            <a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>
-                            <span class="deadline">마감일 : ${recruit.deadLine}</span>
-                        </div>
-                    </div>
-                `;
-                recruitListContainer.append(recruitHtml);
-            });
-
-            // 페이지네이션 HTML을 생성합니다.
-            const currentPage = response.currentPage;
-            const totalPages = response.totalPages;
-
-            if (currentPage > 1) {
-                paginationContainer.append(`<a href="#" class="page-link" data-page="${currentPage - 1}">이전</a>`);
-            }
-
-            for (let i = 1; i <= totalPages; i++) {
-                let activeClass = (i === currentPage) ? 'active' : '';
-                paginationContainer.append(`<a href="#" class="page-link ${activeClass}" data-page="${i}">${i}</a>`);
-            }
-
-            if (currentPage < totalPages) {
-                paginationContainer.append(`<a href="#" class="page-link" data-page="${currentPage + 1}">다음</a>`);
-            }
+            displayRecruits(response.recruits, response.currentPage, response.totalPages, response.totalCount);
         },
         error: function(xhr, status, error) {
             console.error("공고 목록을 불러오는 중 오류 발생: ", error);

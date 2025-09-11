@@ -6,8 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
 import com.magnifier.enterprise.dto.FindEnterpriseResponse;
+import com.magnifier.enterprise.dto.UpdateEnterpriseRequest;
 import com.magnifier.enterprise.entity.Enterprise;
 import com.magnifier.enterprise.mapper.EnterpriseMapper;
+import com.magnifier.security.domain.CustomEnterprise;
+
+import lombok.extern.log4j.Log4j;
 
 /**
  * 비즈니스 로직 수행
@@ -15,6 +19,7 @@ import com.magnifier.enterprise.mapper.EnterpriseMapper;
  *
  */
 @Service
+@Log4j
 public class EnterpriseServiceImpl implements EnterpriseService {
 	
 	private final EnterpriseMapper enterpriseMapper; // 매퍼 의존성 주입
@@ -57,6 +62,23 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		FindEnterpriseResponse findMember = FindEnterpriseResponse.createFindEnterpriseResponse(enterprise);
 		
 		return findMember;
+	}
+
+	/**
+	 * 회원정보 수정
+	 * @param dto(UpdateEnterpriseRequest)
+	 */
+	@Override
+	@Transactional
+	public void update(UpdateEnterpriseRequest dto, CustomEnterprise enterprise) {
+		// dto에 enterpriseId값 추가
+		dto.setEnterpriseId(enterprise.getEnterpriseId());
+		
+		// Enterprise 객체로 매핑
+		Enterprise updateEnterprise = Enterprise.createEnterprise(dto);
+		
+		int rows = enterpriseMapper.update(updateEnterprise); // 회원정보 수정  -> 변경된 행 수 반환
+		log.info("update 영향 받은 행: " + rows);
 	}
 
 }

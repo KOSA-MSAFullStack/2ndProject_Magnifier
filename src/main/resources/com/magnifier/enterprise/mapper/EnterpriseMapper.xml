@@ -41,4 +41,11 @@
 		WHERE enterprise_id = #{enterpriseId}
 	</select>
 
+	<!-- 회원 정보 수정 -->
+	<update id="update" parameterType="com.magnifier.enterprise.entity.Enterprise">
+		UPDATE zoomin.ENTERPRISE
+		SET post_number=#{postNumber}, address=#{address},
+		address_detail=#{addressDetail}, reference=#{reference}
+		WHERE enterprise_id = #{enterpriseId}
+	</update>
 </mapper>

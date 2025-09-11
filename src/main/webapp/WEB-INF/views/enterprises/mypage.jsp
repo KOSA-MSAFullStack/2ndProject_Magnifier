@@ -19,7 +19,7 @@
         <div class="background"></div>
         <!-- 공통 네비게이션 바 포함 -->
        	<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-        <div class="page-title">회원가입</div>
+        <div class="page-title">기업 정보</div>
         
         <!-- 회원가입 입력 폼 -->
         <form id="signupForm" class="signup-form">
@@ -143,12 +143,6 @@
 
 	    // 폼 데이터 JSON 객체로 생성
 	    const formData = {
-  	      "gender": $('input[name="gender"]:checked').val(),
-    	  "password": $('#password').val(),
-   		  "phoneNumber": $('#phoneNumber').val(),
-   		  "year": parseInt($('#year').val(), 10),
-   	      "month": parseInt($('#month').val(), 10),
-   	      "day": parseInt($('#day').val(), 10),
 	      "postNumber": $('#postNumber').val(),
 	      "address": $('#address').val(),
 	      "addressDetail": $('#addressDetail').val(),
@@ -157,7 +151,7 @@
 
 		// AJAX POST 요청
 	    $.ajax({
-	      url: '/members/api/mypage',  // 회원정보 수정 처리 컨트롤러 URL
+	      url: '/enterprises/api/mypage',  // 회원정보 수정 처리 컨트롤러 URL
 	      type: 'PUT',
 	      contentType: 'application/json', // JSON 형식으로 전송
 	      data: JSON.stringify(formData),  // JSON 문자열로 변환 후 전송
@@ -166,12 +160,11 @@
         	'Accept': 'application/json'  
 	      },
 	      success: function(response) {
-	        alert('개인 정보 수정이 완료되었습니다.');
+	        alert('기업 정보 수정이 완료되었습니다.');
 	        reloadMemberInfo(); // 회원 정보 조회
           },
 	      error: function(xhr, status, error) {
-    	    checkId = 0; // 중복확인 다시 하기 위하여 0 부여
-	        alert('개인 정보 수정이 실패했습니다.');
+	        alert('기업 정보 수정이 실패했습니다.');
 	        console.error(error);
 	      }
 	    });
