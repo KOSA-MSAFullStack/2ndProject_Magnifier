@@ -17,7 +17,7 @@ public interface MemberService {
 	
 	public Boolean idCheck(CheckIdRequest dto); // 아이디 중복확인
 	
-	public FindMemberResponse findMember(int memberId); // 개인 회원 정보 조회
+	public FindMemberResponse findMember(int memberId); // 회원 정보 조회
 	
 	public void update(UpdateMemberRequest dto, CustomMember member); // 회원정보 수정
 }
