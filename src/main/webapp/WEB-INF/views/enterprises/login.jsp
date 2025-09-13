@@ -30,8 +30,7 @@
                 </form>
                 <span class="error-msg"><c:out value="${error}" /></span>
                 <div class="login-links">
-                    <a href="#">아이디 찾기</a> | 
-                    <!-- <a href="#">비밀번호 찾기</a> |  -->
+                    <!-- 기업회원 가입 페이지 링크로 이동 -->
                     <a href="/enterprises/signup">회원가입</a>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- author: 김경아 -->
 <mapper namespace="com.magnifier.enterprise.mapper.EnterpriseMapper">
 
 	<resultMap id="enterpriseMap"
@@ -18,7 +20,7 @@
 		<result property="auth" column="auth" />
 	</resultMap>
 
-	<!-- 회원 조회 -->
+	<!-- 스프링 시큐리티 - 회원 조회 -->
 	<select id="read" resultMap="enterpriseMap" parameterType="String">
 		SELECT enterprise_id, register_number, name, password, post_number, address, address_detail, reference, enabled, auth
 		FROM enterprise
@@ -31,5 +33,19 @@
 		(enterprise_id, name, register_number, password, post_number, address, address_detail, reference)
 		values (MEMBER_SEQ.NEXTVAL, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
 	</insert>
+	
+	<!-- 내정보 - 회원 정보 조회 -->
+	<select id="findById" resultMap="enterpriseMap" parameterType="int">
+		SELECT name, register_number, post_number, address, address_detail, reference
+		FROM enterprise
+		WHERE enterprise_id = #{enterpriseId}
+	</select>
 
+	<!-- 회원 정보 수정 -->
+	<update id="update" parameterType="com.magnifier.enterprise.entity.Enterprise">
+		UPDATE zoomin.ENTERPRISE
+		SET post_number=#{postNumber}, address=#{address},
+		address_detail=#{addressDetail}, reference=#{reference}
+		WHERE enterprise_id = #{enterpriseId}
+	</update>
 </mapper>
