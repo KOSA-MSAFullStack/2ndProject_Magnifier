@@ -122,4 +122,12 @@
          WHERE RECRUIT_ID = #{recruitId}
            AND ENTERPRISE_ID = #{enterpriseId}
     </delete>
+    <!-- 채용 공고 일괄 삭제 -->
+    <delete id="deleteRecruitsById" parameterType="java.util.List">
+        DELETE FROM RECRUIT
+        WHERE RECRUIT_ID IN
+        <foreach item="recruitId" collection="recruitId" open="(" separator="," close=")">
+            #{recruitId}
+        </foreach>
+    </delete>
 </mapper>
