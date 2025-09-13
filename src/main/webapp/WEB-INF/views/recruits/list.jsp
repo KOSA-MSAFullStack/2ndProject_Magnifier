@@ -50,12 +50,13 @@ function displayRecruits(recruits, currentPage, totalPages, totalCount) {
 
     // 각 공고에 대한 HTML을 생성하고 컨테이너에 추가합니다.
     recruits.forEach(function(recruit) {
+        const applyButtonHtml = isMember ? `<a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>` : '';
         const recruitHtml = `
             <div class="recruit">
                 <span class="title">${recruit.title}</span>
                 <span class="details">${recruit.workingArea}</span>
                 <div class="apply">
-                    <a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>
+                    ${applyButtonHtml}
                     <span class="deadline">마감일 : ${recruit.deadLine}</span>
                 </div>
             </div>
@@ -105,6 +106,12 @@ $(document).ready(function() {
         e.preventDefault(); // a 태그의 기본 동작(페이지 이동)을 막습니다.
         const page = $(this).data('page');
         fetchRecruits(page);
+    });
+});
+</script>
+
+</body>
+</html>      fetchRecruits(page);
     });
 });
 </script>
