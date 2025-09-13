@@ -122,11 +122,11 @@ public class RecruitApiController {
     }
 
     // 채용 공고 상세 조회_GET (RESTful API)
-    @GetMapping("/detail/{recruitId}")
-    public ResponseEntity<RecruitDto> detail(@PathVariable("recruitId") int recruitId) {
+    @GetMapping(value = "/detail/{recruitId}", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Map<String, Object>> detail(@PathVariable("recruitId") int recruitId) {
         try {
-            RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
-            return new ResponseEntity<>(recruitDto, HttpStatus.OK);
+            Map<String, Object> recruitDetails = recruitService.detailRecruit(recruitId);
+            return new ResponseEntity<>(recruitDetails, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("채용 공고 상세 조회 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
