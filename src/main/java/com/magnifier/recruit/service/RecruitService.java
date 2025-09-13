@@ -70,4 +70,10 @@ public interface RecruitService {
      * @return 처리 결과 (1이면 성공)
      */
     int deleteRecruit(RecruitDto recruitDto) throws SQLException;
+    /**
+     * 채용 공고 일괄 삭제 비즈니스 로직 (D, Delete) - 기업회원
+     * @param recruitId 삭제할 채용 공고 ID 리스트
+     * @return 처리 결과 (삭제된 행의 수)
+     */
+    int deleteRecruitsById(List<Integer> recruitId) throws SQLException;
 }
