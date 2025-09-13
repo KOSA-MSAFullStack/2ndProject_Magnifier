@@ -64,9 +64,10 @@
                WORKING_TYPE, INSURANCE, RETIREMENT_SALARY, DEADLINE, STEP,
                CONTACT, ENTERPRISE_ID
         FROM (
-            SELECT /*+INDEX_DESC(RECRUIT RECRUIT_PK)*/
-                   a.*, ROWNUM as rnum
-            FROM RECRUIT a
+            SELECT a.*, ROWNUM as rnum
+            FROM (
+                SELECT * FROM RECRUIT ORDER BY RECRUIT_ID DESC
+            ) a
             WHERE ROWNUM &lt;= #{endRow}
         )
         WHERE rnum &gt;= #{startRow}
