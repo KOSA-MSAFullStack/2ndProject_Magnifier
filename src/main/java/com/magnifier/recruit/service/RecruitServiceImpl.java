@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
+import com.magnifier.enterprise.mapper.EnterpriseMapper;
 import com.magnifier.recruit.mapper.RecruitMapper;
 import com.magnifier.recruit.dto.RecruitDto;
 
@@ -30,7 +31,14 @@ public class RecruitServiceImpl implements RecruitService {
     @Autowired
     private RecruitMapper recruitMapper;
 
-    // 채용 공고 등록 (C, Insert) - 기업회원
+    @Autowired
+    private EnterpriseMapper enterpriseMapper;
+
+    /**
+     * 채용 공고 등록 (C, Insert) - 기업회원
+     * @param recruitDto 등록할 채용 공고 정보
+     * @return 삽입된 행의 수 (1이면 성공)
+     */
     @Override
     public int insertRecruit(RecruitDto recruitDto) throws SQLException {
         log.info("채용 공고 [등록] 서비스 실행: {}", recruitDto);
@@ -45,7 +53,10 @@ public class RecruitServiceImpl implements RecruitService {
         }
     }
 
-    // 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원 (페이지네이션 적용)
+    /**
+     * 전체 채용공고 목록 조회 (R, Select) - 기업/개인 회원
+     * @return 채용 공고 DTO 리스트
+     */
     @Override
     public List<RecruitDto> getRecruitList(int page, int size) throws SQLException {
         log.info("[전체 채용 공고 목록 조회] 서비스 실행 (페이지: {}, 사이즈: {})", page, size);
@@ -61,7 +72,11 @@ public class RecruitServiceImpl implements RecruitService {
             throw e;
         }
     }
-    // 전체 채용공고 수 조회
+    
+    /**
+     * 전체 채용공고 수 조회
+     * @return 전체 공고 수
+     */
     @Override
     public int getCount() throws SQLException {
         log.info("[전체 공고 수 조회] 서비스 실행");
@@ -73,7 +88,11 @@ public class RecruitServiceImpl implements RecruitService {
         }
     }
     
-    // 기업이 등록한 채용공고 목록 조회 (R, Select) - 기업회원
+    /**
+     * 기업이 등록한 채용공고 목록 조회 (R, Select) - 기업회원
+     * @param enterpriseId 기업회원 ID
+     * @return 해당 기업의 채용 공고 DTO 리스트
+     */
     @Override
     public List<RecruitDto> getRecruitListById(int enterpriseId) throws SQLException {
         log.info("기업이 [등록한 공고 목록 조회] 서비스 실행 (기업 ID: {})", enterpriseId);
@@ -86,26 +105,42 @@ public class RecruitServiceImpl implements RecruitService {
         }
     }
     
-    // 채용 공고 상세 조회 (R, Select) - 기업/개인 회원
+    /**
+     * 채용 공고 상세 조회 (R, Select) - 기업/개인 회원
+     * @param recruitId 조회할 채용 공고 ID
+     * @return 채용 공고 및 기업 정보가 담긴 Map
+     */
     @Override
-    public RecruitDto detailRecruit(int recruitId) throws SQLException {
+    public Map<String, Object> detailRecruit(int recruitId) throws SQLException {
         log.info("채용 공고 [상세 조회] 서비스 실행 (공고 ID: {})", recruitId);
         try {
-            // 특정 채용 공고 정보 조회
-            RecruitDto recruitDto = recruitMapper.detailRecruit(recruitId);
-            
+            // 1. 채용 공고 정보 조회
+            RecruitDto recruit = recruitMapper.detailRecruit(recruitId);
             // 조회된 공고 없는 경우
-            if (recruitDto == null) {
+            if (recruit == null) {
                 throw new RuntimeException("조회된 공고가 없습니다. (공고 ID: " + recruitId + ")");
             }
-            return recruitDto;
+
+            // 2. 공고 정보에서 enterpriseId를 이용해 기업 정보 조회
+            com.magnifier.enterprise.entity.Enterprise enterprise = enterpriseMapper.findById(recruit.getEnterpriseId());
+
+            // 3. 두 정보를 Map에 담아서 반환
+            Map<String, Object> details = new HashMap<>();
+            details.put("recruit", recruit);
+            details.put("enterprise", enterprise);
+
+            return details;
         } catch (Exception e) {
             log.error("채용 공고 [상세 조회] 중 예외 발생 (공고 ID: {})", recruitId, e);
             throw e;
         }
     }
     
-    // 채용 공고 수정 (U, Update) - 기업회원
+    /**
+     * 채용 공고 수정 (U, Update) - 기업회원
+     * @param recruitDto 수정할 채용 공고 정보
+     * @return 수정된 행의 수 (1이면 성공)
+     */
     @Override
     public int updateRecruit(RecruitDto recruitDto) throws SQLException {
         log.info("채용 공고 [수정] 서비스 실행: {}", recruitDto);
@@ -125,7 +160,11 @@ public class RecruitServiceImpl implements RecruitService {
         }
     }
 
-    // 채용 공고 삭제 (D, Delete) - 기업회원
+    /**
+     * 채용 공고 삭제 (D, Delete) - 기업회원
+     * @param recruitDto 삭제할 채용 공고 정보 (recruitId 필요)
+     * @return 삭제된 행의 수 (1이면 성공)
+     */
     @Override
     public int deleteRecruit(RecruitDto recruitDto) throws SQLException {
         log.info("채용 공고 [삭제] 서비스 실행 (공고 ID: {})", recruitDto.getRecruitId());
