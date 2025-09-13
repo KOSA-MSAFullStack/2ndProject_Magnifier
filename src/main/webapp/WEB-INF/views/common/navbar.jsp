@@ -17,11 +17,24 @@
     </security:authorize>
 
 	<security:authorize access="!hasRole('ROLE_ENTERPRISE')">
-      <a href="/members/resumes/">이력서관리</a>
+      <a href="/resumes/">이력서관리</a>
 	</security:authorize>
-    <a href="#">지원내역</a>
+	
+    <!-- 개인회원 : 개인이 지원한 내역, 기업회원: 기업 공고에 지원한 지원자 내역 -->
+    <security:authorize access="hasRole('ROLE_ENTERPRISE')">
+        <a href=/enterprises/applylist>지원내역</a>
+    </security:authorize>
+    <security:authorize access="!hasRole('ROLE_ENTERPRISE')">
+        <a href="/members/applylist">지원내역</a>
+    </security:authorize>
     
-    <a href="/members/mypage">내 정보</a>
+    <!-- 개인회원 : 개인회원정보, 기업회원: 기업회원정보 -->
+    <security:authorize access="hasRole('ROLE_ENTERPRISE')">
+        <a href=/enterprises/mypage>내 정보</a>
+    </security:authorize>
+    <security:authorize access="!hasRole('ROLE_ENTERPRISE')">
+        <a href="/members/mypage">내 정보</a>
+    </security:authorize>
 
 	<!-- 로그인 되어있을 때는 로그아웃이 보이도록, 로그아웃 상태면 로그인이 보이도록 -->
     <security:authorize access="isAuthenticated()">

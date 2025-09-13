@@ -36,5 +36,13 @@
 		 delete from license
 		 where license_id=#{licenseId}
 	 </delete>
+	 
+	 <select id="findLicenseIdsByResumeId" resultType="java.lang.Integer">
+	 	select
+	 		license_id
+	 	from
+	 		license
+	 	where resume_id = #{resumeId}
+	 </select>
 
 </mapper>
