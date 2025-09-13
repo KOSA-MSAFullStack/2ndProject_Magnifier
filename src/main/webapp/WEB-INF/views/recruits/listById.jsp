@@ -20,7 +20,7 @@
         </div>
         <div class="button-container">
             <button class="add-button" onclick="location.href='${pageContext.request.contextPath}/recruits/register'">공고 추가</button>
-            <button class="delete-button onclick="location.href='${pageContext.request.contextPath}/recruits/delete'">공고 삭제</button>
+            <button class="delete-button">공고 삭제</button>
         </div>
     </div>
 
@@ -60,6 +60,40 @@ $(document).ready(function() {
             } else {
                  $(".recruitList").html("<p>공고를 불러오는 중 오류가 발생했습니다.</p>");
             }
+        }
+    });
+
+    // 공고 삭제 버튼 클릭 이벤트
+    $('.delete-button').on('click', function() {
+        const selectedRecruitIds = [];
+        // 체크된 체크박스의 recruitId 값 수집
+        $('.recruit-checkbox:checked').each(function() {
+            selectedRecruitIds.push($(this).val());
+        });
+
+        if (selectedRecruitIds.length === 0) {
+            alert('삭제할 공고를 선택해주세요.');
+            return;
+        }
+
+        if (confirm('선택된 공고를 정말 삭제하시겠습니까?')) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/recruits/api/delete/bulk",
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(selectedRecruitIds), // ID 리스트를 JSON 배열로 전송
+                headers: {
+                    'X-CSRF-TOKEN': '${_csrf.token}'
+                },
+                success: function(response) {
+                    alert('선택된 공고가 성공적으로 삭제되었습니다.');
+                    location.reload(); // 페이지 새로고침하여 목록 업데이트
+                },
+                error: function(xhr, status, error) {
+                    console.error('공고 삭제 중 오류 발생:', error);
+                    alert('공고 삭제에 실패했습니다: ' + xhr.responseText);
+                }
+            });
         }
     });
 });

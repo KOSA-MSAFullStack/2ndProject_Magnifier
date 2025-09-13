@@ -71,4 +71,10 @@ public interface RecruitMapper {
      * @return 삭제된 행의 수 (1이면 성공)
      */
     int deleteRecruit(RecruitDto recruitDto) throws SQLException;
+    /**
+     * 채용 공고 일괄 삭제 (D, Delete) - 기업회원
+     * @param recruitIds 삭제할 채용 공고 ID 리스트
+     * @return 삭제된 행의 수
+     */
+    int deleteRecruitsById(List<Integer> recruitId) throws SQLException;
 }

@@ -183,4 +183,21 @@ public class RecruitServiceImpl implements RecruitService {
             throw e;
         }
     }
+    /**
+     * 채용 공고 일괄 삭제 비즈니스 로직 (D, Delete) - 기업회원
+     * @param recruitId 삭제할 채용 공고 ID 리스트
+     * @return 처리 결과 (삭제된 행의 수)
+     */
+    @Override
+    public int deleteRecruitsById(List<Integer> recruitId) throws SQLException {
+        log.info("채용 공고 [일괄 삭제] 서비스 실행 (공고 ID 리스트: {})", recruitId);
+        try {
+            int deletedCount = recruitMapper.deleteRecruitsById(recruitId);
+            log.info("공고 일괄 삭제 성공. 삭제된 공고 수: {}", deletedCount);
+            return deletedCount;
+        } catch (Exception e) {
+            log.error("채용 공고 [일괄 삭제] 중 예외 발생 (공고 ID 리스트: {})", recruitId, e);
+            throw e;
+        }
+    }
 }
