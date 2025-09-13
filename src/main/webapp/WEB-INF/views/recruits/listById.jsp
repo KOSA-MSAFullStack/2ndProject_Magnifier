@@ -27,7 +27,7 @@
 <script>
 $(document).ready(function() {
     $.ajax({
-        url: "${pageContext.request.contextPath}/recruits/listbyid",
+        url: "${pageContext.request.contextPath}/recruits/api/listbyid",
         type: "GET",
         dataType: "json",
         headers: {
