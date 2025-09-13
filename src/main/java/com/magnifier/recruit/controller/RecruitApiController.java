@@ -64,7 +64,7 @@ public class RecruitApiController {
     }
 
     // 전체 채용 공고 목록 조회_GET (RESTful API)
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> list(
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -96,27 +96,37 @@ public class RecruitApiController {
     @GetMapping("/listbyid")
     public ResponseEntity<List<RecruitDto>> listById(Authentication auth) {
         try {
-            // 현재 로그인한 기업 회원의 ID 가져오기
-            CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
-            int enterpriseId = customEnterprise.getEnterpriseId();
+            // 인증 정보 및 사용자 타입 확인
+            if (auth != null && auth.getPrincipal() instanceof CustomEnterprise) {
+                CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
+                int enterpriseId = customEnterprise.getEnterpriseId();
 
-            // 해당 기업이 등록한 채용 공고 목록 조회 서비스 호출
-            List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
-            return new ResponseEntity<>(recruitList, HttpStatus.OK);
+                // 해당 기업이 등록한 채용 공고 목록 조회 서비스 호출
+                List<RecruitDto> recruitList = recruitService.getRecruitListById(enterpriseId);
+                return new ResponseEntity<>(recruitList, HttpStatus.OK);
+            } else {
+                // 기업 회원이 아니거나 인증 정보가 없는 경우
+                System.err.println("기업별 등록한 채용 공고 목록 조회 권한 없음 (비기업 사용자 또는 비로그인)");
+                return new ResponseEntity<>(Collections.emptyList(), HttpStatus.FORBIDDEN); // 403 Forbidden
+            }
         } catch (Exception e) {
-            System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (인증된 사용자 ID: "
-                    + ((CustomEnterprise) auth.getPrincipal()).getEnterpriseId() + "): "
-                    + e.getMessage());
+            String principalInfo = "N/A";
+            if (auth != null && auth.getPrincipal() instanceof CustomEnterprise) {
+                principalInfo = "기업 ID: " + ((CustomEnterprise) auth.getPrincipal()).getEnterpriseId();
+            } else if (auth != null) {
+                principalInfo = "사용자: " + auth.getPrincipal().toString();
+            }
+            System.err.println("기업별 등록한 채용 공고 목록 조회 중 오류 발생 (" + principalInfo + "): " + e.getMessage());
             return new ResponseEntity<>(Collections.emptyList(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     // 채용 공고 상세 조회_GET (RESTful API)
-    @GetMapping("/detail/{recruitId}")
-    public ResponseEntity<RecruitDto> detail(@PathVariable("recruitId") int recruitId) {
+    @GetMapping(value = "/detail/{recruitId}", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Map<String, Object>> detail(@PathVariable("recruitId") int recruitId) {
         try {
-            RecruitDto recruitDto = recruitService.detailRecruit(recruitId);
-            return new ResponseEntity<>(recruitDto, HttpStatus.OK);
+            Map<String, Object> recruitDetails = recruitService.detailRecruit(recruitId);
+            return new ResponseEntity<>(recruitDetails, HttpStatus.OK);
         } catch (Exception e) {
             System.err.println("채용 공고 상세 조회 중 오류 발생 (공고 ID: " + recruitId + "): " + e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
