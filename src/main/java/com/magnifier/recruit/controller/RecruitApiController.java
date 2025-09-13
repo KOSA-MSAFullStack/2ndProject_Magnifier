@@ -64,7 +64,7 @@ public class RecruitApiController {
     }
 
     // 전체 채용 공고 목록 조회_GET (RESTful API)
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> list(
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
