@@ -49,7 +49,7 @@
                 <span class="error-msg"><c:out value="${error}" /></span>
 
                 <div class="login-links">
-                    <a href="#">아이디 찾기</a> | 
+                    <!-- 개인회원 가입 페이지 링크로 이동 -->
                     <a href="/members/signup">회원가입</a> <!-- 회원가입 페이지 링크로 이동 -->
                     
                 </div>
