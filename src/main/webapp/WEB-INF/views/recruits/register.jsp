@@ -178,7 +178,7 @@ $(document).ready(function() {
              * - ex: if, http://localhost:8080/my-app 에서 실행된다면, 이 값은 "/my-app"
              * - 서버 환경 바뀌어도 URL 경로 깨지지 않고 유지
             */
-            url: '${pageContext.request.contextPath}/recruits/register',
+            url: '${pageContext.request.contextPath}/recruits/api/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),     // JavaScript 객체 -> JSON 문자열로 변환
