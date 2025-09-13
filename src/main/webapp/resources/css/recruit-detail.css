@@ -1,0 +1,83 @@
+/* recruit-detail.css */
+
+.detail-container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.main-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #eee;
+}
+
+.detail-table .table-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 5px solid var(--darkblue);
+}
+
+.detail-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.detail-table th, .detail-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 22px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.detail-table th {
+    background-color: #f9f9f9;
+    width: 20%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.detail-table td {
+    width: 80%;
+}
+
+.content-cell {
+    white-space: pre-wrap; /* 줄바꿈과 공백을 유지 */
+    line-height: 1.6;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.action-button {
+    padding: 15px 30px;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: var(--darkblue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover {
+    background-color: var(--blue);
+}

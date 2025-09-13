@@ -19,6 +19,7 @@ package com.magnifier.recruit.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.magnifier.recruit.dto.RecruitDto;
 
@@ -52,9 +53,9 @@ public interface RecruitService {
     /**
      * 채용 공고 상세 조회 비즈니스 로직 (R, Select) - 기업/개인 회원
      * @param recruitId 조회할 채용 공고 ID
-     * @return 채용 공고 상세 정보
+     * @return 채용 공고 및 기업 정보가 담긴 Map
      */
-    RecruitDto detailRecruit(int recruitId) throws SQLException;
+    Map<String, Object> detailRecruit(int recruitId) throws SQLException;
     
     /**
      * 채용 공고 수정 비즈니스 로직 (U, Update) - 기업회원
