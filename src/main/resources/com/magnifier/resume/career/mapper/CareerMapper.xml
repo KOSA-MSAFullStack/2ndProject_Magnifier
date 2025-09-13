@@ -44,6 +44,14 @@
 		 delete from career
 		 where career_id=#{careerId}
 	 </delete>
+	 
+	 <select id="findCareerIdsByResumeId" resultType="java.lang.Integer">
+	 	select
+	 		career_id
+	 	from
+	 		career
+	 	where resume_id = #{resumeId}
+	 </select>
 			
 
 </mapper>
