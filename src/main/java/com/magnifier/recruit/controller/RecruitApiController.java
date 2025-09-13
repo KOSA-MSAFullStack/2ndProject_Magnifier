@@ -161,4 +161,16 @@ public class RecruitApiController {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    // 채용 공고 일괄 삭제_DELETE (RESTful API)
+    @DeleteMapping("/delete/bulk")
+    public ResponseEntity<String> deleteBulk(@RequestBody List<Integer> recruitId) {
+        try {
+            recruitService.deleteRecruitsById(recruitId);
+            System.out.println("채용 공고 일괄 삭제 (ID 리스트): " + recruitId);
+            return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        } catch (Exception e) {
+            System.err.println("채용 공고 일괄 삭제 중 오류 발생: " + e.getMessage());
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
