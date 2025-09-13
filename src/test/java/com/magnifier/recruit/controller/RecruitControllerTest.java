@@ -172,34 +172,20 @@ public class RecruitControllerTest {
     @Test
     public void testDetail() throws Exception {
         int recruitId = 1;
-        RecruitDto recruitDto = new RecruitDto();
-        recruitDto.setRecruitId(recruitId);
-        when(recruitService.detailRecruit(recruitId)).thenReturn(recruitDto);
-
-        // GET /recruits/detail/{recruitId} 요청 수행
+        // RecruitController.detail()은 뷰만 반환하므로 서비스 호출 없음
         mockMvc.perform(get("/recruits/detail/" + recruitId))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recruits/detail"))
-                .andExpect(model().attributeExists("recruitDto"));
-
-        verify(recruitService, times(1)).detailRecruit(recruitId);
+                .andExpect(view().name("recruits/detail"));
     }
 
     // 채용 공고 수정 폼 테스트
     @Test
     public void testModifyForm() throws Exception {
         int recruitId = 1;
-        RecruitDto recruitDto = new RecruitDto();
-        recruitDto.setRecruitId(recruitId);
-        when(recruitService.detailRecruit(recruitId)).thenReturn(recruitDto);
-
-        // GET /recruits/modify/{recruitId} 요청 수행
+        // RecruitController.modifyForm()은 뷰만 반환하므로 서비스 호출 없음
         mockMvc.perform(get("/recruits/modify/" + recruitId))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recruits/modify"))
-                .andExpect(model().attributeExists("recruitDto"));
-
-        verify(recruitService, times(1)).detailRecruit(recruitId);
+                .andExpect(view().name("recruits/modify"));
     }
 
     // 채용 공고 수정 처리 테스트
