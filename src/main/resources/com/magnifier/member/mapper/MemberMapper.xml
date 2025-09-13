@@ -2,6 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- author: 김경아 -->
 <mapper namespace="com.magnifier.member.mapper.MemberMapper">
 
 	<resultMap id="memberMap"
@@ -45,7 +47,7 @@
 	<!-- 내정보 - 회원 정보 조회 -->
 	<select id="findById" resultMap="memberMap" parameterType="int">
 		SELECT login_id, name, gender, phone_number, birth, post_number, address, address_detail, reference
-		FROM member
+		FROM zoomin.MEMBER
 		WHERE member_id = #{memberId}
 	</select>
 	

@@ -44,13 +44,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 권한에 따라 다른 URL로 리다이렉트
         if (roleNames.contains("ROLE_ENTERPRISE")) {
             // ROLE_ENTERPRISE이 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/main"); //TODO: 변경
+            response.sendRedirect("/recruits/list"); //TODO: 변경
             return;
         } // end if
 
         if (roleNames.contains("ROLE_MEMBER")) {
             // ROLE_MEMBER가 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/members/main"); //TODO: 변경
+            response.sendRedirect("/recruits/list"); //TODO: 변경
             return;
         } // end if
 

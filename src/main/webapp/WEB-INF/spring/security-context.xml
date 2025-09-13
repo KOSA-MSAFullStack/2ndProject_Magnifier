@@ -63,6 +63,15 @@
 		<security:logout logout-url="/enterprises/logout" invalidate-session="true" logout-success-url="/enterprises/login" />
 	</security:http>
 
+	<!-- 이력서 관리 영역 보안 설정 -->
+	<security:http pattern="/resumes/**" authentication-manager-ref="authManagerMember">
+		<!-- /resumes/로 시작하는 모든 경로 개안 회원만 접근 가능하도록 설정 -->
+		<security:intercept-url pattern="/resumes/**" access="hasRole('ROLE_MEMBER')" />
+
+		<!-- 로그인 페이지 및 접근 거부 핸들러 추가 -->
+		<security:form-login login-page="/members/login" />
+		<security:access-denied-handler ref="customAccessDenied" />
+	</security:http>
 
 	<!-- 채용 공고 영역 보안 설정 -->
 	<security:http pattern="/recruits/**" authentication-manager-ref="authManagerEnterprise">

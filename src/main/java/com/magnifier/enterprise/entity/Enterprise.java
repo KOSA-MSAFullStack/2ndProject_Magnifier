@@ -1,6 +1,11 @@
 package com.magnifier.enterprise.entity;
 
+import java.time.LocalDate;
+
 import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
+import com.magnifier.enterprise.dto.UpdateEnterpriseRequest;
+import com.magnifier.member.dto.UpdateMemberRequest;
+import com.magnifier.member.entity.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +46,22 @@ public class Enterprise {
 				.name(dto.getName())
 				.registerNumber(dto.getRegisterNumber())
 				.password(encodePW)
+				.postNumber(dto.getPostNumber())
+				.address(dto.getAddress())
+				.addressDetail(dto.getAddressDetail())
+				.reference(dto.getReference())
+				.build();
+		return enterprise;
+	}
+	
+	/**
+	 * 회원 수정 요청 dto -> Enterprise 객체로 생성
+	 * @param dto(UpdateEnterpriseRequest)
+	 * @return Enterprise
+	 */
+	public static Enterprise createEnterprise(UpdateEnterpriseRequest dto) {
+		Enterprise enterprise = Enterprise.builder()
+				.enterpriseId(dto.getEnterpriseId())
 				.postNumber(dto.getPostNumber())
 				.address(dto.getAddress())
 				.addressDetail(dto.getAddressDetail())
