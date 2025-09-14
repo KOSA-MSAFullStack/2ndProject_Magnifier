@@ -12,4 +12,5 @@ public class EnterpriseApplylistDto {
 	private String title;				// 공고명
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private LocalDate createdAt;		// 지원날짜
+	private int memberId;				// 지원한 멤버 ID
 }

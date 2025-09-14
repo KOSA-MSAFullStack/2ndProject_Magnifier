@@ -1,7 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 페이지 인코딩 및 컨텐츠 타입 설정 -->
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- JSTL core 라이브러리 선언 -->
+
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
+
+<!-- author: 김경아 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>

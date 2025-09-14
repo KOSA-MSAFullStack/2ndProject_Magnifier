@@ -12,4 +12,5 @@ public class MemberApplylistDto {
 	private String title;				// 공고 제목
 	@JsonFormat(pattern = "yyyy.MM.dd")
 	private LocalDate createdAt;		// 지원날짜
+	private int recruitId;				// 공고 ID
 }

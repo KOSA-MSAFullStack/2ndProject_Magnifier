@@ -28,7 +28,7 @@
 			<span>지원 내역</span>
 		</div>
 		<c:forEach items="${applylist}" var="applylist">
-		<div class="application-card">
+		<div class="application-card" onclick="location.href='/enterprises/resume/${applylist.memberId}'">
             <span class="company-name">${applylist.name}</span>
             <span class="job-title">${applylist.title}</span>
             <div class="application-status">

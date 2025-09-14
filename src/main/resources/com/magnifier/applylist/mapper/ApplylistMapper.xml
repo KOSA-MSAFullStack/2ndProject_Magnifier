@@ -10,13 +10,15 @@
         <result property="name" column="enterprise_name"/>
         <result property="title" column="recruit_title"/>
         <result property="createdAt" column="created_at"/>
+        <result property="recruitId" column="recruit_id"/>
     </resultMap>
 
     <select id="selectApplylistsByMemberId" resultMap="memberApplylistDtoMap">
         SELECT
             e.name AS enterprise_name,
             r.title AS recruit_title,
-            a.created_at
+            a.created_at,
+            a.recruit_id
         FROM applylist a
         JOIN recruit r ON a.recruit_id = r.recruit_id
         JOIN enterprise e ON r.enterprise_id = e.enterprise_id
@@ -28,13 +30,15 @@
         <result property="name" column="member_name"/>
         <result property="title" column="recruit_title"/>
         <result property="createdAt" column="created_at"/>
+        <result property="memberId" column="member_id"/>
     </resultMap>
 
     <select id="selectApplylistsByEnterpriseId" resultMap="enterpriseApplylistDtoMap">
         SELECT
             m.name AS member_name,
             r.title AS recruit_title,
-            a.created_at
+            a.created_at,
+            a.member_id
         FROM applylist a
         JOIN recruit r ON a.recruit_id = r.recruit_id
         JOIN enterprise e ON r.enterprise_id = e.enterprise_id
