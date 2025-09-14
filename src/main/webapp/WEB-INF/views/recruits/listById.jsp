@@ -60,6 +60,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     '<span class="details">' + recruit.workingArea + '</span>' +
                     '<div class="apply">' +
                         '<a href="' + detailUrl + '" class="applyButton">공고 상세</a>' +
+                        '<span class="deadline">마감일 : ' + recruit.deadLine + '</span>' +
                     '</div>' +
                 '</div>';
               recruitListContainer.append(recruitHtml);
