@@ -11,7 +11,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>이력서</title>
+    <title>지원 내역</title>
     <!-- 브라우저 탭에 표시될 타이틀 -->
 	<link rel="stylesheet" href="/resources/css/common.css">
     <link rel="stylesheet" href="/resources/css/applylist.css" />
