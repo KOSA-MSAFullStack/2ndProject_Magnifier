@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"
+%>
+
+<c:set var="isMember" value="false" />
+<security:authorize access="isAuthenticated() and hasRole('ROLE_MEMBER')">
+  <c:set var="isMember" value="true" />
+</security:authorize>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,6 +47,8 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
 
     <script>
+      const isMemberJs = "${isMember}" === "true";
+
       // 공고 목록 & 페이지네이션 화면에 표시
       function displayRecruits(recruits, currentPage, totalPages, totalCount) {
         const recruitListContainer = $(".recruitList");
@@ -56,7 +66,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         // 각 공고에 대한 HTML 생성, 컨테이너에 추가
         recruits.forEach(function (recruit) {
-          const applyButtonHtml = isMember
+          const applyButtonHtml = isMemberJs
             ? `<a href="${pageContext.request.contextPath}/recruits/detail/\${recruit.recruitId}" class="applyButton">지원하기</a>`
             : "";
           const recruitHtml = `
@@ -75,9 +85,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         // 페이지네이션 HTML 생성
         if (currentPage > 1) {
           paginationContainer.append(
-            `<a href="#" class="page-link" data-page="\${
-              currentPage - 1
-            }">이전</a>`
+            `<a href="#" class="page-link" data-page="\${currentPage - 1}">이전</a>`
           );
         }
 
@@ -90,9 +98,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
         if (currentPage < totalPages) {
           paginationContainer.append(
-            `<a href="#" class="page-link" data-page="\${
-              currentPage + 1
-            }">다음</a>`
+            `<a href="#" class="page-link" data-page="\${currentPage + 1}">다음</a>`
           );
         }
       }
