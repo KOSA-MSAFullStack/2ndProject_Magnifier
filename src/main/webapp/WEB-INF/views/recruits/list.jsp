@@ -48,6 +48,8 @@ pageEncoding="UTF-8"%>
 
     <script>
       const isMemberJs = "${isMember}" === "true";
+      const isEnterpriseJs = "${isEnterprise}" === "true";
+      const isAnonymousJs = "${isAnonymous}" === "true";
 
       // 공고 목록 & 페이지네이션 화면에 표시
       function displayRecruits(recruits, currentPage, totalPages, totalCount) {
