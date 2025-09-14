@@ -49,7 +49,7 @@
             
             <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
-                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" required/>
+                <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" required pattern="[A-Za-z0-9]+" required/>
                 <button id="idCheckBtn" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
             <div id="idCheckMsg"></div>
@@ -158,11 +158,12 @@
 	  });
 	  
 	  /* 
-	  	loginId 패턴 검사
+	  	로그인 Id 패턴 검사(영문, 숫자만 가능)
 	  */
-	  $('#loginId').on('input', function(){
-      	// 한글 제외하고 영문, 숫자만 필터링
-		this.value = this.value.replace(/[^가-힣a-z0-9]/gi, '');
+	  const loginInput = document.getElementById("loginId");
+
+	  loginInput.addEventListener("input", function () {
+	    this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
 	  });
 	  
 	  /*

@@ -36,7 +36,7 @@
             
             <!-- 사업자 등록 번호 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
-                <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box medium" required/>
+                <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box medium" required maxlength="10" pattern="\d{10}" required/>
                 <button id="registerNumberCheckBtn" type="button" class="btn-duplicate-check">인증</button>
             </div>
             <div id="idCheckMsg"></div>
@@ -73,6 +73,20 @@
         </form>
     </div>
     <script >
+	  /* 
+	  	사업자등록번호 패턴 검사(숫자만 10자리)
+	  */
+	  const input = document.getElementById("registerNumber");
+
+	  input.addEventListener("input", function () {
+	    // 숫자 이외 문자 제거
+	    this.value = this.value.replace(/[^0-9]/g, '');
+
+	    // 10자리 이상 입력 불가
+	    if (this.value.length > 10) {
+	      this.value = this.value.slice(0, 10);
+	    }
+	  });
       /*
 	        사업자 등록번호 인증
 	  */
