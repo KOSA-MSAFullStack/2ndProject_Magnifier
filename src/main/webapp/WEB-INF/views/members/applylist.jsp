@@ -14,7 +14,7 @@
     <title>이력서</title>
     <!-- 브라우저 탭에 표시될 타이틀 -->
 	<link rel="stylesheet" href="/resources/css/common.css">
-    <link rel="stylesheet" href="/resources/css/applyList.css" />
+    <link rel="stylesheet" href="/resources/css/applylist.css" />
 	<!-- 구글 폰트 Inter 불러오기 -->
     <link href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap" rel="stylesheet">
     
@@ -27,14 +27,16 @@
 		<div class="applylist-title">
 			<span>지원 내역</span>
 		</div>
+		<c:forEach items="${applylist}" var="applylist">
 		<div class="application-card">
-            <span class="company-name">(주)카카오</span>
-            <span class="job-title">건물 안내원 채용</span>
+            <span class="company-name">${applylist.name}</span>
+            <span class="job-title">${applylist.title}</span>
             <div class="application-status">
                 <span class="status-label">지원완료</span>
-                <span class="application-date-info">2025/09/11 지원</span>
+                <span class="application-date-info">${applylist.createdAt} 지원</span>
             </div>
         </div>
+        </c:forEach>
     </div>
 </body>
 </html>

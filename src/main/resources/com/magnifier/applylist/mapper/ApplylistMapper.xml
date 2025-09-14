@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- author: 이상우 -->
+<mapper namespace="com.magnifier.applylist.mapper.ApplylistMapper">
+
+	<resultMap id="memberApplylistDtoMap" type="com.magnifier.applylist.dto.MemberApplylistDto">
+        <result property="name" column="enterprise_name"/>
+        <result property="title" column="recruit_title"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <select id="selectApplylistsByMemberId" resultMap="memberApplylistDtoMap">
+        SELECT
+            e.name AS enterprise_name,
+            r.title AS recruit_title,
+            a.created_at
+        FROM applylist a
+        JOIN recruit r ON a.recruit_id = r.recruit_id
+        JOIN enterprise e ON r.enterprise_id = e.enterprise_id
+        WHERE a.member_id = #{memberId}
+        ORDER BY a.created_at DESC
+    </select>
+
+</mapper>

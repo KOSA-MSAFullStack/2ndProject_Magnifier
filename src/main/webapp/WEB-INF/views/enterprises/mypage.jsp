@@ -22,7 +22,7 @@
         <div class="page-title">기업 정보</div>
         
         <!-- 회원가입 입력 폼 -->
-        <form id="signupForm" class="signup-form">
+        <form id="modifyForm" class="signup-form">
             <div class="form-group name-group">
 	            <!-- 기업명 입력란 -->
                 <input type="text" id="name" name="name" placeholder="기업명" class="input-box large" readonly/>
