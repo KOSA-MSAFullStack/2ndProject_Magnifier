@@ -135,8 +135,12 @@ public class RecruitApiController {
 
     // 채용 공고 수정_PUT (RESTful API)
     @PutMapping("/modify/{recruitId}")
-    public ResponseEntity<String> modify(@PathVariable("recruitId") int recruitId, @RequestBody RecruitDto recruitDto) {
+    public ResponseEntity<String> modify(@PathVariable("recruitId") int recruitId, @RequestBody RecruitDto recruitDto, Authentication auth) {
         try {
+            // 현재 로그인한 기업 회원의 ID를 Authentication 객체에서 가져와 설정
+            CustomEnterprise customEnterprise = (CustomEnterprise) auth.getPrincipal();
+            recruitDto.setEnterpriseId(customEnterprise.getEnterpriseId());
+
             recruitDto.setRecruitId(recruitId);
             recruitService.updateRecruit(recruitDto);
             System.out.println("채용 공고 수정: " + recruitDto.getTitle());

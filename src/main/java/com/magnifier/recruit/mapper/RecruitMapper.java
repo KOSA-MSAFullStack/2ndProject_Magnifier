@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.magnifier.recruit.dto.RecruitDto;
 
@@ -76,5 +77,5 @@ public interface RecruitMapper {
      * @param recruitIds 삭제할 채용 공고 ID 리스트
      * @return 삭제된 행의 수
      */
-    int deleteRecruitsById(List<Integer> recruitId) throws SQLException;
+    int deleteRecruitsById(@Param("recruitIds") List<Integer> recruitId) throws SQLException;
 }
