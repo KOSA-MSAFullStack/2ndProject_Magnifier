@@ -122,10 +122,21 @@ public class RecruitServiceImpl implements RecruitService {
             }
 
             // 2. 공고 정보에서 enterpriseId를 이용해 기업 정보 조회
-            com.magnifier.enterprise.entity.Enterprise enterprise = enterpriseMapper.findById(recruit.getEnterpriseId());
-            if (enterprise == null) {
-                throw new RuntimeException("공고에 연결된 기업 정보가 없습니다. (기업 ID: " + recruit.getEnterpriseId() + ")");
+            Integer enterpriseId = recruit.getEnterpriseId();
+
+            com.magnifier.enterprise.entity.Enterprise fetchedEnterprise = enterpriseMapper.findById(enterpriseId);
+
+            if (fetchedEnterprise == null) {
+                log.warn("공고에 연결된 기업 정보가 없습니다. (기업 ID: {})", enterpriseId);
+                throw new RuntimeException("공고에 연결된 기업 정보가 없습니다. (기업 ID: " + enterpriseId + ")");
             }
+
+            // 클라이언트에 필요한 정보만 담은 Enterprise 객체 생성
+            com.magnifier.enterprise.entity.Enterprise enterprise = new com.magnifier.enterprise.entity.Enterprise();
+            enterprise.setName(fetchedEnterprise.getName());
+            enterprise.setAddress(fetchedEnterprise.getAddress());
+            enterprise.setAddressDetail(fetchedEnterprise.getAddressDetail());
+            log.debug("클라이언트 전달용 Enterprise 객체: {}", enterprise);
 
             // 3. 두 정보를 Map에 담아서 반환
             Map<String, Object> details = new HashMap<>();
