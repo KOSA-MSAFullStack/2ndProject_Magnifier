@@ -123,6 +123,9 @@ public class RecruitServiceImpl implements RecruitService {
 
             // 2. 공고 정보에서 enterpriseId를 이용해 기업 정보 조회
             com.magnifier.enterprise.entity.Enterprise enterprise = enterpriseMapper.findById(recruit.getEnterpriseId());
+            if (enterprise == null) {
+                throw new RuntimeException("공고에 연결된 기업 정보가 없습니다. (기업 ID: " + recruit.getEnterpriseId() + ")");
+            }
 
             // 3. 두 정보를 Map에 담아서 반환
             Map<String, Object> details = new HashMap<>();
@@ -180,6 +183,23 @@ public class RecruitServiceImpl implements RecruitService {
             return result;
         } catch (Exception e) {
             log.error("채용 공고 [삭제] 중 예외 발생", e);
+            throw e;
+        }
+    }
+    /**
+     * 채용 공고 일괄 삭제 비즈니스 로직 (D, Delete) - 기업회원
+     * @param recruitId 삭제할 채용 공고 ID 리스트
+     * @return 처리 결과 (삭제된 행의 수)
+     */
+    @Override
+    public int deleteRecruitsById(List<Integer> recruitId) throws SQLException {
+        log.info("채용 공고 [일괄 삭제] 서비스 실행 (공고 ID 리스트: {})", recruitId);
+        try {
+            int deletedCount = recruitMapper.deleteRecruitsById(recruitId);
+            log.info("공고 일괄 삭제 성공. 삭제된 공고 수: {}", deletedCount);
+            return deletedCount;
+        } catch (Exception e) {
+            log.error("채용 공고 [일괄 삭제] 중 예외 발생 (공고 ID 리스트: {})", recruitId, e);
             throw e;
         }
     }
