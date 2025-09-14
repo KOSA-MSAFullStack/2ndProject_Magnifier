@@ -120,10 +120,7 @@
                 <button class="action-button">지원하기</button>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_ENTERPRISE')">
-                 <c:url var="modifyUrl" value="/recruits/modify">
-                    <c:param name="recruitId" value="${pageContext.request.request.getAttribute("recruitId")}" />
-                </c:url>
-                <a href="${modifyUrl}" class="action-button">수정하기</a>
+                <a href="${pageContext.request.contextPath}/recruits/modify" class="action-button">수정하기</a>
             </security:authorize>
         </div>
     </div>
