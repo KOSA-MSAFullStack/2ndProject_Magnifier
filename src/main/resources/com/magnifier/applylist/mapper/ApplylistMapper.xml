@@ -23,5 +23,24 @@
         WHERE a.member_id = #{memberId}
         ORDER BY a.created_at DESC
     </select>
+    
+    <resultMap id="enterpriseApplylistDtoMap" type="com.magnifier.applylist.dto.EnterpriseApplylistDto">
+        <result property="name" column="member_name"/>
+        <result property="title" column="recruit_title"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <select id="selectApplylistsByEnterpriseId" resultMap="enterpriseApplylistDtoMap">
+        SELECT
+            m.name AS member_name,
+            r.title AS recruit_title,
+            a.created_at
+        FROM applylist a
+        JOIN recruit r ON a.recruit_id = r.recruit_id
+        JOIN enterprise e ON r.enterprise_id = e.enterprise_id
+        JOIN member m ON a.member_id = m.member_id
+        WHERE e.enterprise_id = #{enterpriseId}
+        ORDER BY a.created_at DESC
+    </select>
 
 </mapper>

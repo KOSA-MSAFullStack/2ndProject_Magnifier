@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magnifier.applylist.dto.EnterpriseApplylistDto;
 import com.magnifier.applylist.dto.MemberApplylistDto;
 import com.magnifier.applylist.mapper.ApplylistMapper;
 
@@ -18,6 +19,12 @@ public class ApplylistServiceImpl implements ApplylistService {
 	@Override
 	public List<MemberApplylistDto> selectApplylistsByMemberId(int memberId) {
 		return applylistMapper.selectApplylistsByMemberId(memberId);
+	}
+
+	// 기업 지원내역 조회
+	@Override
+	public List<EnterpriseApplylistDto> selectApplylistsByEnterpriseId(int enterpriseId) {
+		return applylistMapper.selectApplylistsByEnterpriseId(enterpriseId);
 	}
 
 	
