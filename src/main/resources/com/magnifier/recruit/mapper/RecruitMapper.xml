@@ -126,7 +126,7 @@
     <delete id="deleteRecruitsById" parameterType="java.util.List">
         DELETE FROM RECRUIT
         WHERE RECRUIT_ID IN
-        <foreach item="recruitId" collection="recruitId" open="(" separator="," close=")">
+        <foreach item="recruitId" collection="recruitIds" open="(" separator="," close=")">
             #{recruitId}
         </foreach>
     </delete>
