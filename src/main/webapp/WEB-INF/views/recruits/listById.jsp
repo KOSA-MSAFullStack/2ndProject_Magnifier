@@ -26,10 +26,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <!-- 기업별 공고 목록이 동적으로 여기에 추가됩니다. -->
       </div>
       <div class="button-container">
-        <button
-          class="add-button"
-          onclick="location.href='${pageContext.request.contextPath}/recruits/register'"
-        >
+        <button class="add-button" onclick="location.href='${pageContext.request.contextPath}/recruits/register'">
           공고 추가
         </button>
         <button class="delete-button">공고 삭제</button>
@@ -53,15 +50,18 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             }
 
             data.forEach(function (recruit) {
-              const recruitHtml = `
-                    <div class="recruit">
-                        <div class="recruit-info">
-                            <input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="\${recruit.recruitId}">
-                            <span class="title">\${recruit.title}</span>
-                        </div>
-                        <span class="details">\${recruit.workingArea}</span>
-                    </div>
-                `;
+              const detailUrl = '${pageContext.request.contextPath}/recruits/detail/' + recruit.recruitId;
+              const recruitHtml =
+                '<div class="recruit">' +
+                    '<div class="recruit-info">' +
+                        '<input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="' + recruit.recruitId + '">' +
+                        '<span class="title">' + recruit.title + '</span>' +
+                    '</div>' +
+                    '<span class="details">' + recruit.workingArea + '</span>' +
+                    '<div class="apply">' +
+                        '<a href="' + detailUrl + '" class="applyButton">공고 상세</a>' +
+                    '</div>' +
+                '</div>';
               recruitListContainer.append(recruitHtml);
             });
           },
