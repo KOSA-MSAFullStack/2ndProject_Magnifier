@@ -7,6 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
 
+<!-- author: 김경아 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>

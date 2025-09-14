@@ -1,7 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 페이지 인코딩 및 컨텐츠 타입 설정 -->
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- JSTL core 라이브러리 선언 -->
+
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
+
+<!-- author: 김경아 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,7 +37,7 @@
             <!-- 사업자 등록 번호 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
                 <input type="text" id="registerNumber" name="" placeholder="사업자 등록 번호(숫자만)" class="input-box medium" required/>
-                <button id="certification" type="button" class="btn-duplicate-check">인증</button>
+                <button id="registerNumberCheckBtn" type="button" class="btn-duplicate-check">인증</button>
             </div>
             <div id="idCheckMsg"></div>
             
@@ -67,6 +73,56 @@
         </form>
     </div>
     <script >
+      /*
+	        사업자 등록번호 인증
+	  */
+	  let checkRegisterNumber = 0;
+      $('#registerNumberCheckBtn').on('click', function(event) {
+    	// 중복확인 결과 메세지 동적할당, 있으면 텍스트만 변경
+        if ($('#registerNumber').val().trim() === '') {
+          if ($('#messageId').length === 0) {
+           $('#idCheckMsg').css({ 'margin-bottom': '30px' }).append('<span id="messageId" class="error-msg">사업자등록번호를 입력해주세요.</span>');
+          } else {
+            $('#messageId').text('사업자등록번호를 입력해주세요.')
+                  .removeClass('success-msg')
+                  .addClass('error-msg');
+          }
+          return; // AJAX 요청 중단
+  	    }
+    	
+        // registerNumber를 JSON 객체로 생성
+		var registerNumberData = {
+		    "b_no": [$('#registerNumber').val()]
+		}; 
+		   
+		$.ajax({
+		  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=b433c20308c71489da9fbfb42b26a4299b712d69dfee4200bddb6c03084b3a87",  
+		  type: "POST",
+		  data: JSON.stringify(registerNumberData), // json 을 string으로 변환하여 전송
+		  dataType: "JSON",
+		  contentType: "application/json",
+		  accept: "application/json",
+		  success: function(result) {
+			  console.log(result);
+			  // 중복확인 결과 메세지 동적할당
+              $("#idCheckMsg").empty();
+			  if (result.data[0].tax_type === "국세청에 등록되지 않은 사업자등록번호입니다.") {
+				  checkRegisterNumber = 0; // 인증 안됨
+			      $("#idCheckMsg")
+	                .css({ 'margin-bottom': '30px' })
+	                .append('<span class="error-msg">등록 되지 않은 사업자입니다.</span>');
+		      } else {
+		    	  checkRegisterNumber = 1; // 인즘 됨
+		      	  $("#idCheckMsg")
+                    .css({ 'margin-bottom': '30px' })
+                    .append('<span class="success-msg">사업자 인증이 완료되었습니다.</span>');
+		      }
+		  },
+		  error: function(result) {
+		      console.log(result.responseText); //responseText의 에러메세지 확인
+		  }
+		});
+	  });
 	  /* 
 	       비밀번호 재확인 
 	  */
@@ -151,6 +207,12 @@
 	  $('#signupForm').on('submit', function(event) {
 	    event.preventDefault(); // 폼 기본 제출 차단
 	
+	    // 사업자 등록번호 인증 체크
+	    if (checkRegisterNumber === 0) {
+	        alert('사업자 인증을 해주세요.');
+	        return false; // 회원가입 진행 중단
+	    }
+	    
 	    // 폼 데이터 JSON 객체로 생성
 	    const formData = {
    		  "name": $('#name').val(),

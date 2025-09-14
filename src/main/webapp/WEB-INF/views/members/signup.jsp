@@ -1,7 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 페이지 인코딩 및 컨텐츠 타입 설정 -->
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- JSTL core 라이브러리 선언 -->
+
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
+
+<!-- author: 김경아 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,7 +50,7 @@
             <!-- 아이디 입력 및 중복확인 버튼 -->
             <div class="form-group id-group">
                 <input type="text" id="loginId" name="loginId" placeholder="아이디 (영문, 숫자만 가능합니다.)" class="input-box medium" required/>
-                <button id="idCheck" type="button" class="btn-duplicate-check">중복 확인</button>
+                <button id="idCheckBtn" type="button" class="btn-duplicate-check">중복 확인</button>
             </div>
             <div id="idCheckMsg"></div>
             
@@ -214,7 +220,7 @@
 	  	POST 요청 : 아이디 중복확인
 	  */
 	  let checkId = 0;
-	  $('#idCheck').on('click', function(event) {
+	  $('#idCheckBtn').on('click', function(event) {
 		// 중복확인 결과 메세지 동적할당, 있으면 텍스트만 변경
         if ($('#loginId').val().trim() === '') {
           if ($('#messageId').length === 0) {
@@ -250,14 +256,14 @@
 	    	        $('#messageId').text('존재하는 아이디입니다.')
 	    	        .removeClass('success-msg')  
 	    	        .addClass('error-msg');      
-	    	        checkId = 0;
+	    	        checkId = 0; // 인증 안됨
 	    	    } else if (response === false) {
 	    	        $('#messageId').text('사용 가능한 아이디입니다.')
 	    	        .removeClass('error-msg')   
 	    	        .addClass('success-msg');   
-	    	        checkId = 1;
+	    	        checkId = 1; // 인증 됨
 	    	    } else {
-	    	        checkId = 0;
+	    	        checkId = 0; // 인증 안됨
 	    	        alert('아이디 중복체크 오류');
 	    	    }
 	    	  },
