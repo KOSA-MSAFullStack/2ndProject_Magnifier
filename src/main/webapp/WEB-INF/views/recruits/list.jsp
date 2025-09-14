@@ -66,12 +66,17 @@ pageEncoding="UTF-8"%>
 
         // 각 공고에 대한 HTML 생성, 컨테이너에 추가
         recruits.forEach(function (recruit) {
+          const detailUrl = `${pageContext.request.contextPath}/recruits/detail/\${recruit.recruitId}`;
+
           const applyButtonHtml = isMemberJs
-            ? `<a href="${pageContext.request.contextPath}/recruits/detail/\${recruit.recruitId}" class="applyButton">지원하기</a>`
+            ? `<a href="${detailUrl}" class="applyButton">지원하기</a>`
             : "";
+
           const recruitHtml = `
             <div class="recruit">
-                <span class="title">\${recruit.title}</span>
+                <span class="title">
+                  <a href="${detailUrl}" class="recruit-link">\${recruit.title}</a>
+                </span>
                 <span class="details">\${recruit.workingArea}</span>
                 <div class="apply">
                     \${applyButtonHtml}

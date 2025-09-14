@@ -129,6 +129,16 @@ body {
   border-bottom: none;
 }
 
+.recruit:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+.recruit-link {
+  text-decoration: none; /* 링크 밑줄 제거 */
+  color: inherit; /* 부모 요소의 글자색 상속 */
+}
+
 .recruit-info {
     display: flex;
     align-items: center;
