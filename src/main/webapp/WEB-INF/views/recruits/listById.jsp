@@ -56,10 +56,10 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               const recruitHtml = `
                     <div class="recruit">
                         <div class="recruit-info">
-                            <input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="${recruit.recruitId}">
-                            <span class="title">${recruit.title}</span>
+                            <input type="checkbox" class="recruit-checkbox" name="selectedRecruits" value="\${recruit.recruitId}">
+                            <span class="title">\${recruit.title}</span>
                         </div>
-                        <span class="details">${recruit.workingArea}</span>
+                        <span class="details">\${recruit.workingArea}</span>
                     </div>
                 `;
               recruitListContainer.append(recruitHtml);

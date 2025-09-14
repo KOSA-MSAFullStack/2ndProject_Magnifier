@@ -57,15 +57,15 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         // 각 공고에 대한 HTML 생성, 컨테이너에 추가
         recruits.forEach(function (recruit) {
           const applyButtonHtml = isMember
-            ? `<a href="${pageContext.request.contextPath}/recruits/detail/${recruit.recruitId}" class="applyButton">지원하기</a>`
+            ? `<a href="${pageContext.request.contextPath}/recruits/detail/\${recruit.recruitId}" class="applyButton">지원하기</a>`
             : "";
           const recruitHtml = `
             <div class="recruit">
-                <span class="title">${recruit.title}</span>
-                <span class="details">${recruit.workingArea}</span>
+                <span class="title">\${recruit.title}</span>
+                <span class="details">\${recruit.workingArea}</span>
                 <div class="apply">
-                    ${applyButtonHtml}
-                    <span class="deadline">마감일 : ${recruit.deadLine}</span>
+                    \${applyButtonHtml}
+                    <span class="deadline">마감일 : \${recruit.deadLine}</span>
                 </div>
             </div>
         `;
@@ -75,7 +75,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         // 페이지네이션 HTML 생성
         if (currentPage > 1) {
           paginationContainer.append(
-            `<a href="#" class="page-link" data-page="${
+            `<a href="#" class="page-link" data-page="\${
               currentPage - 1
             }">이전</a>`
           );
@@ -84,13 +84,13 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         for (let i = 1; i <= totalPages; i++) {
           let activeClass = i === currentPage ? "active" : "";
           paginationContainer.append(
-            `<a href="#" class="page-link ${activeClass}" data-page="${i}">${i}</a>`
+            `<a href="#" class="page-link \${activeClass}" data-page="\${i}">\${i}</a>`
           );
         }
 
         if (currentPage < totalPages) {
           paginationContainer.append(
-            `<a href="#" class="page-link" data-page="${
+            `<a href="#" class="page-link" data-page="\${
               currentPage + 1
             }">다음</a>`
           );
