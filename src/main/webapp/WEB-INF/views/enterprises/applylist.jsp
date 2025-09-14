@@ -32,7 +32,6 @@
             <span class="company-name">${applylist.name}</span>
             <span class="job-title">${applylist.title}</span>
             <div class="application-status">
-                <span class="status-label">지원완료</span>
                 <span class="application-date-info">${applylist.createdAt} 지원</span>
             </div>
         </div>
