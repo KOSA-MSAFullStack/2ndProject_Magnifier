@@ -15,6 +15,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+// * author: 김기성
 @Getter
 @Setter
 @ToString

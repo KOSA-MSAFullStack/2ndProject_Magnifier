@@ -24,6 +24,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.magnifier.recruit.dto.RecruitDto;
 
+// * author: 김기성
 @Mapper
 public interface RecruitMapper {
 

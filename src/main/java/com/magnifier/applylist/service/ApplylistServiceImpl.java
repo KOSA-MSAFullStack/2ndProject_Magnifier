@@ -28,7 +28,7 @@ public class ApplylistServiceImpl implements ApplylistService {
 	@Autowired
 	private ApplylistMapper applylistMapper;
 
-	// * author: 김기성
+	// * author: 김기성 
 	// 지원 정보 추가
 	@Override
 	public void insertApplylist(Applylist applylist) {

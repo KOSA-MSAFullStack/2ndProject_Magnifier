@@ -26,6 +26,7 @@ import lombok.extern.log4j.Log4j;
 
 import com.magnifier.recruit.dto.RecruitDto;
 
+// * author: 김기성
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
         "file:src/main/webapp/WEB-INF/spring/security-context.xml" })

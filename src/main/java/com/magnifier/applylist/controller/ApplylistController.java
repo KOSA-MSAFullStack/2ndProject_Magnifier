@@ -36,7 +36,7 @@ public class ApplylistController {
 	@Autowired
 	private ResumeService resumeService;
 
-	// * author: 김기성
+	// * author: 김기성 
 	/**
 	 * 채용 공고 지원
 	 * 

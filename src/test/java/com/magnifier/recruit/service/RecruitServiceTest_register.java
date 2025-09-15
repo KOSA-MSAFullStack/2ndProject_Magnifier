@@ -26,6 +26,7 @@ import lombok.extern.log4j.Log4j;
 import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.mapper.RecruitMapper;
 
+// * author: 김기성
 @RunWith(MockitoJUnitRunner.class)
 @Log4j
 public class RecruitServiceTest_register {

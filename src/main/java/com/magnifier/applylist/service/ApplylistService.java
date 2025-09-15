@@ -10,7 +10,7 @@ import com.magnifier.applylist.dto.MemberApplylistDto;
 import com.magnifier.applylist.entity.Applylist;
 
 public interface ApplylistService {
-	// * author: 김기성
+	// * author: 김기성 
 	// 지원 정보 추가
 	public void insertApplylist(Applylist applylist);
 	

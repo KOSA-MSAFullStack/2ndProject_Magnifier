@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.magnifier.applylist.entity.Applylist;
 
-// * author: 김기성
+// * author: 김기성 
 @Mapper
 public interface ApplylistInsertMapper {
 
