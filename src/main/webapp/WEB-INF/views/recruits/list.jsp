@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
           const recruitHtml =
             '<div class="recruit">' +
                 '<span class="title">' + recruit.title + '</span>' +
-                '<span class="details">' + recruit.workingArea + '</span>' +
+                '<span class="details">' + recruit.workingArea + ' | ' + recruit.enterpriseName + '</span>' +
                 '<div class="apply">' +
                     applyButtonHtml +
                     '<span class="deadline">마감일 : ' + recruit.deadLine + '</span>' +

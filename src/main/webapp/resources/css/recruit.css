@@ -155,11 +155,13 @@ body {
   font-size: 48px;
   font-weight: bold;
   color: var(--black1);
+  flex: 3;
 }
 
 .details {
   font-size: 40px;
   color: var(--black1);
+  flex: 5;
 }
 
 .deadline {
@@ -171,6 +173,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 2;
 }
 
 .applyButton {
