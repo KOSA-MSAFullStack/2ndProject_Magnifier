@@ -31,7 +31,7 @@
 	<insert id="save" parameterType="com.magnifier.enterprise.entity.Enterprise">
 		INSERT INTO zoomin.Enterprise
 		(enterprise_id, name, register_number, password, post_number, address, address_detail, reference)
-		values (MEMBER_SEQ.NEXTVAL, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
+		values (ENTERPRISE_SEQ.NEXTVAL, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
 	</insert>
 	
 	<!-- 내정보 - 회원 정보 조회 -->
