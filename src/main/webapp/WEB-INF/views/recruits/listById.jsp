@@ -109,7 +109,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               },
               error: function (xhr, status, error) {
                 console.error("공고 삭제 중 오류 발생:", error);
-                alert("공고 삭제에 실패했습니다: ");
+                alert("공고 삭제에 실패했습니다");
               },
             });
           }
