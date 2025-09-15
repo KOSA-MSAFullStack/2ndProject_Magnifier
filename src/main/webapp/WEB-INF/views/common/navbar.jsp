@@ -53,7 +53,7 @@
 	</security:authorize>
     
     <security:authorize access="!isAuthenticated()">
-      <a href="members/login">로그인</a>
+      <a href="/members/login">로그인</a>
     </security:authorize>
   </nav>
 </header>
