@@ -39,4 +39,5 @@ public class RecruitDto {
 	private String step;				// 전형 절차
 	private String contact;				// 담당자 연락처
 	private Integer enterpriseId;			// 기업회원 ID (FK)
+	private String enterpriseName;		// 기업명
 }
