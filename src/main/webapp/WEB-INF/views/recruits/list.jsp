@@ -39,16 +39,6 @@ pageEncoding="UTF-8"%>
     <jsp:include page="../common/navbar.jsp" />
 
     <div class="main">
-      <div class="search">
-        <select class="searchSelect">
-          <option value="1">지역</option>
-          <option value="2">서울</option>
-          <option value="3">대전</option>
-          <option value="4">부산</option>
-        </select>
-        <input type="text" placeholder="찾고있는 공고를 검색해주세요." />
-        <button class="searchButton">검색</button>
-      </div>
       <div class="recruitList">
         <!-- 공고 목록이 동적으로 여기에 추가됩니다. -->
       </div>
