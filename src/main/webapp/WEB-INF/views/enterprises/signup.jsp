@@ -110,7 +110,7 @@
 		}; 
 		   
 		$.ajax({
-		  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=f49758ee36c09cc741d03d939e86904887a896e6eeda34ad306d2da9250faa01",  
+		  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=SERVICE_KEY",  
 		  type: "POST",
 		  data: JSON.stringify(registerNumberData), // json 을 string으로 변환하여 전송
 		  dataType: "JSON",
@@ -153,12 +153,14 @@
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                .append('<span class="success-msg">비밀번호가 일치합니다.</span>');
+	            checkPw = 1; // 비밀번호 확인 완료
 	        } else { // 일치하지 않을 때
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                // 오류 메시지 내용 수정
 	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
-	            	checkRegisterNumber = 0; // 인증 안됨
+            	checkRegisterNumber = 0; // 인증 안됨
+            	checkPw = 0; // 비밀번호 확인 요청
 	        }
 	    } else {
 	        // 둘 다 비어있으면 메시지 제거
