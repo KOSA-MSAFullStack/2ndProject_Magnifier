@@ -221,7 +221,7 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    alert('공고 수정에 실패했습니다: ' + xhr.responseText);
+                    alert('공고 수정에 실패했습니다: ');
                 }
             });
         });
