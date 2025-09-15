@@ -11,7 +11,6 @@
  * - 채용 공고 목록 조회 (전체, 기업별 API)
  */
 
-
 package com.magnifier.recruit.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +35,7 @@ import com.magnifier.recruit.dto.RecruitDto;
 import com.magnifier.recruit.service.RecruitService;
 import com.magnifier.security.domain.CustomEnterprise;
 
+// * author: 김기성
 @RestController // RESTful API 컨트롤러임을 명시
 @RequestMapping("/recruits/api") // API 엔드포인트 경로 설정
 public class RecruitApiController {

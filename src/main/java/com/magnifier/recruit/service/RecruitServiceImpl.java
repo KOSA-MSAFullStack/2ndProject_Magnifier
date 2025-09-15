@@ -24,6 +24,7 @@ import com.magnifier.enterprise.mapper.EnterpriseMapper;
 import com.magnifier.recruit.mapper.RecruitMapper;
 import com.magnifier.recruit.dto.RecruitDto;
 
+// * author: 김기성
 @Slf4j
 @Service
 public class RecruitServiceImpl implements RecruitService {

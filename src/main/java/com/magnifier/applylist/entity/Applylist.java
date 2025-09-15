@@ -6,7 +6,7 @@ package com.magnifier.applylist.entity;
 import java.util.Date;
 import lombok.Data;
 
-// * author: 김기성
+// * author: 김기성 
 @Data
 public class Applylist {
     private int applylistId; // 지원 목록 ID

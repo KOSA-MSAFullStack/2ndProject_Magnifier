@@ -15,7 +15,6 @@
 
  import org.springframework.transaction.annotation.Transactional;
  
- 
  import static org.junit.Assert.assertEquals;
  import static org.junit.Assert.assertNotNull;
  import java.sql.SQLException;

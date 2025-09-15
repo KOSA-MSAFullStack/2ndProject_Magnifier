@@ -4,6 +4,7 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
+<!-- * author: 김기성 -->
 <!-- 개인회원 -->
 <c:set var="isMember" value="false" />
 <security:authorize access="isAuthenticated() and hasRole('ROLE_MEMBER')">

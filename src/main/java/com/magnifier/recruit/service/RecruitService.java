@@ -23,6 +23,7 @@ import java.util.Map;
 
 import com.magnifier.recruit.dto.RecruitDto;
 
+// * author: 김기성
 public interface RecruitService {
 
     /**

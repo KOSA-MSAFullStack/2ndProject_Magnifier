@@ -30,6 +30,7 @@ import com.magnifier.recruit.mapper.RecruitMapper;
 import com.magnifier.enterprise.mapper.EnterpriseMapper; // EnterpriseMapper import 추가
 import com.magnifier.enterprise.entity.Enterprise; // Enterprise entity import 추가
 
+// * author: 김기성
 @RunWith(MockitoJUnitRunner.class)
 @Log4j
 public class RecruitServiceTest_detail {

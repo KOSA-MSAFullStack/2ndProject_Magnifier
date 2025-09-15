@@ -14,7 +14,6 @@
  * - 채용 공고 삭제 페이지 반환
  */
 
-
 package com.magnifier.recruit.controller;
 
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+// * author: 김기성
 @Controller
 @RequestMapping("/recruits")
 public class RecruitController {

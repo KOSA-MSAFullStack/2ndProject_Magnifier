@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+// * author: 김기성
 @Getter
 @Setter
 @ToString
