@@ -83,7 +83,7 @@
                 e.NAME AS ENTERPRISE_NAME,
                 ROW_NUMBER() OVER (ORDER BY r.RECRUIT_ID DESC) AS rnum
             FROM RECRUIT r
-            JOIN ENTERPRISE e 
+            LEFT JOIN ENTERPRISE e 
             ON r.ENTERPRISE_ID = e.ENTERPRISE_ID
         ) t
         WHERE t.rnum BETWEEN #{startRow} AND #{endRow}
