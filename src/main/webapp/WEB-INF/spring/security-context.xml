@@ -89,6 +89,15 @@
 		<security:access-denied-handler ref="customAccessDenied" />
 	</security:http>
 
+	<!-- 지원 내역 영역 보안 설정 -->
+	<security:http pattern="/applylist/**" authentication-manager-ref="authManagerMember">
+		<!-- 지원하기 요청 url은 개인회원이어야만 접근 가능하도록 설정 -->
+		<security:intercept-url pattern="/applylist/apply/**" access="hasRole('ROLE_MEMBER')" />
+
+		<!-- 로그인 페이지 및 접근 거부 핸들러 추가 -->
+		<security:form-login login-page="/members/login" />
+		<security:access-denied-handler ref="customAccessDenied" />
+	</security:http>
 
 	<!-- 개인회원용 인증 매니저 -->
 	<security:authentication-manager id="authManagerMember">

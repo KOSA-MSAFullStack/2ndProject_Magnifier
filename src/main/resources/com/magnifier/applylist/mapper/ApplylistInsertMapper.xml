@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- * author: 김기성 -->
+<!-- ApplylistInsertMapper.xml
+역할: 지원 목록 삽입 매퍼 XML
+설명: 지원 목록 데이터베이스 삽입을 위한 SQL 쿼리 정의
+-->
+<mapper namespace="com.magnifier.applylist.mapper.ApplylistInsertMapper">
+
+	<!-- 지원 정보 추가 -->
+	<insert id="insertApplylist" parameterType="com.magnifier.applylist.entity.Applylist">
+		INSERT INTO applylist (applylist_id, member_id, recruit_id, created_at)
+		VALUES (APPLYLIST_SEQ.NEXTVAL, #{memberId}, #{recruitId}, #{createdAt})
+	</insert>
+
+	<!-- 회원 ID와 채용 공고 ID로 지원 내역 조회 -->
+	<select id="selectApplylistByMemberAndRecruit" resultType="com.magnifier.applylist.entity.Applylist">
+		SELECT
+			applylist_id,
+			member_id,
+			recruit_id,
+			created_at
+		FROM applylist
+		WHERE member_id = #{memberId} AND recruit_id = #{recruitId}
+	</select>
+</mapper>
