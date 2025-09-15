@@ -21,4 +21,7 @@ public interface ApplylistService {
 	// * author: 이상우
 	// 기업 회원 - 기업에 지원한 내역 조회
 	public List<EnterpriseApplylistDto> selectApplylistsByEnterpriseId(int enterpriseId);
+	
+	// 해당 채용공고에 이미 지원했는지 확인하는 로직
+		public int checkDuplicateApply(int memberId, int recruitId);
 }
