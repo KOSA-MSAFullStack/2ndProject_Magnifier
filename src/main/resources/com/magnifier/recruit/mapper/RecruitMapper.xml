@@ -61,36 +61,32 @@
 
     <!-- 전체 채용공고 목록 조회 (페이지네이션 적용) -->
     <select id="getRecruitList" parameterType="map" resultMap="RecruitResultMap">
-        SELECT r.RECRUIT_ID,
-            r.TITLE,
-            r.CONTENT,
-            r.CAREER_CONDITION,
-            r.EDUCATION,
-            r.EMPLOYMENT_TYPE,
-            r.HEADCOUNT,
-            r.WORKING_AREA,
-            r.SALARY_CONDITION,
-            r.WORKING_HOURS,
-            r.WORKING_TYPE,
-            r.INSURANCE,
-            r.RETIREMENT_SALARY,
-            r.DEADLINE,
-            r.STEP,
-            r.CONTACT,
-            r.ENTERPRISE_ID,
-            e.NAME AS ENTERPRISE_NAME,
-            r.rnum
+        SELECT *
         FROM (
-            SELECT a.*, ROWNUM as rnum
-            FROM (
-                SELECT r.*
-                FROM RECRUIT r
-                ORDER BY r.RECRUIT_ID DESC
-            ) a
-            WHERE ROWNUM &lt;= #{endRow}
-        ) r
-        JOIN ENTERPRISE e ON r.ENTERPRISE_ID = e.ENTERPRISE_ID
-        WHERE r.rnum &gt;= #{startRow}
+            SELECT r.RECRUIT_ID,
+                r.TITLE,
+                r.CONTENT,
+                r.CAREER_CONDITION,
+                r.EDUCATION,
+                r.EMPLOYMENT_TYPE,
+                r.HEADCOUNT,
+                r.WORKING_AREA,
+                r.SALARY_CONDITION,
+                r.WORKING_HOURS,
+                r.WORKING_TYPE,
+                r.INSURANCE,
+                r.RETIREMENT_SALARY,
+                r.DEADLINE,
+                r.STEP,
+                r.CONTACT,
+                r.ENTERPRISE_ID,
+                e.NAME AS ENTERPRISE_NAME,
+                ROW_NUMBER() OVER (ORDER BY r.RECRUIT_ID DESC) AS rnum
+            FROM RECRUIT r
+            JOIN ENTERPRISE e 
+            ON r.ENTERPRISE_ID = e.ENTERPRISE_ID
+        ) t
+        WHERE t.rnum BETWEEN #{startRow} AND #{endRow}
     </select>
     <!-- 전체 채용공고 수 조회 -->
     <select id="getCount" resultType="int">
