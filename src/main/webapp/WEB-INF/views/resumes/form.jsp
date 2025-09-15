@@ -645,7 +645,7 @@
 	            success: function(result) {
 	                if (result.success) {
 	                    alert('이력서가 성공적으로 등록되었습니다.');
-	                    window.location.href = "${path}/members/resumes/"; 
+	                    window.location.href = "${path}/resumes/"; 
 	                } else {
 	                    alert('등록 실패: ' + result.message);
 	                }
@@ -686,7 +686,7 @@
 	            success: function(result) {
 	                if (result.success) {
 	                    alert('이력서가 성공적으로 수정되었습니다.');
-	                    window.location.href = "${path}/members/resumes/view"; 
+	                    window.location.href = "${path}/resumes/view"; 
 	                } else {
 	                    alert('수정 실패: ' + result.message);
 	                }

@@ -4,9 +4,20 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
+<!-- 개인회원 -->
 <c:set var="isMember" value="false" />
 <security:authorize access="isAuthenticated() and hasRole('ROLE_MEMBER')">
     <c:set var="isMember" value="true" />
+</security:authorize>
+<!-- 기업회원 -->
+<c:set var="isEnterprise" value="false" />
+<security:authorize access="isAuthenticated() and hasRole('ROLE_ENTERPRISE')">
+    <c:set var="isEnterprise" value="true" />
+</security:authorize>
+<!-- 일반사용자(비로그인) -->
+<c:set var="isAnonymous" value="true" />
+<security:authorize access="isAuthenticated()">
+    <c:set var="isAnonymous" value="false" />
 </security:authorize>
 
 <!DOCTYPE html>
@@ -28,16 +39,6 @@ pageEncoding="UTF-8"%>
     <jsp:include page="../common/navbar.jsp" />
 
     <div class="main">
-      <div class="search">
-        <select class="searchSelect">
-          <option value="1">지역</option>
-          <option value="2">서울</option>
-          <option value="3">대전</option>
-          <option value="4">부산</option>
-        </select>
-        <input type="text" placeholder="찾고있는 공고를 검색해주세요." />
-        <button class="searchButton">검색</button>
-      </div>
       <div class="recruitList">
         <!-- 공고 목록이 동적으로 여기에 추가됩니다. -->
       </div>
@@ -71,7 +72,7 @@ pageEncoding="UTF-8"%>
           const detailUrl = '${pageContext.request.contextPath}/recruits/detail/' + recruit.recruitId;
 
           let applyButtonHtml = "";
-          if (isMemberJs) {
+          if (!isEnterpriseJs) {
             applyButtonHtml = '<a href="' + detailUrl + '" class="applyButton">지원하기</a>';
           }
 

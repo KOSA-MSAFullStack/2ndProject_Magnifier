@@ -140,6 +140,7 @@
 	  /* 
 	       비밀번호 재확인 
 	  */
+	  let checkPw = 0; // 비밀번호 일치 확인
 	  $('.password').focusout(function(){
 	    const password = $("#password").val(); // 비밀번호
 	    const passwordCheck = $("#passwordCheck").val(); // 비밀번호 확인
@@ -152,11 +153,14 @@
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                .append('<span class="success-msg">비밀번호가 일치합니다.</span>');
+	            checkPw = 1; // 비밀번호 확인 완료
 	        } else { // 일치하지 않을 때
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                // 오류 메시지 내용 수정
 	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
+            	checkRegisterNumber = 0; // 인증 안됨
+            	checkPw = 0; // 비밀번호 확인 요청
 	        }
 	    } else {
 	        // 둘 다 비어있으면 메시지 제거
@@ -224,6 +228,12 @@
 	    // 사업자 등록번호 인증 체크
 	    if (checkRegisterNumber === 0) {
 	        alert('사업자 인증을 해주세요.');
+	        return false; // 회원가입 진행 중단
+	    }
+	    
+	    // 비밀번호 일치확인 체크
+	    if (checkPw === 0) {
+	    	alert('비밀번호를 확인해주세요.');
 	        return false; // 회원가입 진행 중단
 	    }
 	    

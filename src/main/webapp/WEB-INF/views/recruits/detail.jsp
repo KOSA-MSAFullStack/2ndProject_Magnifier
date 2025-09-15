@@ -200,24 +200,14 @@ prefix="security" %>
                 dynamicButtonsContainer.empty(); // 기존 버튼 비우기
 
                 if (isMemberJs) {
-                  dynamicButtonsContainer.append(
-                    '<button class="action-button" id="applyButton">지원하기</button>'
-                  );
-                } else if (isAnonymousJs) {
-                  dynamicButtonsContainer.append(
-                    '<a href="${pageContext.request.contextPath}/members/login" class="action-button">지원하기</a>'
-                  );
-                } else if (isEnterpriseJs) {
-                  const modifyButtonHtml =
-                    '<a href="${pageContext.request.contextPath}/recruits/modify/' +
-                    recruitId +
-                    '" class="action-button green">수정하기</a>';
-                  const deleteButtonHtml =
-                    '<button class="action-button red">삭제하기</button>';
-                  dynamicButtonsContainer.append(
-                    modifyButtonHtml + deleteButtonHtml
-                  );
-                }
+                        dynamicButtonsContainer.append('<button class="action-button">지원하기</button>');
+                    } else if (isAnonymousJs) {
+                        dynamicButtonsContainer.append('<a href="${pageContext.request.contextPath}/members/login" class="action-button">지원하기</a>');
+                    } else if (isEnterpriseJs) {
+                        const modifyButtonHtml = '<a href="${pageContext.request.contextPath}/recruits/modify/' + recruitId + '" class="action-button green">수정하기</a>';
+                        const deleteButtonHtml = '<button class="action-button red">삭제하기</button>';
+                        dynamicButtonsContainer.append(modifyButtonHtml + deleteButtonHtml);
+                    }
               }
             },
             // Ajax 요청 실패 시

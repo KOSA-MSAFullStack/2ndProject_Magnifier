@@ -156,9 +156,9 @@ body {
 
 .edit-btn {
 	background-color: var(--white);
-    color: var(--darkblue);
+    color: var(--green);
     font-size: 40px;
-    border: 1px solid var(--darkblue);
+    border: 1px solid var(--green);
     border-radius: 5px;
     cursor: pointer;
 }

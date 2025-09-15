@@ -234,6 +234,14 @@ body {
   text-align: center;
 }
 
-.add-button:hover, .delete-button:hover {
+.delete-button {
+  background-color: var(--red);
+}
+
+.add-button:hover {
   background-color: var(--blue);
+}
+
+.delete-button:hover {
+  background-color: #990F02;
 }
