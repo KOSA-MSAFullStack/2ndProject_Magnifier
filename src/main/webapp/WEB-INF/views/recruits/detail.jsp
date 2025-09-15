@@ -120,7 +120,7 @@
                 <button class="action-button">지원하기</button>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_ENTERPRISE')">
-                <a href="${pageContext.request.contextPath}/recruits/modify" class="action-button">수정하기</a>
+                <a href="${pageContext.request.contextPath}/recruits/modify" class="action-button" id="modify-button">수정하기</a>
             </security:authorize>
         </div>
     </div>

@@ -133,6 +133,7 @@
 	  /* 
 	       비밀번호 재확인 
 	  */
+	  let checkPw = 0; // 비밀번호 일치 확인
 	  $('.password').focusout(function(){
 	    const password = $("#password").val(); // 비밀번호
 	    const passwordCheck = $("#passwordCheck").val(); // 비밀번호 확인
@@ -145,11 +146,14 @@
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                .append('<span class="success-msg">비밀번호가 일치합니다.</span>');
+	            checkPw = 1; // 비밀번호 일치
 	        } else { // 일치하지 않을 때
 	            $("#passwordCheckMsg")
 	                .css({ 'margin-bottom': '30px' })
 	                // 오류 메시지 내용 수정
 	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
+	            checkId = 0; // 인증 안됨
+	            checkPw = 0; // 비밀번호 일치 안됨
 	        }
 	    } else {
 	        // 둘 다 비어있으면 메시지 제거
@@ -220,7 +224,7 @@
 	  /*
 	  	POST 요청 : 아이디 중복확인
 	  */
-	  let checkId = 0;
+	  let checkId = 0; // 아이디 중복 확인
 	  $('#idCheckBtn').on('click', function(event) {
 		// 중복확인 결과 메세지 동적할당, 있으면 텍스트만 변경
         if ($('#loginId').val().trim() === '') {
@@ -285,19 +289,25 @@
 	    if (!$('input[name="gender"]:checked').val()) {
 	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
 	        alert('성별을 선택해주세요.');
-	        return false;  // 폼 제출 중단
+	        return false;  // 회원가입 진행 중단
 	    }
 
 	    // 생년월일 검사
 	    if (!$('#year').val() || !$('#month').val() || !$('#day').val()) {
 	    	checkId = 0; // 중복확인 다시 하기 위하여 0 부여
 	        alert('생년월일을 선택해주세요.');
-	        return false;  // 폼 제출 중단
+	        return false;  // 회원가입 진행 중단
 	    }
 	    
 	    // 아이디 중복확인 체크
 	    if (checkId === 0) {
 	        alert('아이디 중복 확인을 해주세요.');
+	        return false; // 회원가입 진행 중단
+	    }
+	    
+	    // 비밀번호 일치확인 체크
+	    if (checkPw === 0) {
+	    	alert('비밀번호를 확인해주세요.');
 	        return false; // 회원가입 진행 중단
 	    }
 	
