@@ -194,7 +194,7 @@ $(document).ready(function() {
             },
             // Ajax 요청 실패 시
             error: function(xhr, status, error) {
-                alert('공고 등록에 실패했습니다: ' + xhr.responseText);
+                alert('공고 등록에 실패했습니다: ');
                 console.error('Error:', error);
             }
         });
