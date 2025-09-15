@@ -48,6 +48,14 @@ public class ApplylistController {
 	public ResponseEntity<String> applyForRecruit(@PathVariable("recruitId") int recruitId,	Authentication authentication) {
 		CustomMember member = (CustomMember) authentication.getPrincipal();
 		int memberId = member.getMemberId();
+		
+		// 해당 채용공고에 이미 지원했는지 확인하는 로직
+	    int alreadyApplied = applylistService.checkDuplicateApply(memberId, recruitId);
+
+	    // 중복 지원 여부에 따라 다른 응답 반환
+	    if (alreadyApplied > 0) {
+	        return new ResponseEntity<>("이미 지원한 채용공고입니다.", HttpStatus.CONFLICT);
+	    }
 
 		Applylist applylist = new Applylist();
 		applylist.setMemberId(memberId);

@@ -55,4 +55,9 @@ public class ApplylistServiceImpl implements ApplylistService {
 	public List<EnterpriseApplylistDto> selectApplylistsByEnterpriseId(int enterpriseId) {
 		return applylistMapper.selectApplylistsByEnterpriseId(enterpriseId);
 	}
+	
+	@Override
+	public int checkDuplicateApply(int memberId, int recruitId) {
+		return applylistMapper.checkDuplicateApply(memberId, recruitId);
+	}
 }

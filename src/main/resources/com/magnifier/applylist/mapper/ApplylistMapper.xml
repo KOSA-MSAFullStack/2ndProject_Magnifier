@@ -6,6 +6,12 @@
 <!-- author: 이상우 -->
 <mapper namespace="com.magnifier.applylist.mapper.ApplylistMapper">
 
+	<select id="checkDuplicateApply" resultType="int">
+	    SELECT COUNT(*)
+	    FROM applylist
+	    WHERE member_id = #{memberId} AND recruit_id = #{recruitId}
+	</select>
+	
 	<resultMap id="memberApplylistDtoMap" type="com.magnifier.applylist.dto.MemberApplylistDto">
         <result property="name" column="enterprise_name"/>
         <result property="title" column="recruit_title"/>

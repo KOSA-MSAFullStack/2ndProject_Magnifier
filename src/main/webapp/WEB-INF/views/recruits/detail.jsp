@@ -231,11 +231,11 @@ prefix="security" %>
             headers: headers,
             // Ajax 요청 성공 시
             success: function (response) {
-              alert("공고 지원이 완료되었습니다");
+              alert("공고 지원이 완료되었습니다.");
             },
             // Ajax 요청 실패 시
             error: function (xhr, status, error) {
-              alert("공고 지원에 실패했습니다: " + xhr.responseText);
+              alert("공고 지원에 실패했습니다.");
               console.error("Error:", error);
             },
           });
