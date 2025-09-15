@@ -152,7 +152,6 @@
 	                .css({ 'margin-bottom': '30px' })
 	                // 오류 메시지 내용 수정
 	                .append('<span class="error-msg">비밀번호가 일치하지 않습니다.</span>');
-	            checkId = 0; // 인증 안됨
 	            checkPw = 0; // 비밀번호 일치 안됨
 	        }
 	    } else {
