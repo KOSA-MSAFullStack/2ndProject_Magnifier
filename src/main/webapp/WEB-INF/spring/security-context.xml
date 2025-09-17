@@ -75,6 +75,7 @@
 		<security:access-denied-handler ref="customAccessDenied" />
 	</security:http>
 
+	<!-- * author: 김기성 -->
 	<!-- 채용 공고 영역 보안 설정 -->
 	<security:http pattern="/recruits/**" authentication-manager-ref="authManagerEnterprise">
 		<!-- 모든 사용자 접근 가능한 경로 먼저 선언 -->
@@ -91,6 +92,7 @@
 		<security:access-denied-handler ref="customAccessDenied" />
 	</security:http>
 
+	<!-- * author: 김기성 -->
 	<!-- 지원 내역 영역 보안 설정 -->
 	<security:http pattern="/applylist/**" authentication-manager-ref="authManagerMember">
 		<!-- 지원하기 요청 url은 개인회원이어야만 접근 가능하도록 설정 -->
