@@ -15,7 +15,7 @@ import com.magnifier.member.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
 /**
- * 
+ * 개인회원, 기업회원 공통적으로 사용되는 컨트롤러
  * @author 김경아
  *
  */
@@ -28,15 +28,6 @@ public class CommonController {
 	public CommonController (MemberService memberService) { // 생성자 주입
 		this.memberService = memberService;
 	}
-
-	/**
-	 * 로그아웃 요청 시
-	 */
-	@GetMapping("/logout")
-	public void logout() {
-	    // 로그아웃 요청이 들어왔을 때 로그 기록
-	    log.info("member logout");
-	} // end logout...
 	
 	/**
 	 * 접근 거부되었을 때
@@ -52,7 +43,11 @@ public class CommonController {
         model.addAttribute("msg", "Access Denied");    
     }//end accessDenied
     
-    
+    /**
+     * 아이디 중복 확인
+     * @param dto(CheckIdRequest)
+     * @return
+     */
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> idCheck(@RequestBody CheckIdRequest dto) {

@@ -11,6 +11,11 @@ import com.magnifier.security.domain.CustomEnterprise;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 로그인 시 해당 기업 회원의 정보를 조회하여 UserDetails 객체 형태로 반환
+ * @author 김경아
+ *
+ */
 @Log4j
 public class CustomUserDetailsServiceEnterprise implements UserDetailsService {
    

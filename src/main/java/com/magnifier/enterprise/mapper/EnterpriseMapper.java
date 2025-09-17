@@ -4,6 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.enterprise.entity.Enterprise;
 
+/**
+ * 
+ * @author 김경아
+ *
+ */
 @Mapper
 public interface EnterpriseMapper {
 	public Enterprise read(String registerNumber); // 로그인id로 기업회원 조회

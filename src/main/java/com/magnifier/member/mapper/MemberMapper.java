@@ -4,6 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.member.entity.Member;
 
+/**
+ * 
+ * @author 김경아
+ *
+ */
 @Mapper
 public interface MemberMapper {
 	public Member read(String loginId); // 로그인id로 개인회원 조회(스프링 시큐리티 로그인)

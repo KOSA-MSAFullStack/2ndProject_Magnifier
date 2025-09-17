@@ -6,6 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.resume.license.dto.LicenseDto;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Mapper
 public interface LicenseMapper {
 	// 자격사항 추가

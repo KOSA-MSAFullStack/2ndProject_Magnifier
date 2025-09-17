@@ -6,6 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.resume.career.dto.CareerDto;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Mapper
 public interface CareerMapper {
 	// 경력사항 추가

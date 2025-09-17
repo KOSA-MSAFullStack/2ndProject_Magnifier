@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Data
 public class EnterpriseApplylistDto {
 	private String name;				// 회원명

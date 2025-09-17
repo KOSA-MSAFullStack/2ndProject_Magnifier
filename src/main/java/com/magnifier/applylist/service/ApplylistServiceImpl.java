@@ -56,6 +56,7 @@ public class ApplylistServiceImpl implements ApplylistService {
 		return applylistMapper.selectApplylistsByEnterpriseId(enterpriseId);
 	}
 	
+	// * author: 이상우
 	@Override
 	public int checkDuplicateApply(int memberId, int recruitId) {
 		return applylistMapper.checkDuplicateApply(memberId, recruitId);

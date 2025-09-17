@@ -9,6 +9,11 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 로그인 실패 실행되는 처리 로직을 담당하는 핸들러
+ * @author 김경아
+ *
+ */
 @Log4j
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 

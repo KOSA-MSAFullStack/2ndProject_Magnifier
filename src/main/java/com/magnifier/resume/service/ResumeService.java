@@ -2,6 +2,11 @@ package com.magnifier.resume.service;
 
 import com.magnifier.resume.dto.ResumeDto;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 public interface ResumeService {
 	// 이력서 등록
 	public void registerResume(ResumeDto dto);

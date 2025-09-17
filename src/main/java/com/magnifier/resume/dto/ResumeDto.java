@@ -10,6 +10,11 @@ import com.magnifier.resume.license.dto.LicenseDto;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Data
 public class ResumeDto {
 	private int resumeId; 					// 이력서_ID

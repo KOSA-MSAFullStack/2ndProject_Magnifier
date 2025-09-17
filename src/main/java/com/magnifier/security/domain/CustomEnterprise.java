@@ -9,6 +9,11 @@ import com.magnifier.enterprise.entity.Enterprise;
 
 import lombok.Getter;
 
+/**
+ * 기업 회원 인증 과정에서 사용자 정보를 더 풍부하게 담아 관리
+ * @author 김경아
+ *
+ */
 @Getter
 public class CustomEnterprise extends User {
 

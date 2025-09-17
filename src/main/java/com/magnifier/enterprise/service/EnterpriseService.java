@@ -5,6 +5,11 @@ import com.magnifier.enterprise.dto.FindEnterpriseResponse;
 import com.magnifier.enterprise.dto.UpdateEnterpriseRequest;
 import com.magnifier.security.domain.CustomEnterprise;
 
+/**
+ * 
+ * @author 김경아
+ *
+ */
 public interface EnterpriseService {
 	public void save(CreateEnterpriseRequest dto); // 회원 등록(회원가입)
 	

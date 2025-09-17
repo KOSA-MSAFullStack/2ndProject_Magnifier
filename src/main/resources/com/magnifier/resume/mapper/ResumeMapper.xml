@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- author: 이상우 -->
 <mapper namespace="com.magnifier.resume.mapper.ResumeMapper">
 
 	<insert id="registerResume" parameterType="com.magnifier.resume.dto.ResumeDto">

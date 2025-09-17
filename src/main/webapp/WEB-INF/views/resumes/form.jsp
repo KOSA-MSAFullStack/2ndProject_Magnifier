@@ -1,3 +1,4 @@
+<!-- author: 이상우 -->
 <!-- JSP 페이지 인코딩 및 컨텐츠 타입 설정 -->
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- JSTL core 라이브러리 선언 -->

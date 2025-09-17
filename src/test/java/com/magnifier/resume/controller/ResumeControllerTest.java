@@ -23,6 +23,11 @@ import com.magnifier.resume.dto.ResumeDto;
 
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})

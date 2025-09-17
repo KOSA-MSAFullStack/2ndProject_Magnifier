@@ -16,6 +16,11 @@ import com.magnifier.resume.mapper.ResumeMapper;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Service
 @AllArgsConstructor
 public class ResumeServiceImpl implements ResumeService {

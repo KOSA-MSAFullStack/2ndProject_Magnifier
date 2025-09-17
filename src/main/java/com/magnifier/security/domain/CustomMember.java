@@ -8,6 +8,11 @@ import com.magnifier.member.entity.Member;
 
 import lombok.Getter;
 
+/**
+ * 개인 회원 인증 과정에서 사용자 정보를 더 풍부하게 담아 관리
+ * @author 김경아
+ *
+ */
 @Getter
 public class CustomMember extends User {
     // 회원 도메인 정보를 담는 필드

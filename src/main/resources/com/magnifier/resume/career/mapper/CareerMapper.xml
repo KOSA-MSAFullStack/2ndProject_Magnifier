@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- author: 이상우 -->
 <mapper namespace="com.magnifier.resume.career.mapper.CareerMapper">
 
 	<insert id="insertCareer" parameterType="com.magnifier.resume.career.dto.CareerDto">

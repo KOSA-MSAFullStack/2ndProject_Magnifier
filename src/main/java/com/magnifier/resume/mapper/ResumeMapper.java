@@ -4,6 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.magnifier.resume.dto.ResumeDto;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Mapper
 public interface ResumeMapper {
 	// 이력서 등록

@@ -8,6 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import com.magnifier.applylist.dto.EnterpriseApplylistDto;
 import com.magnifier.applylist.dto.MemberApplylistDto;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Mapper
 public interface ApplylistMapper {
 

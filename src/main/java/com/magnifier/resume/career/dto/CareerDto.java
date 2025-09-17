@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author 이상우
+ *
+ */
 @Data
 public class CareerDto {
 	private int careerId;		// 경력사항_ID

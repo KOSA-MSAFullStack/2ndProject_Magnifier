@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- author: 이상우 -->
 <mapper namespace="com.magnifier.resume.license.mapper.LicenseMapper">
 
 	<insert id="insertLicense" parameterType="com.magnifier.resume.license.dto.LicenseDto">
