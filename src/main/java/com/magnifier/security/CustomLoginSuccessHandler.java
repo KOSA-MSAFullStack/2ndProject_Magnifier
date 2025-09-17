@@ -24,8 +24,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
      * @param request    현재 HTTP 요청 객체
      * @param response   HTTP 응답 객체
      * @param auth       인증된 사용자 정보(Authentication)
-     * @throws IOException
-     * @throws ServletException
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
@@ -48,14 +46,14 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         // 권한에 따라 다른 URL로 리다이렉트
         if (roleNames.contains("ROLE_ENTERPRISE")) {
-            // ROLE_ENTERPRISE이 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/recruits/list"); //TODO: 변경
+            // ROLE_ENTERPRISE이 있으면 '채용공고' 페이지로 이동
+            response.sendRedirect("/recruits/list");
             return;
         } // end if
 
         if (roleNames.contains("ROLE_MEMBER")) {
-            // ROLE_MEMBER가 있으면 '/main' 페이지로 이동
-            response.sendRedirect("/recruits/list"); //TODO: 변경
+            // ROLE_MEMBER가 있으면 '채용공고' 페이지로 이동
+            response.sendRedirect("/recruits/list");
             return;
         } // end if
 

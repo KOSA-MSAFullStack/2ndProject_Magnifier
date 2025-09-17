@@ -17,8 +17,6 @@ import lombok.Getter;
 @Getter
 public class CustomEnterprise extends User {
 
-    private static final long serialVersionUID = 1L;
-
     // 회원 도메인 정보를 담는 필드
     private int enterpriseId; // enterpriseId만 저장(최소한의 정보)
 

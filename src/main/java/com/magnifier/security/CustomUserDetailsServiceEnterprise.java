@@ -25,10 +25,10 @@ public class CustomUserDetailsServiceEnterprise implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        
-        log.warn("Load User By UserName :" + username);      
+        log.info("Load User By UserName :" + username);      
         // 회원 아이디(registerNumber)를 받아 DB에서 기업 정보(EnterpriseDto)를 조회
         Enterprise enterprise = mapper.read(username);     
-        log.warn("Query by member mapper :" + enterprise);
+        log.info("Query by member mapper :" + enterprise);
         
         return new CustomEnterprise(enterprise);
     }

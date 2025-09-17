@@ -22,8 +22,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
      * @param request 현재 HTTP 요청 정보
      * @param response HTTP 응답 객체
      * @param accessDeniedException 권한 거부 예외 객체
-     * @throws IOException
-     * @throws ServletException
      */
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
