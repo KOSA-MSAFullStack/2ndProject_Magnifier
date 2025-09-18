@@ -3,13 +3,13 @@ package com.magnifier.enterprise.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
@@ -51,6 +51,7 @@ public class EnterpriseApiController {
 	/**
 	 * 기업 회원 정보 조회 요청 api
 	 * @return dto(FindEnterpriseResponse)
+	 * TODO: views/enterprises/signup.jsp 서비스 인증키 수정
 	 */
 	@GetMapping("/mypage")
 	public ResponseEntity<FindEnterpriseResponse> findEnterprise(Authentication authentication) {
