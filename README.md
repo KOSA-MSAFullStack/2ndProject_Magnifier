@@ -62,6 +62,6 @@
 
 
 ## 팀원소개
-|<img src="https://avatars.githubusercontent.com/u/109258144?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/109258144?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/219790960?v=4" width="150" height="150"/>|
+|<img src="https://avatars.githubusercontent.com/u/97112125?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/109258144?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/219790960?v=4" width="150" height="150"/>|
 |:-:|:-:|:-:|
 |Kiseong Kim<br/>[@kks1177](https://github.com/kks1177)|kimkyongah<br/>[@hagnoykmik](https://github.com/hagnoykmik)|lsw1096<br/>[@leesangwoo-dev](https://github.com/leesangwoo-dev)|
