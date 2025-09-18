@@ -7,6 +7,10 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!-- JSP 변수 path에 웹 애플리케이션 컨텍스트 경로 저장 -->
 
+<c:set var="serviceKey" value="SERVICE_KEY" />
+<!-- TODO: 사업자등록정보 진위확인 API 인증 서비스 키 (SERVICE_KEY: 실제 키로 교체 필요) -->
+<!-- https://www.data.go.kr/data/15081808/openapi.do -->
+
 <!-- author: 김경아 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -73,6 +77,8 @@
         </form>
     </div>
     <script >
+      const serviceKey = "SERVICE_KEY"; // 실제 발급받은 서비스 키로 교체해야 합니다.
+    
 	  /* 
 	  	사업자등록번호 패턴 검사(숫자만 10자리)
 	  */
@@ -110,7 +116,7 @@
 		}; 
 		   
 		$.ajax({
-		  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=SERVICE_KEY",  
+		  url: `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=${serviceKey}`,  
 		  type: "POST",
 		  data: JSON.stringify(registerNumberData), // json 을 string으로 변환하여 전송
 		  dataType: "JSON",
