@@ -43,24 +43,20 @@
 [돋보기_ZoomIn 노션 바로가기](https://purple-neem-6c1.notion.site/KOSA-2-25aebb90731b80778e09d9c5b46d1451?source=copy_link)
 <img width="1920" height="2030" alt="image" src="https://github.com/user-attachments/assets/098c3c85-21c6-4e49-9b53-fb9f3e20eac0" />
 
+## 시스템 아키텍쳐
+<img width="1366" height="784" alt="Image" src="https://github.com/user-attachments/assets/d20bce79-b41e-424b-b1a7-652247c8042e" />
 
 ## 기술 스택
-#### 프로그램 / 개발 환경
 - Java 8
 - Spring Tools 3.9 for Eclipse
 - Oracle SQL Developer 20.4.0.379
-
-#### 프레임워크
 - Spring Framework 5
 - Spring Web MVC
 - Spring Security
-
-#### 라이브러리
 - Maven
 - MyBatis
 - HikariCP
 - JUnit 4
-- lombok-1.18.38.jar
 
 
 ## 팀원소개
