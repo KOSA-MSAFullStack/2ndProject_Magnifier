@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.magnifier.member.dto.CreateMemberRequest;
+//import com.magnifier.member.dto.CreateMemberRequest;
 import com.magnifier.member.entity.Member;
 
 import lombok.extern.log4j.Log4j;

@@ -1,7 +1,7 @@
 package com.magnifier.enterprise.dto;
 
 import com.magnifier.enterprise.entity.Enterprise;
-import com.magnifier.member.dto.FindMemberResponse;
+//import com.magnifier.member.dto.FindMemberResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

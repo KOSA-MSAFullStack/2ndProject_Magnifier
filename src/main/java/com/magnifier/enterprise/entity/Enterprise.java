@@ -1,11 +1,11 @@
 package com.magnifier.enterprise.entity;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 import com.magnifier.enterprise.dto.CreateEnterpriseRequest;
 import com.magnifier.enterprise.dto.UpdateEnterpriseRequest;
-import com.magnifier.member.dto.UpdateMemberRequest;
-import com.magnifier.member.entity.Member;
+//import com.magnifier.member.dto.UpdateMemberRequest;
+//import com.magnifier.member.entity.Member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
