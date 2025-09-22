@@ -44,7 +44,7 @@
 <img width="1920" height="2030" alt="image" src="https://github.com/user-attachments/assets/098c3c85-21c6-4e49-9b53-fb9f3e20eac0" />
 
 ## 시스템 아키텍쳐
-<img width="1366" height="784" alt="Image" src="https://github.com/user-attachments/assets/d20bce79-b41e-424b-b1a7-652247c8042e" />
+![Image](https://github.com/user-attachments/assets/93942e96-788d-408a-95af-324f34fe0974)
 
 ## 기술 스택
 - Java 8
