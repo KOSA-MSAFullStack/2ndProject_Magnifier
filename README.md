@@ -152,7 +152,16 @@ $ git clone https://github.com/KOSA-MSAFullStack/2ndProject_Magnifier.git
 $ cd 2ndProject_Magnifier
 ```
 
-### DB (ERD Cloud)
+### API Key
+1. views/enterprises/signup.jsp 서비스 인증키 수정
+2. 인증키 (회원가입 후 마이페이지 서비스 인증 키) 발급받기
+   - [사업자등록정보 진위확인 API 인증 서비스 키](https://www.data.go.kr/data/15081808/openapi.do) (SERVICE_KEY: 실제 키로 교체 필요)
+```bash
+<!-- signup.jsp -->
+<c:set var="serviceKey" value="SERVICE_KEY" />
+```
+
+### DB (SQL Developer)
 - https://www.notion.so/SQL-25eebb90731b807c9839f75ac6eb1aaa
 <br>
 </details>
