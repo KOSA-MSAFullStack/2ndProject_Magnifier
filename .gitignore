@@ -1,6 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/git,eclipse,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,eclipse,java,maven
 
+# --- KKS ---
+.geminiRef
+.Ref
+deploy.sh
+deploy.bat
+recruit_10000.sql
+
+
 ### ----- IDE ----- ###
 ## Eclipse ##
 .metadata
@@ -21,11 +29,6 @@ local.properties
 ## Cursor IDE ##
 .cursor/
 ### --------------- ###
-
-# --- KKS ---
-.geminiRef
-deploy.sh
-deploy.bat
 
 
 # External tool builders
@@ -142,3 +145,4 @@ buildNumber.properties
 application-security.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/git,eclipse,java,maven
+
