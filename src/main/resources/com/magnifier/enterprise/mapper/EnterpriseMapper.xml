@@ -29,9 +29,13 @@
 	
 	<!-- 회원 가입 -->
 	<insert id="save" parameterType="com.magnifier.enterprise.entity.Enterprise">
+		<!-- 새로운 enterpriseId를 (현재 최댓값 +1)로 설정 -->
+		<selectKey keyProperty="enterpriseId" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(enterprise_id), 0) + 1 FROM zoomin.Enterprise
+		</selectKey>
 		INSERT INTO zoomin.Enterprise
 		(enterprise_id, name, register_number, password, post_number, address, address_detail, reference)
-		values (ENTERPRISE_SEQ.NEXTVAL, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
+		values (#{enterpriseId}, #{name}, #{registerNumber}, #{password}, #{postNumber}, #{address}, #{addressDetail}, #{reference})
 	</insert>
 	
 	<!-- 내정보 - 회원 정보 조회 -->
