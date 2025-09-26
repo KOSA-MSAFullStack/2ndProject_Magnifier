@@ -11,6 +11,7 @@
 <!-- TODO: 사업자등록정보 진위확인 API 인증 서비스 키 (SERVICE_KEY: 실제 키로 교체 필요) -->
 <!-- https://www.data.go.kr/data/15081808/openapi.do -->
 <!-- 참고: https://www.notion.so/OPEN-API-25aebb90731b80e4b758d7fb3f03b967 -->
+<!-- KOSA 사업자 번호(id): 2148204799, pw: 1234 -->
 
 <!-- author: 김경아 -->
 <!DOCTYPE html>
