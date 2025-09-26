@@ -43,8 +43,9 @@
 
     <!-- 채용 공고 등록 -->
     <insert id="insertRecruit" parameterType="com.magnifier.recruit.dto.RecruitDto">
+        <!-- 새로운 recruitId를 (현재 최댓값+1)로 설정 -->
         <selectKey keyProperty="recruitId" resultType="int" order="BEFORE">
-            SELECT RECRUIT_SEQ.NEXTVAL FROM DUAL
+            SELECT NVL(MAX(RECRUIT_ID), 0) + 1 FROM RECRUIT
         </selectKey>
         INSERT INTO RECRUIT (
             RECRUIT_ID, TITLE, CONTENT, CAREER_CONDITION, EDUCATION, EMPLOYMENT_TYPE,
