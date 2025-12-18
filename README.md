@@ -79,7 +79,7 @@
 <img width="45%" alt="enterprises-login-page" src="https://github.com/user-attachments/assets/3490a4ff-3843-4de9-b9d8-0ea0598fee37" />
 <br>
 
-- 개인/기업 회원 로그인
+- 개인/기업 회원 로그인을 분리
 <br>
 
 
@@ -89,8 +89,8 @@
 <img width="45%" alt="enterprises-signup" src="https://github.com/user-attachments/assets/d6f14a1f-0076-40c9-bf4d-3efe584e7961" />
 <br>
 
-- 개인/기업 회원 로그인
-- 기업회원은 회원가입 시 실제 사업자 등록번호인지 OpenAPI를 통해 인증해야 함
+- 개인/기업 회원 로그인에서 각각 회원가입 버튼을 누르면 개인/기업 회원가입 페이지로 이동한다.
+- 기업회원은 회원가입 시 사업자 등록번호 '인증' 버튼을 클릭하여 유효한 사업자 등록번호인지 OpenAPI를 통해 인증한다.
 <br>
 
 
