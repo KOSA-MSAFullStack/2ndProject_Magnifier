@@ -100,8 +100,8 @@
 <img width="45%" alt="enterprise-recruits-list" src="https://github.com/user-attachments/assets/90ed3e1d-7967-4cf2-ad4e-e3621f09b286" />
 <br>
 
-- <설명>
-- <설명>
+- (왼쪽) 개인 회원에게는 공고에 지원할 수 있는 '지원하기' 버튼이 활성화된다.
+- (오른쪽) 기업회원이나 로그인하지 않은 사람에게는 지원하기 버튼이 활성화되지 않는다.
 <br>
 
 
@@ -115,8 +115,7 @@
 <img width="45%" alt="공고 삭제 성공" src="https://github.com/user-attachments/assets/86afc053-a379-45a7-8403-bfdfee2f0704" />
 <br>
 
-- <설명>
-- <설명>
+- 기업 회원은 nav bar의 두번째가 '공고관리'로 뜨고 여기서 공고를 등록하고 조회, 수정, 삭제할 수 있다
 <br>
 
 
@@ -126,8 +125,8 @@
 <img width="45%" alt="enterprise-recruits-modify" src="https://github.com/user-attachments/assets/22f27e51-1e4a-40b1-b847-98a3e5cfb1c2" />
 <br>
 
-- <설명>
-- <설명>
+- 공고 상세에서는 시니어 지원자를 위해 큰 글씨로 공고를 확인할 수 있다. 
+- 기업회원이라면 아래에 '수정하기' 버튼을 클릭해서 공고를 수정할 수 있다.
 <br>
 
 
@@ -138,8 +137,8 @@
 <img width="45%" alt="이미 지원한 공고 지원 시도(실패)" src="https://github.com/user-attachments/assets/40461654-aa08-4894-977b-e64c84363907" />
 <br>
 
-- <설명>
-- <설명>
+- 개인회원이라면 아래에 '지원하기' 버튼을 클릭해서 공고에 지원할 수 있다.
+- 한 번 지원한 공고를 다시 지원했을 때 지원이 되지 않고 실패하는 것을 확인할 수 있다.
 <br>
 
 
@@ -151,8 +150,8 @@
 <img width="45%" alt="이미 지원한 공고 지원 시도(실패)" src="https://github.com/user-attachments/assets/0b3ba4ba-8c53-416b-9e3a-0eafd1a825f7" />
 <br>
 
-- <설명>
-- <설명>
+- 개인회원은 지원내역에서 자신이 지원한 공고 목록을 확인할 수 있다.
+- 기업회원은 자신이 올린 공고에 지원한 지원자의 이력서 내역을 확인할 수 있다.
 <br>
 
 
@@ -165,8 +164,9 @@
 <img width="45%" alt="이력서 추가 성공" src="https://github.com/user-attachments/assets/00507c83-f17b-4c1d-86f2-40296249ba76" />
 <br>
 
-- <설명>
-- <설명>
+- 개인 회원은 nav bar의 두번째가 '이력서관리'로 뜨고 작성한 이력서가 없을 때 '이력서 등록하기' 버튼이 활성화 되고 이를 통해 자신의 이력서를 작성할 수 있다.
+- 인적사항은 내정보에 기입된 정보를 바탕으로 조회되고 수정을 원하면 내 정보 탭에서 수정할 수 있다.
+- 최종학력, 경력사항, 자격사항을 작성할 수 있고 경력사항과 자격사항은 여러개를 등록 및 수정, 삭제할 수 있다.
 <br>
 
 
@@ -175,8 +175,8 @@
 <img width="45%" alt="enterprises-resume" src="https://github.com/user-attachments/assets/cbd6afd0-ff1b-4783-b12c-5a793503b353" />
 <br>
 
-- <설명>
-- <설명>
+- 작성한 이력서가 있다면 개인회원이 nav bar에서 이력서관리를 눌렀을 때 작성된 이력서 상세 조회 페이지가 뜬다.
+- 이력서 상세 조회 페이지에서 나의 이력서를 수정할 수 있다.
 <br>
 
 
@@ -186,8 +186,7 @@
 <img width="45%" alt="enterprises-mypage" src="https://github.com/user-attachments/assets/c83e0a89-c9a4-46f0-9079-2a8c88aef5ce" />
 <br>
 
-- <설명>
-- <설명>
+- 회원가입할 때 기입했던 정보를 수정할 수 있다.
 <br>
 
 
